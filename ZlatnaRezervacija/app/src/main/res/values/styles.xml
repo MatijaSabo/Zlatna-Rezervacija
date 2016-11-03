@@ -3,9 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">#004D40</item>
+        <item name="colorPrimary">#004D40</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:icon">@mipmap/logo_zlatna_rezervacija</item>
+    </style>
+    <style name="Button" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/btnColor</item>
+        <item name="android:textColor">@color/btnColorText</item>
     </style>
 
 </resources>

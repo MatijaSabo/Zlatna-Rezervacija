@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Zlatna Rezervacija</string>
+    <string name="app_name">Zlatna rezervacija</string>
     <string name="login">Prijava</string>
     <string name="registration">Registracija</string>
+    <string name="signIn">Prijavite se</string>
+    <string name="emailHint">Unesite vaš email</string>
+    <string name="passwordHint">Unesite vašu lozinku</string>
+    <string name="noAccount">Nemate račun? Registrirajte se!</string>
 </resources>
