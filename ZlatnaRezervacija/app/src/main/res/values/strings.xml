@@ -15,4 +15,12 @@
     <string name="lokacija">Lokacija</string>
     <string name="o_nama">O nama</string>
     <string name="odjava">Odjava</string>
+    <string name="rezervacije_restorana">Rezervacije restorana</string>
+    <string name="rezervacije_na_cekanju">Rezervacije na čekanju</string>
+    <string name="logout_alert_title">Odjava?</string>
+    <string name="logout_alert_message">Jeste li sigurni da se želite odjaviti iz aplikacije?</string>
+    <string name="Alert_positive_button">Ok</string>
+    <string name="Alert_cancel_button">Cancel</string>
+    <string name="Exit_alert_title">Izlaz?</string>
+    <string name="Exit_alert_message">Jeste li sigurni da želite izaći iz aplikacije?</string>
 </resources>

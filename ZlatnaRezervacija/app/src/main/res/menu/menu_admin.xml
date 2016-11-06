@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_option1"
+        android:title="@string/cjenik"
+        android:icon="@mipmap/restaurant_menu"/>
+
+    <item android:id="@+id/menu_option2"
+        android:title="@string/rezervacije_restorana"
+        android:icon="@mipmap/reservations"/>
+
+    <item android:id="@+id/menu_option3"
+        android:title="@string/rezervacije_na_cekanju"
+        android:icon="@mipmap/new_reservations"/>
+
+    <item android:id="@+id/menu_detalji"
+        android:title="@string/detalji">
+
+        <menu>
+            <item android:id="@+id/menu_option4"
+                android:title="@string/lokacija"
+                android:icon="@mipmap/location"/>
+
+            <item android:id="@+id/menu_option5"
+                android:title="@string/o_nama"
+                android:icon="@mipmap/info"/>
+        </menu>
+    </item>
+
+    <item android:id="@+id/menu_option6"
+        android:title="@string/odjava"
+        android:icon="@mipmap/exit_to_app"/>
+</menu>
