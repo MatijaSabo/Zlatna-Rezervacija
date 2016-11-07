@@ -26,7 +26,9 @@
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:id="@+id/user_menu"
         app:menu="@menu/menu_user"
+        app:headerLayout="@layout/navigation_drawer_header"
         android:layout_gravity="start">
 
     </android.support.design.widget.NavigationView>

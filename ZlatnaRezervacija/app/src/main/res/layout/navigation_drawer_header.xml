@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/btnColor">
+
+    <LinearLayout
+        android:paddingTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:paddingBottom="15dp"
+            android:text="User name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_name"
+            android:fontFamily="sans-serif"
+            android:textSize="20dp"
+            android:textColor="@color/btnColorText"/>
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:text="user@domain.com"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_email"
+            android:fontFamily="sans-serif"
+            android:textSize="15dp"
+            android:textColor="@color/btnColorText"/>/>
+    </LinearLayout>
+
+</RelativeLayout>
