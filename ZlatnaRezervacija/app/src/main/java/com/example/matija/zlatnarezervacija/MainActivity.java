@@ -39,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
+    @OnClick(R.id.link_registration)
+    public void Click(View view){
+        Intent intent = new Intent(getApplicationContext(),RegistrationActivity.class);
+        startActivity(intent);
+        finish();
+    }
     @Override
     public void onBackPressed() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

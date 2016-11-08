@@ -2,6 +2,7 @@
     <string name="app_name">Zlatna Rezervacija</string>
     <string name="login">Prijava</string>
     <string name="registration">Registracija</string>
+    <string name="btn_registration">Registriraj se</string>
     <string name="signIn">Prijavite se</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Lozinka</string>
@@ -23,4 +24,9 @@
     <string name="Alert_cancel_button">Cancel</string>
     <string name="Exit_alert_title">Izlaz?</string>
     <string name="Exit_alert_message">Jeste li sigurni da želite izaći iz aplikacije?</string>
+    <string name="emailHintRegistration">Email</string>
+    <string name="repasswordHint">Ponovljena lozinka</string>
+    <string name="name_registration">Ime</string>
+    <string name="surname_registration">Prezime</string>
+    <string name="cellphone_registration">Kontaktni broj</string>
 </resources>
