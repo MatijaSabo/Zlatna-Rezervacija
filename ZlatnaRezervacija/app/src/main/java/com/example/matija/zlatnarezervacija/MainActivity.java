@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public void Click(View view){
         Intent intent = new Intent(getApplicationContext(),RegistrationActivity.class);
         startActivity(intent);
-        finish();
+
     }
     @Override
     public void onBackPressed() {

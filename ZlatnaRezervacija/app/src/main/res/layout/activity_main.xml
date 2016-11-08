@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.matija.zlatnarezervacija.MainActivity"
     android:background="@color/colorBackground"
-
+    android:id="@+id/activity_main"
      >
 
     <LinearLayout
