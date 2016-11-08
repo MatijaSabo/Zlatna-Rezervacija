@@ -1,4 +1,4 @@
-package com.example.matija.zlatnarezervacija;
+package com.example.webservice;
 
 import retrofit.Call;
 import retrofit.http.Field;
@@ -15,5 +15,6 @@ public interface WebService {
     @FormUrlEncoded
     @POST("registration.php")
     Call<WebService> saveUser(@Field("method") String method);
+
 
 }

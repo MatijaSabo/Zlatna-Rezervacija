@@ -1,4 +1,4 @@
-package com.example.matija.zlatnarezervacija;
+package com.example.webservice;
 
 public class WebServiceResponse {
 
@@ -48,5 +48,6 @@ public class WebServiceResponse {
     public void setRole_id(int role_id) {
         this.role_id = role_id;
     }
+
 
 }
