@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_name">
             <EditText android:id="@+id/input_name_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_surname">
             <EditText android:id="@+id/input_surname_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,12 +67,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
-            <EditText android:id="@+id/input_cellphone_registration"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_phone">
+            <EditText android:id="@+id/input_phone_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:inputType="phone"
+                android:inputType="number"
                 android:hint="@string/cellphone_registration"
                 android:textColor="@color/btnColor" />
         </android.support.design.widget.TextInputLayout>
@@ -80,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_email">
             <EditText android:id="@+id/input_email_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_pass">
             <EditText android:id="@+id/input_password_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,7 +115,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_repass"
+            >
             <EditText android:id="@+id/input_re_password_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,7 +134,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:text="@string/registration"
+            android:text="@string/btn_registration"
             android:theme="@style/Button"/>
 
 
