@@ -90,7 +90,7 @@ public class RegistrationActivity extends AppCompatActivity {
             tilEmail.setErrorEnabled(true);
             tilEmail.setError("Unesite email");
             validate=false;
-        } else if (email.contains(" ") || !(email.contains("@"))|| !(email.contains("."))) {
+        } else if (email.contains(" ") || !(email.contains("@"))|| !(email.contains(".")) || (email.lastIndexOf("@") > email.lastIndexOf("."))) {
             tilEmail.setError("Unesite pravilan email");
         } else {
             tilEmail.setError(null);
