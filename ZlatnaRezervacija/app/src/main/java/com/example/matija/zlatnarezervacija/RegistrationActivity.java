@@ -6,10 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.telecom.Call;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.webservice.WebService;
+import com.example.webservice.WebServiceCaller;
+import com.example.webservice.WebServiceRequestRegistration;
+import com.example.webservice.WebServiceResponse;
+import com.squareup.okhttp.OkHttpClient;
 
 import org.w3c.dom.Text;
 
@@ -17,6 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Created by masrnec on 8.11.2016..
@@ -24,6 +35,7 @@ import butterknife.OnFocusChange;
 
 public class RegistrationActivity extends AppCompatActivity {
     Boolean validate = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +45,8 @@ public class RegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.registration);
         ButterKnife.bind(this);
+
+
     }
 
 
@@ -57,15 +71,15 @@ public class RegistrationActivity extends AppCompatActivity {
         TextInputLayout tilPass = (TextInputLayout) findViewById(R.id.textinputlayout_pass);
         TextInputLayout tilRePass = (TextInputLayout) findViewById(R.id.textinputlayout_repass);
         EditText nameRegistration = (EditText) findViewById(R.id.input_name_registration);
-        String name = nameRegistration.getText().toString();
+        String first_name = nameRegistration.getText().toString();
         EditText surnameRegistration = (EditText) findViewById(R.id.input_surname_registration);
-        String surname = surnameRegistration.getText().toString();
+        String last_name = surnameRegistration.getText().toString();
         EditText emailRegistration = (EditText) findViewById(R.id.input_email_registration);
         String email = emailRegistration.getText().toString();
         EditText passwordRegistration = (EditText) findViewById(R.id.input_password_registration);
         String password = passwordRegistration.getText().toString();
         EditText phoneRegistration = (EditText) findViewById(R.id.input_phone_registration);
-        String phone = phoneRegistration.getText().toString();
+        String cellphone = phoneRegistration.getText().toString();
         EditText rePassRegistration = (EditText) findViewById(R.id.input_re_password_registration);
         String rePassword = rePassRegistration.getText().toString();
         if (nameRegistration.getText().toString().length() == 0) {
@@ -74,7 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
             validate=false;
         } else {
             tilName.setError(null);
-            name = name.replace(" ","_");
+            first_name = first_name.replace(" ","_");
             validate = true;
         }
         if (surnameRegistration.getText().toString().length() == 0) {
@@ -83,7 +97,7 @@ public class RegistrationActivity extends AppCompatActivity {
             validate=false;
         } else {
             tilSurname.setError(null);
-            surname = surname.replace(" ","_");
+            last_name = last_name.replace(" ","_");
             validate = true;
         }
         if (emailRegistration.getText().toString().length() == 0) {
@@ -126,12 +140,20 @@ public class RegistrationActivity extends AppCompatActivity {
             }
 
         if(validate==true){
-            System.out.println(name);
-            System.out.println(surname);
-            System.out.println(phone);
-            System.out.println(email);
-            System.out.println(password.hashCode());
-            System.out.println(rePassword.hashCode());
+            int pass = password.hashCode();
+            int phone=Integer.parseInt(cellphone);
+
+
+           WebServiceCaller webServiceCaller = new WebServiceCaller();
+           webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
+
+
+
+
+
+
+
+
         }
         }
 

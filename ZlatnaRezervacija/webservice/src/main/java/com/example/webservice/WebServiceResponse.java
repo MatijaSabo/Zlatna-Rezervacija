@@ -1,7 +1,8 @@
 package com.example.webservice;
 
-public class WebServiceResponse {
+import java.lang.reflect.Array;
 
+public class WebServiceResponse {
     public String status;
     public String name;
     public String email;
