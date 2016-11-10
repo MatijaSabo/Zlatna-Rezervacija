@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
             if(cm.getActiveNetworkInfo() != null){
-                Toast.makeText(this, hashPass.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, hashPass.toString(), Toast.LENGTH_SHORT).show();
                 WSresult = null;
                 DataLoader dataLoader;
                 dataLoader = new WsDataLoader();
@@ -136,22 +136,21 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     public void onDataLoaded(Object result) {
         WSresult = (WebServiceResponse) result;
 
-        Toast.makeText(this,WSresult.getStatus().toString(), Toast.LENGTH_SHORT).show();
 
         if(WSresult.getStatus().endsWith("1")){
-            Toast.makeText(this, "Prijava dobra", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, WSresult.getName(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, WSresult.getEmail(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, WSresult.getRole_id(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, WSresult.getUser_id(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Prijava dobra", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, WSresult.getName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, WSresult.getEmail(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, WSresult.getRole_id(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, WSresult.getUser_id(), Toast.LENGTH_SHORT).show();
 
-            //Tu treba poslati podatke uz intent.putExtra...
-            //Ali svaki u svoj intent.putExtra
-            
-            //Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-            //intent.putExtra("role_id", emailText.getText().toString());
-            //startActivity(intent);
-            //finish();
+            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+            intent.putExtra("name", WSresult.getName());
+            intent.putExtra("email", WSresult.getEmail());
+            intent.putExtra("role_id", WSresult.getRole_id());
+            intent.putExtra("user_id",WSresult.getUser_id());
+            startActivity(intent);
+            finish();
         }
 
         else{
