@@ -12,5 +12,7 @@
         <item name="colorButtonNormal">@color/btnColor</item>
         <item name="android:textColor">@color/btnColorText</item>
     </style>
-
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/errorColor</item>
+    </style>
 </resources>

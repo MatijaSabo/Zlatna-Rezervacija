@@ -6,4 +6,5 @@
     <color name="colorBackground">#009688</color>
     <color name="btnColor">#004D40</color>
     <color name="btnColorText">#ffffff</color>
+    <color name="errorColor">#990000</color>
 </resources>
