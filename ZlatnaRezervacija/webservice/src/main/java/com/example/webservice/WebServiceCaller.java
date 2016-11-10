@@ -61,4 +61,35 @@ public class WebServiceCaller extends AppCompatActivity {
             });
         }
     }
+
+    public void getAll(final String method, final int pass){
+        WebService  webServiceRezervacije=retrofit.create(WebService.class);
+        retrofit.Call<WebServiceResponse> call=webServiceRezervacije.getUserData(method, pass);
+        call.enqueue(new Callback<WebServiceResponse>() {
+            @Override
+            public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
+                try {
+                    if(response.isSuccess()){
+                        String status=response.body().getStatus();
+                        if(status.equals("1")){
+                            System.out.println(response.body().getStatus() +  " " + response.body().getName() + " " + response.body().getRole_id() + " " + response.body().getUser_id());
+                        }
+                        else{
+                            System.out.println("Krivo logiranje");
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                }catch (Exception ex){
+
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
 }

@@ -6,8 +6,8 @@ public class WebServiceResponse {
     public String status;
     public String name;
     public String email;
-    public int user_id;
-    public int role_id;
+    public String user_id;
+    public String user_role;
 
 
     public String getStatus() {
@@ -22,12 +22,12 @@ public class WebServiceResponse {
         return email;
     }
 
-    public int getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public String getRole_id() {
+        return user_role;
     }
 
     public void setStatus(String status) {
@@ -42,12 +42,12 @@ public class WebServiceResponse {
         this.email = email;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setRole_id(String user_role) {
+        this.user_role = user_role;
     }
 
 

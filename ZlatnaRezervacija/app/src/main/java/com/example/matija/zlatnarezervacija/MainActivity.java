@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.webservice.WebServiceCaller;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_login) Button mainButton;
     @BindView(R.id.input_email) EditText emailText;
+    @BindView(R.id.input_password) EditText passText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +37,19 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_login)
     public void mainButtonClick(View view){
-        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-        intent.putExtra("role_id", emailText.getText().toString());
-        startActivity(intent);
-        finish();
+        if (emailText.getText().length()!=0 && passText.getText().length()!=0) {
+            String password = passText.getText().toString();
+            int hashPass = password.hashCode();
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.getAll(emailText.getText().toString(), hashPass);;
+            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+            intent.putExtra("role_id", emailText.getText().toString());
+            startActivity(intent);
+            finish();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Potrebno je upisati sve podatke!", Toast.LENGTH_SHORT).show();
+        }
     }
     @OnClick(R.id.link_registration)
     public void Click(View view){

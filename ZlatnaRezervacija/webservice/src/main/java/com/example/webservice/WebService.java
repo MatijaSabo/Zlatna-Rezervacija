@@ -14,7 +14,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("login.php")
-    Call<WebService> getUserData(@Field("method") String method);
+    Call<WebServiceResponse> getUserData(@Field("email") String email, @Field("pass") int pass);
 
     @FormUrlEncoded
     @POST("registration.php")
