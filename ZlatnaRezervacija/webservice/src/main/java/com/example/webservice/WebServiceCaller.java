@@ -1,6 +1,7 @@
 package com.example.webservice;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
@@ -16,13 +17,14 @@ import retrofit.Retrofit;
 public class WebServiceCaller extends AppCompatActivity {
 
     Retrofit retrofit;
+    WebServiceHandler mWebServiceHandler;
 
     private final String baseUrl = "https://barka.foi.hr/WebDiP/2015_projekti/WebDiP2015x070/zlatna_rezervacija/";
     //ButterKnife.bind(this);
 
     // constructor
-    public WebServiceCaller() {
-
+    public WebServiceCaller(WebServiceHandler webServiceHandler) {
+        this.mWebServiceHandler = webServiceHandler;
         OkHttpClient client = new OkHttpClient();
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -70,20 +72,10 @@ public class WebServiceCaller extends AppCompatActivity {
             public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
                 try {
                     if(response.isSuccess()){
-                        String status=response.body().getStatus();
-                        if(status.equals("1")){
-                            System.out.println(response.body().getStatus() +  " " + response.body().getName() + " " + response.body().getRole_id() + " " + response.body().getUser_id());
-                        }
-                        else{
-                            System.out.println("Krivo logiranje");
-                        }
-                    }
-                    else
-                    {
-
+                        handleResponse((WebServiceResponse) response.body());
                     }
                 }catch (Exception ex){
-
+                    System.out.println(ex);
                 }
             }
             @Override
@@ -91,5 +83,15 @@ public class WebServiceCaller extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void handleResponse(WebServiceResponse response) {
+      // System.out.println("eto me u handleresponseu");
+        //System.out.println(response);
+
+        if(mWebServiceHandler!= null){
+           // System.out.println("saljem na view");
+            mWebServiceHandler.onDataArrived(response, true);
+        }
     }
 }

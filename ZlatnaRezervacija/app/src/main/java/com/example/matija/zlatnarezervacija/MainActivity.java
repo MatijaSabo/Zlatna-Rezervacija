@@ -3,6 +3,7 @@ package com.example.matija.zlatnarezervacija;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
@@ -14,17 +15,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.webservice.DataLoadedListener;
+import com.example.webservice.DataLoader;
 import com.example.webservice.WebServiceCaller;
+import com.example.webservice.WebServiceHandler;
+import com.example.webservice.WebServiceResponse;
+import com.example.webservice.WsDataLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DataLoadedListener {
+
 
     @BindView(R.id.btn_login) Button mainButton;
     @BindView(R.id.input_email) EditText emailText;
     @BindView(R.id.input_password) EditText passText;
+
+    WebServiceResponse WSresult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +83,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (email_validate == true && pass_validate == true) {
             String password = passText.getText().toString();
-            int hashPass = password.hashCode();
+            Integer hashPass = password.hashCode();
 
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
             if(cm.getActiveNetworkInfo() != null){
-                WebServiceCaller webServiceCaller = new WebServiceCaller();
-                webServiceCaller.getAll(emailText.getText().toString(), hashPass);
-                /*Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                intent.putExtra("role_id", emailText.getText().toString());
-                startActivity(intent);
-                finish();*/
+                Toast.makeText(this, hashPass.toString(), Toast.LENGTH_SHORT).show();
+                WSresult = null;
+                DataLoader dataLoader;
+                dataLoader = new WsDataLoader();
+                dataLoader.loadData(this, emailText.getText().toString(), hashPass);
             }
 
             else{
@@ -92,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+
     @OnClick(R.id.link_registration)
     public void Click(View view){
         Intent intent = new Intent(getApplicationContext(),RegistrationActivity.class);
@@ -120,5 +130,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.create().show();
+    }
+
+    @Override
+    public void onDataLoaded(Object result) {
+        WSresult = (WebServiceResponse) result;
+
+        Toast.makeText(this,WSresult.getStatus().toString(), Toast.LENGTH_SHORT).show();
+
+        if(WSresult.getStatus().endsWith("1")){
+            Toast.makeText(this, "Prijava dobra", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, WSresult.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, WSresult.getEmail(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, WSresult.getRole_id(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, WSresult.getUser_id(), Toast.LENGTH_SHORT).show();
+
+            //Tu treba poslati podatke uz intent.putExtra...
+            //Ali svaki u svoj intent.putExtra
+            
+            //Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+            //intent.putExtra("role_id", emailText.getText().toString());
+            //startActivity(intent);
+            //finish();
+        }
+
+        else{
+            Toast.makeText(this, "Kriva prijava", Toast.LENGTH_SHORT).show();
+        }
     }
 }
