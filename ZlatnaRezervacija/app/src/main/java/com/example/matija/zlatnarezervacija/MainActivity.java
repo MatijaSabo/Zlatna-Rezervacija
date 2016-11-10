@@ -2,6 +2,7 @@ package com.example.matija.zlatnarezervacija;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
@@ -74,14 +75,21 @@ public class MainActivity extends AppCompatActivity {
         if (email_validate == true && pass_validate == true) {
             String password = passText.getText().toString();
             int hashPass = password.hashCode();
-            Toast.makeText(this, emailText.getText().toString(), Toast.LENGTH_LONG).show();
-            Toast.makeText(this, passText.getText().toString(), Toast.LENGTH_LONG).show();
-            /*WebServiceCaller webServiceCaller = new WebServiceCaller();
-            webServiceCaller.getAll(emailText.getText().toString(), hashPass);;
-            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-            intent.putExtra("role_id", emailText.getText().toString());
-            startActivity(intent);
-            finish();*/
+
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+            if(cm.getActiveNetworkInfo() != null){
+                WebServiceCaller webServiceCaller = new WebServiceCaller();
+                webServiceCaller.getAll(emailText.getText().toString(), hashPass);
+                /*Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                intent.putExtra("role_id", emailText.getText().toString());
+                startActivity(intent);
+                finish();*/
+            }
+
+            else{
+                Toast.makeText(this, "Nema internet konekcije", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
     @OnClick(R.id.link_registration)

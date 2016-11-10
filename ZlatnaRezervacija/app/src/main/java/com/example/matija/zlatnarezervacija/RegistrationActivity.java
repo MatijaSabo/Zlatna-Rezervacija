@@ -1,6 +1,7 @@
 package com.example.matija.zlatnarezervacija;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -147,9 +148,16 @@ public class RegistrationActivity extends AppCompatActivity {
             int pass = password.hashCode();
             int phone=Integer.parseInt(cellphone);
 
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+            if(cm.getActiveNetworkInfo() != null){
+                //WebServiceCaller webServiceCaller = new WebServiceCaller();
+                //webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
+            }
 
-            WebServiceCaller webServiceCaller = new WebServiceCaller();
-            webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
+            else{
+                Toast.makeText(this, "Nema internet konekcije", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
