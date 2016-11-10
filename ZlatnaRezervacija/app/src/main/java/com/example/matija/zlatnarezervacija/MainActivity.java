@@ -3,6 +3,7 @@ package com.example.matija.zlatnarezervacija;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -37,18 +38,50 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_login)
     public void mainButtonClick(View view){
-        if (emailText.getText().length()!=0 && passText.getText().length()!=0) {
+        boolean email_validate = true;
+        boolean pass_validate = true;
+        TextInputLayout tilEmail = (TextInputLayout) findViewById(R.id.emailtextlayout);
+        TextInputLayout tilPass = (TextInputLayout) findViewById(R.id.passtextlayout);
+
+        if(emailText.getText().length() == 0){
+            tilEmail.setErrorEnabled(true);
+            tilEmail.setError("Unesite email");
+            email_validate=false;
+        }
+
+        else if((emailText.getText().toString().contains(" ") || !(emailText.getText().toString().contains("@"))|| !(emailText.getText().toString().contains(".")) || (emailText.getText().toString().lastIndexOf("@") > emailText.getText().toString().lastIndexOf(".")))){
+            tilEmail.setErrorEnabled(true);
+            tilEmail.setError("Unesite pravilan email");
+            email_validate=false;
+        }
+
+        else{
+            tilEmail.setError(null);
+            email_validate = true;
+        }
+
+        if(passText.getText().length() == 0){
+            tilPass.setErrorEnabled(true);
+            tilPass.setError("Unesite lozinku");
+            pass_validate=false;
+        }
+
+        else{
+            tilPass.setError(null);
+            pass_validate = true;
+        }
+
+        if (email_validate == true && pass_validate == true) {
             String password = passText.getText().toString();
             int hashPass = password.hashCode();
-            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            Toast.makeText(this, emailText.getText().toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, passText.getText().toString(), Toast.LENGTH_LONG).show();
+            /*WebServiceCaller webServiceCaller = new WebServiceCaller();
             webServiceCaller.getAll(emailText.getText().toString(), hashPass);;
             Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
             intent.putExtra("role_id", emailText.getText().toString());
             startActivity(intent);
-            finish();
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "Potrebno je upisati sve podatke!", Toast.LENGTH_SHORT).show();
+            finish();*/
         }
     }
     @OnClick(R.id.link_registration)

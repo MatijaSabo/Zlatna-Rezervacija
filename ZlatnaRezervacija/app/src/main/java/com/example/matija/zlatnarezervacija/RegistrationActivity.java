@@ -34,8 +34,6 @@ import retrofit.Retrofit;
  */
 
 public class RegistrationActivity extends AppCompatActivity {
-    Boolean validate = false;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +60,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_registration)
     public void Click(View view) {
+        Boolean name_validate = false;
+        Boolean surname_validate = false;
+        Boolean email_validate = false;
+        Boolean phone_validate = false;
+        Boolean pass_validate = false;
+        Boolean second_pass_validate = false;
+
         TextInputLayout tilName = (TextInputLayout) findViewById(R.id.textinputlayout_name);
         TextInputLayout tilSurname = (TextInputLayout) findViewById(R.id.textinputlayout_surname);
         TextInputLayout tilEmail = (TextInputLayout) findViewById(R.id.textinputlayout_email);
@@ -83,68 +88,68 @@ public class RegistrationActivity extends AppCompatActivity {
         if (nameRegistration.getText().toString().length() == 0) {
             tilName.setErrorEnabled(true);
             tilName.setError("Unesite ime");
-            validate=false;
+            name_validate=false;
         } else {
             tilName.setError(null);
             first_name = first_name.replace(" ","_");
-            validate = true;
+            name_validate = true;
         }
         if (surnameRegistration.getText().toString().length() == 0) {
             tilSurname.setErrorEnabled(true);
             tilSurname.setError("Unesite prezime");
-            validate=false;
+            surname_validate=false;
         } else {
             tilSurname.setError(null);
             last_name = last_name.replace(" ","_");
-            validate = true;
+            surname_validate = true;
         }
         if (emailRegistration.getText().toString().length() == 0) {
             tilEmail.setErrorEnabled(true);
             tilEmail.setError("Unesite email");
-            validate=false;
+            email_validate=false;
         } else if (email.contains(" ") || !(email.contains("@"))|| !(email.contains(".")) || (email.lastIndexOf("@") > email.lastIndexOf("."))) {
             tilEmail.setError("Unesite pravilan email");
+            email_validate=false;
         } else {
             tilEmail.setError(null);
-            validate = true;
+            email_validate = true;
         }
         if (phoneRegistration.getText().toString().length() == 0) {
             tilPhone.setErrorEnabled(true);
             tilPhone.setError("Unesite kontaktni broj");
-            validate=false;
+            phone_validate=false;
         } else {
             tilPhone.setError(null);
-            validate = true;
+            phone_validate = true;
         }
         if (passwordRegistration.getText().toString().length() == 0) {
             tilPass.setErrorEnabled(true);
             tilPass.setError("Unesite lozinku");
-            validate=false;
+            pass_validate=false;
         } else {
             tilPass.setError(null);
-            validate = true;
+            pass_validate = true;
         }
         if (rePassRegistration.getText().toString().length() == 0) {
             tilRePass.setErrorEnabled(true);
             tilRePass.setError("Unesite ponovljenu lozinku");
-            validate=false;
+            second_pass_validate=false;
         } else if(rePassRegistration.getText().toString().equals(passwordRegistration.getText().toString())){
             tilRePass.setError(null);
-            validate = true;
+            second_pass_validate = true;
 
             } else {
             tilRePass.setError("Unesite jednake lozinke");
-            validate=false;
+            second_pass_validate=false;
             }
 
-        if(validate==true){
+        if((name_validate == true) && (surname_validate == true) && (email_validate == true) && (phone_validate == true) && (pass_validate == true) && (second_pass_validate == true)){
             int pass = password.hashCode();
             int phone=Integer.parseInt(cellphone);
 
 
-           WebServiceCaller webServiceCaller = new WebServiceCaller();
-           webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
-
+            WebServiceCaller webServiceCaller = new WebServiceCaller();
+            webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
         }
     }
 
