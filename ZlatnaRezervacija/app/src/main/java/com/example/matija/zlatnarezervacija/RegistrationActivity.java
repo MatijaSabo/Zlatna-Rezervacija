@@ -45,8 +45,6 @@ public class RegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.registration);
         ButterKnife.bind(this);
-
-
     }
 
 
@@ -147,15 +145,8 @@ public class RegistrationActivity extends AppCompatActivity {
            WebServiceCaller webServiceCaller = new WebServiceCaller();
            webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
 
-
-
-
-
-
-
-
         }
-        }
+    }
 
 
     }

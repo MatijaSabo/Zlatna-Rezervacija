@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context="com.example.matija.zlatnarezervacija.MainActivity"
     android:background="@color/colorBackground"
@@ -36,7 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/textinputlayout_name">
+            android:id="@+id/textinputlayout_name"
+            app:errorTextAppearance="@style/error_appearance">
             <EditText android:id="@+id/input_name_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/textinputlayout_surname">
+            android:id="@+id/textinputlayout_surname"
+            app:errorTextAppearance="@style/error_appearance">
             <EditText android:id="@+id/input_surname_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/textinputlayout_phone">
+            android:id="@+id/textinputlayout_phone"
+            app:errorTextAppearance="@style/error_appearance">
             <EditText android:id="@+id/input_phone_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/textinputlayout_email">
+            android:id="@+id/textinputlayout_email"
+            app:errorTextAppearance="@style/error_appearance">
             <EditText android:id="@+id/input_email_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/textinputlayout_pass">
+            android:id="@+id/textinputlayout_pass"
+            app:errorTextAppearance="@style/error_appearance">
             <EditText android:id="@+id/input_password_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +123,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/textinputlayout_repass"
-            >
+            app:errorTextAppearance="@style/error_appearance">
             <EditText android:id="@+id/input_re_password_registration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
