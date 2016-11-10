@@ -3,11 +3,9 @@ package com.example.matija.zlatnarezervacija;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,15 +13,11 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
+import static android.R.id.toggle;
 
-public class MenuActivity extends AppCompatActivity {
+public class AdminMenuActivity extends AppCompatActivity {
 
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
@@ -36,13 +30,13 @@ public class MenuActivity extends AppCompatActivity {
         String name_intent = getIntent().getStringExtra("name");
         String email_intent = getIntent().getStringExtra("email");
 
-        setContentView(R.layout.activity_menu);
-        drawerLayout = (DrawerLayout) findViewById(R.id.activity_menu);
+        setContentView(R.layout.activity_menu_admin);
+        drawerLayout = (DrawerLayout) findViewById(R.id.activity_menu_admin);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.user_menu);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.admin_menu);
         navigationView.setNavigationItemSelectedListener(navigationOptionSelected);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -57,19 +51,19 @@ public class MenuActivity extends AppCompatActivity {
     NavigationView.OnNavigationItemSelectedListener navigationOptionSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if (item.getItemId() == R.id.menu_option1) {
+            if (item.getItemId() == R.id.menu_admin_option1) {
 
-            } else if (item.getItemId() == R.id.menu_option2) {
+            } else if (item.getItemId() == R.id.menu_admin_option2) {
 
-            } else if (item.getItemId() == R.id.menu_option3) {
+            } else if (item.getItemId() == R.id.menu_admin_option3) {
 
-            } else if (item.getItemId() == R.id.menu_option4) {
+            } else if (item.getItemId() == R.id.menu_admin_option4) {
 
-            } else if (item.getItemId() == R.id.menu_option5) {
+            } else if (item.getItemId() == R.id.menu_admin_option5) {
 
             } else {
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(AdminMenuActivity.this);
                 builder.setCancelable(false);
                 builder.setTitle(R.string.logout_alert_title);
                 builder.setMessage(R.string.logout_alert_message);
@@ -110,7 +104,7 @@ public class MenuActivity extends AppCompatActivity {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(Gravity.LEFT);
         }else{
-            final AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(AdminMenuActivity.this);
             builder.setCancelable(false);
             builder.setTitle(R.string.logout_alert_title);
             builder.setMessage(R.string.logout_alert_message);

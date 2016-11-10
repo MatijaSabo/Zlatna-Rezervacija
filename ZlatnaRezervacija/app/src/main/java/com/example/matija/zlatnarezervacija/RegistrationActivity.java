@@ -60,12 +60,20 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
-                return true;
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.btn_registration)
@@ -159,8 +167,6 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
 
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
             if(cm.getActiveNetworkInfo() != null){
-                //WebServiceCaller webServiceCaller = new WebServiceCaller();
-                //webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
                 WSresult = null;
                 DataLoader dataLoader;
                 dataLoader = new WsDataRegistrationLoader();
@@ -177,18 +183,19 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
     public void onDataLoaded(Object result) {
         WSresult = (WebServiceResponseRegistration) result;
 
-
         if(WSresult.getStatus().contains("1")){
-            Toast.makeText(this, "Uspješna registracija", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Uspješna registracija u sustav", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Neuspješna registracija! Izmjenite email adresu.")
+            builder.setMessage("Email koji ste unijeli se več koristi u aplikaciji")
+                    .setTitle("Neuspješna registracija")
                     .setCancelable(false)
-                    .setPositiveButton("U redu", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             EditText email = (EditText) findViewById(R.id.input_email_registration);
                             email.requestFocus();
@@ -200,4 +207,4 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         }
     }
 
-    }
+}

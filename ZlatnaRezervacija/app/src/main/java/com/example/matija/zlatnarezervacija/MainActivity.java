@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     public void Click(View view){
         Intent intent = new Intent(getApplicationContext(),RegistrationActivity.class);
         startActivity(intent);
-
+        finish();
     }
     @Override
     public void onBackPressed() {
@@ -144,17 +144,29 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             //Toast.makeText(this, WSresult.getRole_id(), Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, WSresult.getUser_id(), Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-            intent.putExtra("name", WSresult.getName());
-            intent.putExtra("email", WSresult.getEmail());
-            intent.putExtra("role_id", WSresult.getRole_id());
-            intent.putExtra("user_id",WSresult.getUser_id());
-            startActivity(intent);
-            finish();
+            if(WSresult.getRole_id().endsWith("1")){
+                Intent intent = new Intent(getApplicationContext(), AdminMenuActivity.class);
+                intent.putExtra("name", WSresult.getName());
+                intent.putExtra("email", WSresult.getEmail());
+                intent.putExtra("role_id", WSresult.getRole_id());
+                intent.putExtra("user_id",WSresult.getUser_id());
+                startActivity(intent);
+                finish();
+            }
+
+            else{
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                intent.putExtra("name", WSresult.getName());
+                intent.putExtra("email", WSresult.getEmail());
+                intent.putExtra("role_id", WSresult.getRole_id());
+                intent.putExtra("user_id",WSresult.getUser_id());
+                startActivity(intent);
+                finish();
+            }
         }
 
         else{
-            Toast.makeText(this, "Kriva prijava", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Neuspješna prijava u sustav", Toast.LENGTH_SHORT).show();
         }
     }
 }
