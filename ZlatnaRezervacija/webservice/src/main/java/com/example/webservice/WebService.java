@@ -18,7 +18,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("registration.php")
-    Call<WebServiceResponseRegistration> getStatusRegistration(@Field("first_name") String first_name,@Field("last_name")String last_name,@Field("phone")int phone,@Field("email") String email,@Field("pass") int password,@Field("role_id") int role_id);
+    Call<WebServiceResponseRegistration> getStatusRegistration(@Field("first_name") String first_name,@Field("last_name")String last_name,@Field("phone")int phone,@Field("email") String email,@Field("pass") int password);
 
 
 }

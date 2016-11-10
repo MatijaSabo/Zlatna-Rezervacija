@@ -12,6 +12,9 @@ public abstract class DataLoader {
     public void loadData(DataLoadedListener dataLoadedListener, String email, Integer pass){
         this.mDataLoadedListner = dataLoadedListener;
     }
+    public void loadDataRegistration(DataLoadedListener dataLoadedListener,String first_name,String last_name,  Integer phone,String email, Integer pass ){
+        this.mDataLoadedListner = dataLoadedListener;
+    }
 
     public boolean dataLoaded(){
 

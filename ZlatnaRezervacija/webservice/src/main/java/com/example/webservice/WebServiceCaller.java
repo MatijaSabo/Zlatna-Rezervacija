@@ -33,21 +33,18 @@ public class WebServiceCaller extends AppCompatActivity {
                 .build();
     }
 
-    public void registrateUser(String first_name,String last_name,String email,int phone,int pass,int role_id) {
+    public void registrateUser(final String first_name,final String last_name, final Integer phone, final String email, final Integer pass ) {
         WebService serviceCaller = retrofit.create(WebService.class);
-        Call<WebServiceResponseRegistration> call = serviceCaller.getStatusRegistration(first_name,last_name,phone,email,pass,role_id);
+        retrofit.Call<WebServiceResponseRegistration> call = serviceCaller.getStatusRegistration(first_name,last_name,phone,email,pass);
 
 
-        if (call != null) {
+
             call.enqueue(new Callback<WebServiceResponseRegistration>() {
                 @Override
                 public void onResponse(Response<WebServiceResponseRegistration> response, Retrofit retrofit) {
-                    String a=response.body().getStatus();
                     try {
-                        if (response.equals("1") ) {
-
-                        } else {
-
+                        if (response.isSuccess() ) {
+                            handleResponseRegistration((WebServiceResponseRegistration) response.body());
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -61,7 +58,7 @@ public class WebServiceCaller extends AppCompatActivity {
                     
                 }
             });
-        }
+
     }
 
     public void getAll(final String method, final int pass){
@@ -92,6 +89,11 @@ public class WebServiceCaller extends AppCompatActivity {
         if(mWebServiceHandler!= null){
            // System.out.println("saljem na view");
             mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+    private void handleResponseRegistration(WebServiceResponseRegistration response){
+        if(mWebServiceHandler !=null){
+            mWebServiceHandler.onDataArrived(response,true);
         }
     }
 }

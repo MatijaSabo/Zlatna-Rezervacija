@@ -1,22 +1,31 @@
 package com.example.matija.zlatnarezervacija;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telecom.Call;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.webservice.DataLoadedListener;
+import com.example.webservice.DataLoader;
 import com.example.webservice.WebService;
 import com.example.webservice.WebServiceCaller;
 import com.example.webservice.WebServiceRequestRegistration;
 import com.example.webservice.WebServiceResponse;
+import com.example.webservice.WebServiceResponseRegistration;
+import com.example.webservice.WsDataLoader;
+import com.example.webservice.WsDataRegistrationLoader;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.w3c.dom.Text;
@@ -34,8 +43,8 @@ import retrofit.Retrofit;
  * Created by masrnec on 8.11.2016..
  */
 
-public class RegistrationActivity extends AppCompatActivity {
-
+public class RegistrationActivity extends AppCompatActivity implements DataLoadedListener {
+    WebServiceResponseRegistration WSresult;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +161,10 @@ public class RegistrationActivity extends AppCompatActivity {
             if(cm.getActiveNetworkInfo() != null){
                 //WebServiceCaller webServiceCaller = new WebServiceCaller();
                 //webServiceCaller.registrateUser(first_name,last_name,email,phone,pass,2);
+                WSresult = null;
+                DataLoader dataLoader;
+                dataLoader = new WsDataRegistrationLoader();
+                dataLoader.loadDataRegistration(this,first_name,last_name,phone,email,pass);
             }
 
             else{
@@ -160,6 +173,31 @@ public class RegistrationActivity extends AppCompatActivity {
 
         }
     }
+    @Override
+    public void onDataLoaded(Object result) {
+        WSresult = (WebServiceResponseRegistration) result;
 
+
+        if(WSresult.getStatus().contains("1")){
+            Toast.makeText(this, "Uspješna registracija", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
+
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Neuspješna registracija! Izmjenite email adresu.")
+                    .setCancelable(false)
+                    .setPositiveButton("U redu", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            EditText email = (EditText) findViewById(R.id.input_email_registration);
+                            email.requestFocus();
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
 
     }
