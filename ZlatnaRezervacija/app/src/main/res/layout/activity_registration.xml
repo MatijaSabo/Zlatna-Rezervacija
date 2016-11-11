@@ -20,10 +20,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         >
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+
         <ImageView android:src="@drawable/zlatna_rezervacija"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
@@ -95,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:inputType="textEmailAddress"
-                android:hint="@string/emailHintRegistration"
+                android:hint="@string/emailHint"
                 android:textColor="@color/btnColor" />
         </android.support.design.widget.TextInputLayout>
 

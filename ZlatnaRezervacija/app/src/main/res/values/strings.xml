@@ -24,9 +24,24 @@
     <string name="Alert_cancel_button">Cancel</string>
     <string name="Exit_alert_title">Izlaz?</string>
     <string name="Exit_alert_message">Jeste li sigurni da želite izaći iz aplikacije?</string>
-    <string name="emailHintRegistration">Email</string>
     <string name="repasswordHint">Ponovljena lozinka</string>
     <string name="name_registration">Ime</string>
     <string name="surname_registration">Prezime</string>
     <string name="cellphone_registration">Kontaktni broj</string>
+    <string name="NoInternet">Nema internet konekcije</string>
+    <string name="PassError">Unesite lozinku</string>
+    <string name="EmailError">Unesite email</string>
+    <string name="EmailError2">Unesite pravilan email</string>
+    <string name="LoginFailed">Neuspješna prijava u sustav</string>
+    <string name="RegistrationFailedTitle">Neuspješna registracija</string>
+    <string name="RegistrationFaildMessage">Email koji ste unijeli se več koristi u aplikaciji</string>
+    <string name="RegistrationSuccess">Uspješna registracija u sustav</string>
+    <string name="FirstNameError">Unesite ime</string>
+    <string name="LastNameError">Unesite prezime</string>
+    <string name="PhoneError">Unesite kontaktni broj</string>
+    <string name="SecondPassError">Unesite ponovljenu lozinku</string>
+    <string name="EqualsPassError">Unesite jednake lozinke</string>
+    <string name="LoginInProgres">Prijava u tijeku</string>
+    <string name="PleaseWait">Molimo pričekajte</string>
+    <string name="RegistrationInProgress">Registracija u tijeku</string>
 </resources>

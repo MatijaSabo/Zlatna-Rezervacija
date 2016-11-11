@@ -1,8 +1,10 @@
 package com.example.matija.zlatnarezervacija;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
@@ -21,6 +23,10 @@ import com.example.webservice.WebServiceCaller;
 import com.example.webservice.WebServiceHandler;
 import com.example.webservice.WebServiceResponse;
 import com.example.webservice.WsDataLoader;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,9 +35,13 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity implements DataLoadedListener {
 
 
-    @BindView(R.id.btn_login) Button mainButton;
-    @BindView(R.id.input_email) EditText emailText;
-    @BindView(R.id.input_password) EditText passText;
+    @BindView(R.id.btn_login)
+    Button mainButton;
+    @BindView(R.id.input_email)
+    EditText emailText;
+    @BindView(R.id.input_password)
+    EditText passText;
+    ProgressDialog progress;
 
     WebServiceResponse WSresult;
 
@@ -47,36 +57,30 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     }
 
     @OnClick(R.id.btn_login)
-    public void mainButtonClick(View view){
+    public void mainButtonClick(View view) {
         boolean email_validate = true;
         boolean pass_validate = true;
         TextInputLayout tilEmail = (TextInputLayout) findViewById(R.id.emailtextlayout);
         TextInputLayout tilPass = (TextInputLayout) findViewById(R.id.passtextlayout);
 
-        if(emailText.getText().length() == 0){
+        if (emailText.getText().length() == 0) {
             tilEmail.setErrorEnabled(true);
-            tilEmail.setError("Unesite email");
-            email_validate=false;
-        }
-
-        else if((emailText.getText().toString().contains(" ") || !(emailText.getText().toString().contains("@"))|| !(emailText.getText().toString().contains(".")) || (emailText.getText().toString().lastIndexOf("@") > emailText.getText().toString().lastIndexOf(".")))){
+            tilEmail.setError(getString(R.string.EmailError));
+            email_validate = false;
+        } else if ((emailText.getText().toString().contains(" ") || !(emailText.getText().toString().contains("@")) || !(emailText.getText().toString().contains(".")) || (emailText.getText().toString().lastIndexOf("@") > emailText.getText().toString().lastIndexOf(".")))) {
             tilEmail.setErrorEnabled(true);
-            tilEmail.setError("Unesite pravilan email");
-            email_validate=false;
-        }
-
-        else{
+            tilEmail.setError(getString(R.string.EmailError2));
+            email_validate = false;
+        } else {
             tilEmail.setError(null);
             email_validate = true;
         }
 
-        if(passText.getText().length() == 0){
+        if (passText.getText().length() == 0) {
             tilPass.setErrorEnabled(true);
-            tilPass.setError("Unesite lozinku");
-            pass_validate=false;
-        }
-
-        else{
+            tilPass.setError(getString(R.string.PassError));
+            pass_validate = false;
+        } else {
             tilPass.setError(null);
             pass_validate = true;
         }
@@ -86,28 +90,28 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             Integer hashPass = password.hashCode();
 
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
-            if(cm.getActiveNetworkInfo() != null){
-                //Toast.makeText(this, hashPass.toString(), Toast.LENGTH_SHORT).show();
+            if (cm.getActiveNetworkInfo() != null) {
+
+                progress = ProgressDialog.show(this, getString(R.string.LoginInProgres), getString(R.string.PleaseWait));
+
                 WSresult = null;
                 DataLoader dataLoader;
                 dataLoader = new WsDataLoader();
                 dataLoader.loadData(this, emailText.getText().toString(), hashPass);
+            } else {
+                Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
             }
-
-            else{
-                Toast.makeText(this, "Nema internet konekcije", Toast.LENGTH_SHORT).show();
-            }
-
         }
     }
 
 
     @OnClick(R.id.link_registration)
-    public void Click(View view){
-        Intent intent = new Intent(getApplicationContext(),RegistrationActivity.class);
+    public void Click(View view) {
+        Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
         startActivity(intent);
         finish();
     }
+
     @Override
     public void onBackPressed() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -122,12 +126,12 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             }
         })
 
-        .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+                .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
         builder.create().show();
     }
@@ -136,37 +140,28 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     public void onDataLoaded(Object result) {
         WSresult = (WebServiceResponse) result;
 
+        progress.dismiss();
 
-        if(WSresult.getStatus().endsWith("1")){
-            //Toast.makeText(this, "Prijava dobra", Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, WSresult.getName(), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, WSresult.getEmail(), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, WSresult.getRole_id(), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, WSresult.getUser_id(), Toast.LENGTH_SHORT).show();
-
-            if(WSresult.getRole_id().endsWith("1")){
+        if (WSresult.getStatus().endsWith("1")) {
+            if (WSresult.getRole_id().endsWith("1")) {
                 Intent intent = new Intent(getApplicationContext(), AdminMenuActivity.class);
                 intent.putExtra("name", WSresult.getName());
                 intent.putExtra("email", WSresult.getEmail());
                 intent.putExtra("role_id", WSresult.getRole_id());
-                intent.putExtra("user_id",WSresult.getUser_id());
+                intent.putExtra("user_id", WSresult.getUser_id());
                 startActivity(intent);
                 finish();
-            }
-
-            else{
+            } else {
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                 intent.putExtra("name", WSresult.getName());
                 intent.putExtra("email", WSresult.getEmail());
                 intent.putExtra("role_id", WSresult.getRole_id());
-                intent.putExtra("user_id",WSresult.getUser_id());
+                intent.putExtra("user_id", WSresult.getUser_id());
                 startActivity(intent);
                 finish();
             }
-        }
-
-        else{
-            Toast.makeText(this, "Neuspješna prijava u sustav", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.LoginFailed, Toast.LENGTH_SHORT).show();
         }
     }
 }

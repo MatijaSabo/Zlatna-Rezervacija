@@ -1,5 +1,6 @@
 package com.example.matija.zlatnarezervacija;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,6 +46,8 @@ import retrofit.Retrofit;
 
 public class RegistrationActivity extends AppCompatActivity implements DataLoadedListener {
     WebServiceResponseRegistration WSresult;
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +108,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         String rePassword = rePassRegistration.getText().toString();
         if (nameRegistration.getText().toString().length() == 0) {
             tilName.setErrorEnabled(true);
-            tilName.setError("Unesite ime");
+            tilName.setError(getString(R.string.FirstNameError));
             name_validate=false;
         } else {
             tilName.setError(null);
@@ -114,7 +117,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         }
         if (surnameRegistration.getText().toString().length() == 0) {
             tilSurname.setErrorEnabled(true);
-            tilSurname.setError("Unesite prezime");
+            tilSurname.setError(getString(R.string.LastNameError));
             surname_validate=false;
         } else {
             tilSurname.setError(null);
@@ -123,10 +126,10 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         }
         if (emailRegistration.getText().toString().length() == 0) {
             tilEmail.setErrorEnabled(true);
-            tilEmail.setError("Unesite email");
+            tilEmail.setError(getString(R.string.EmailError));
             email_validate=false;
         } else if (email.contains(" ") || !(email.contains("@"))|| !(email.contains(".")) || (email.lastIndexOf("@") > email.lastIndexOf("."))) {
-            tilEmail.setError("Unesite pravilan email");
+            tilEmail.setError(getString(R.string.EmailError2));
             email_validate=false;
         } else {
             tilEmail.setError(null);
@@ -134,7 +137,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         }
         if (phoneRegistration.getText().toString().length() == 0) {
             tilPhone.setErrorEnabled(true);
-            tilPhone.setError("Unesite kontaktni broj");
+            tilPhone.setError(getString(R.string.PhoneError));
             phone_validate=false;
         } else {
             tilPhone.setError(null);
@@ -142,7 +145,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         }
         if (passwordRegistration.getText().toString().length() == 0) {
             tilPass.setErrorEnabled(true);
-            tilPass.setError("Unesite lozinku");
+            tilPass.setError(getString(R.string.PassError));
             pass_validate=false;
         } else {
             tilPass.setError(null);
@@ -150,14 +153,14 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         }
         if (rePassRegistration.getText().toString().length() == 0) {
             tilRePass.setErrorEnabled(true);
-            tilRePass.setError("Unesite ponovljenu lozinku");
+            tilRePass.setError(getString(R.string.SecondPassError));
             second_pass_validate=false;
         } else if(rePassRegistration.getText().toString().equals(passwordRegistration.getText().toString())){
             tilRePass.setError(null);
             second_pass_validate = true;
 
             } else {
-            tilRePass.setError("Unesite jednake lozinke");
+            tilRePass.setError(getString(R.string.EqualsPassError));
             second_pass_validate=false;
             }
 
@@ -167,6 +170,9 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
 
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
             if(cm.getActiveNetworkInfo() != null){
+
+                progress = ProgressDialog.show(this, getString(R.string.RegistrationInProgress), getString(R.string.PleaseWait));
+
                 WSresult = null;
                 DataLoader dataLoader;
                 dataLoader = new WsDataRegistrationLoader();
@@ -174,7 +180,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             }
 
             else{
-                Toast.makeText(this, "Nema internet konekcije", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -183,8 +189,10 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
     public void onDataLoaded(Object result) {
         WSresult = (WebServiceResponseRegistration) result;
 
+        progress.dismiss();
+
         if(WSresult.getStatus().contains("1")){
-            Toast.makeText(this, "Uspješna registracija u sustav", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.RegistrationSuccess, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
             finish();
@@ -192,8 +200,8 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
 
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Email koji ste unijeli se več koristi u aplikaciji")
-                    .setTitle("Neuspješna registracija")
+            builder.setMessage(R.string.RegistrationFaildMessage)
+                    .setTitle(R.string.RegistrationFailedTitle)
                     .setCancelable(false)
                     .setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
