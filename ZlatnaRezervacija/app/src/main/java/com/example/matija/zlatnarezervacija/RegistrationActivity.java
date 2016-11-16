@@ -63,8 +63,6 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
                 finish();
 
             default:
@@ -74,8 +72,6 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(intent);
         finish();
     }
 
@@ -193,8 +189,6 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
 
         if(WSresult.getStatus().contains("1")){
             Toast.makeText(this, R.string.RegistrationSuccess, Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-            startActivity(intent);
             finish();
         }
 

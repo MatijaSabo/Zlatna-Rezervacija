@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.R.id.toggle;
 
@@ -70,8 +71,7 @@ public class AdminMenuActivity extends AppCompatActivity {
                 builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(getBaseContext(), R.string.LogoutToastText, Toast.LENGTH_LONG).show();
                         finish();
                     }
                 })
@@ -111,8 +111,7 @@ public class AdminMenuActivity extends AppCompatActivity {
             builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(getBaseContext(), R.string.LogoutToastText, Toast.LENGTH_LONG).show();
                     finish();
                 }
             })

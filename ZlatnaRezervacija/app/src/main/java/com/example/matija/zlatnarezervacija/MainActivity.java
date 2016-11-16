@@ -34,7 +34,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements DataLoadedListener {
 
-
     @BindView(R.id.btn_login)
     Button mainButton;
     @BindView(R.id.input_email)
@@ -42,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     @BindView(R.id.input_password)
     EditText passText;
     ProgressDialog progress;
+
+    TextInputLayout tilEmail;
+    TextInputLayout tilPass;
 
     WebServiceResponse WSresult;
 
@@ -60,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     public void mainButtonClick(View view) {
         boolean email_validate = true;
         boolean pass_validate = true;
-        TextInputLayout tilEmail = (TextInputLayout) findViewById(R.id.emailtextlayout);
-        TextInputLayout tilPass = (TextInputLayout) findViewById(R.id.passtextlayout);
+        tilEmail = (TextInputLayout) findViewById(R.id.emailtextlayout);
+        tilPass = (TextInputLayout) findViewById(R.id.passtextlayout);
 
         if (emailText.getText().length() == 0) {
             tilEmail.setErrorEnabled(true);
@@ -109,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     public void Click(View view) {
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
         startActivity(intent);
-        finish();
     }
 
     @Override
@@ -150,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
                 intent.putExtra("role_id", WSresult.getRole_id());
                 intent.putExtra("user_id", WSresult.getUser_id());
                 startActivity(intent);
-                finish();
             } else {
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                 intent.putExtra("name", WSresult.getName());
@@ -158,10 +158,29 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
                 intent.putExtra("role_id", WSresult.getRole_id());
                 intent.putExtra("user_id", WSresult.getUser_id());
                 startActivity(intent);
-                finish();
             }
         } else {
             Toast.makeText(this, R.string.LoginFailed, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    protected void onResume() {
+        if((tilEmail != null) && (tilPass != null)){
+            if(tilEmail.isErrorEnabled() == true){
+                tilEmail.setErrorEnabled(false);
+            }
+
+            if(tilPass.isErrorEnabled() == true){
+                tilPass.setErrorEnabled(false);
+            }
+
+            passText.setText("");
+            passText.clearFocus();
+            emailText.clearFocus();
+        }
+        super.onResume();
+    }
 }
+
+
