@@ -168,17 +168,18 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     protected void onResume() {
         if((tilEmail != null) && (tilPass != null)){
             if(tilEmail.isErrorEnabled() == true){
+
                 tilEmail.setErrorEnabled(false);
             }
 
             if(tilPass.isErrorEnabled() == true){
                 tilPass.setErrorEnabled(false);
             }
-
-            passText.setText("");
-            passText.clearFocus();
-            emailText.clearFocus();
         }
+
+        passText.setText("");
+        passText.clearFocus();
+        emailText.clearFocus();
         super.onResume();
     }
 }
