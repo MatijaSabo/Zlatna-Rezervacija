@@ -48,4 +48,7 @@
     <string name="AppName_AppVersion">Zlatna Rezervacija - Verzija 1.2</string>
     <string name="AppDevelopers">Izrada: Lovro Jakopović, Matija Sabolić, Marko Srnec</string>
     <string name="menu_category">Cjenik</string>
+    <string name="FetchingData">Dohvaćanje podataka</string>
+    <string name="NoDescription">Nema opisa</string>
+    <string name="Kuna">" Kn"</string>
 </resources>

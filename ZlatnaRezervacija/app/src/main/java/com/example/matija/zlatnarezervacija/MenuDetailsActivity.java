@@ -1,10 +1,29 @@
 package com.example.matija.zlatnarezervacija;
 
+import android.app.ProgressDialog;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class MenuDetailsActivity extends AppCompatActivity {
+import com.example.matija.zlatnarezervacija.adapters.MenuDetailsRecycleAdapter;
+import com.example.webservice.DataLoadedListener;
+import com.example.webservice.DataLoader;
+import com.example.webservice.MenuItemDetails;
+import com.example.webservice.WebServiceMenuResponse;
+import com.example.webservice.WsMenuDataLoader;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class MenuDetailsActivity extends AppCompatActivity implements DataLoadedListener{
+
+    private RecyclerView recyclerView;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +32,20 @@ public class MenuDetailsActivity extends AppCompatActivity {
         String text = getIntent().getStringExtra("kategorija");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(text);
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) {
+
+            progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
+
+            DataLoader dataLoader;
+            dataLoader = new WsMenuDataLoader();
+            dataLoader.loadMenuData(this, text);
+        }
+
+        else{
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_LONG).show();
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -23,5 +56,21 @@ public class MenuDetailsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onDataLoaded(Object result) {
+        WebServiceMenuResponse DataArrived = (WebServiceMenuResponse) result;
+
+        MenuItemDetails[] items = (MenuItemDetails[]) DataArrived.getItems();
+        ArrayList<MenuItemDetails> item = new ArrayList<MenuItemDetails>();
+
+        for (MenuItemDetails m: items) { item.add(m); }
+
+        recyclerView = (RecyclerView) findViewById(R.id.menu_detail_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MenuDetailsRecycleAdapter(item));
+
+        progress.dismiss();
     }
 }

@@ -12,10 +12,10 @@ public class MenuCategoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private String[] kategorije = {"Hladna perdjela", "Juhe", "Tjestenine i rižota",
+    private String[] kategorije = {"Hladna predjela", "Juhe", "Tjestenine i rižota",
             "Mesna jela", "Specijaliteti Zlatnih gorica", "Jela od riba",
             "Vegetarijanska jela", "Prilozi", "Salate",
-            "Slatka jela", "Kava i topli napici", "Bezalkohola pića",
+            "Slatka jela", "Kava i topli napici", "Bezalkoholna pića",
             "Piva", "Žestoka alkoholna pića", "Miješana vina"};
 
     private Integer[] slike = {R.mipmap.restaurant_menu, R.mipmap.restaurant_menu, R.mipmap.restaurant_menu,

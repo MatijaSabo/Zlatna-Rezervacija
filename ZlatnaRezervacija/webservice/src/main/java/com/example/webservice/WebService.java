@@ -20,5 +20,7 @@ public interface WebService {
     @POST("registration.php")
     Call<WebServiceResponseRegistration> getStatusRegistration(@Field("first_name") String first_name,@Field("last_name")String last_name,@Field("phone")int phone,@Field("email") String email,@Field("pass") int password);
 
-
+    @FormUrlEncoded
+    @POST("menu.php")
+    Call<WebServiceMenuResponse> getMenuData(@Field("category") String category);
 }

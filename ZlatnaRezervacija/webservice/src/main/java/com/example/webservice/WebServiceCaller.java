@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 
+import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import retrofit.Call;
@@ -82,18 +86,47 @@ public class WebServiceCaller extends AppCompatActivity {
         });
     }
 
-    private void handleResponse(WebServiceResponse response) {
-      // System.out.println("eto me u handleresponseu");
-        //System.out.println(response);
+    public void getMenuItems(final String category){
+        WebService serviceCaller=retrofit.create(WebService.class);
+        retrofit.Call<WebServiceMenuResponse> call=serviceCaller.getMenuData(category);
+        call.enqueue(new Callback<WebServiceMenuResponse>() {
+            @Override
+            public void onResponse(Response<WebServiceMenuResponse> response, Retrofit retrofit) {
+                try {
+                    if(response.isSuccess()){
+                        System.out.println("1");
+                        System.out.println(response.body().getItems());
+                        handleMenuDataResponse((WebServiceMenuResponse) response.body());
+                    }
+                }catch (Exception ex){
+                    System.out.println(ex);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
 
+            }
+        });
+    }
+
+    private void handleResponse(WebServiceResponse response) {
         if(mWebServiceHandler!= null){
-           // System.out.println("saljem na view");
             mWebServiceHandler.onDataArrived(response, true);
         }
     }
     private void handleResponseRegistration(WebServiceResponseRegistration response){
         if(mWebServiceHandler !=null){
             mWebServiceHandler.onDataArrived(response,true);
+        }
+    }
+
+    private void handleMenuDataResponse(WebServiceMenuResponse response){
+
+        Gson gson = new Gson();
+        //MenuItem[] Items = gson.fromJson(re, MenuItem.class);
+
+        if(mWebServiceHandler != null) {
+            mWebServiceHandler.onDataArrived(response, true);
         }
     }
 }
