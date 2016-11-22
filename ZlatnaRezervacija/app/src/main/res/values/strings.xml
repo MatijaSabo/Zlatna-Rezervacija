@@ -47,4 +47,5 @@
     <string name="LogoutToastText">Uspješna odjava iz sustava</string>
     <string name="AppName_AppVersion">Zlatna Rezervacija - Verzija 1.2</string>
     <string name="AppDevelopers">Izrada: Lovro Jakopović, Matija Sabolić, Marko Srnec</string>
+    <string name="menu_category">Cjenik</string>
 </resources>

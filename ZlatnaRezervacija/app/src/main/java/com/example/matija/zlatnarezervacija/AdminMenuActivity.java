@@ -54,6 +54,9 @@ public class AdminMenuActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.menu_admin_option1) {
 
+                Intent intent = new Intent(getApplicationContext(), MenuCategoryActivity.class);
+                startActivity(intent);
+
             } else if (item.getItemId() == R.id.menu_admin_option2) {
 
             } else if (item.getItemId() == R.id.menu_admin_option3) {

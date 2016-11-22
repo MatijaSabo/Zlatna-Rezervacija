@@ -59,6 +59,9 @@ public class MenuActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.menu_option1) {
 
+                Intent intent = new Intent(getApplicationContext(), MenuCategoryActivity.class);
+                startActivity(intent);
+
             } else if (item.getItemId() == R.id.menu_option2) {
 
             } else if (item.getItemId() == R.id.menu_option3) {
@@ -130,4 +133,5 @@ public class MenuActivity extends AppCompatActivity {
             builder.create().show();
         }
     }
+
 }
