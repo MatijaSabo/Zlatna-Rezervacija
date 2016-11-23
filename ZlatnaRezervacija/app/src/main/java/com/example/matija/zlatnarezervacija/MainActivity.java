@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             tilEmail.setError(getString(R.string.EmailError));
             email_validate = false;
         } else if ((emailText.getText().toString().contains(" ") ||
+                !(emailText.getText().toString().lastIndexOf("@") > 0) ||
                 !(emailText.getText().toString().contains("@")) ||
                 !(emailText.getText().toString().contains(".")) ||
                 (emailText.getText().toString().lastIndexOf("@") > emailText.getText().toString().lastIndexOf("."))) ||
