@@ -124,7 +124,13 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilEmail.setErrorEnabled(true);
             tilEmail.setError(getString(R.string.EmailError));
             email_validate=false;
-        } else if (email.contains(" ") || !(email.contains("@"))|| !(email.contains(".")) || (email.lastIndexOf("@") > email.lastIndexOf("."))) {
+        } else if (email.contains(" ") ||
+                !(email.contains("@"))||
+                !(email.contains(".")) ||
+                (email.lastIndexOf("@") > email.lastIndexOf(".")) ||
+                (email.contains("'")) ||
+                (email.contains("#")) ||
+                !((email.lastIndexOf(".") - email.lastIndexOf("@")) > 1)) {
             tilEmail.setError(getString(R.string.EmailError2));
             email_validate=false;
         } else {

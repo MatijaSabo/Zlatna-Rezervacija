@@ -69,7 +69,13 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             tilEmail.setErrorEnabled(true);
             tilEmail.setError(getString(R.string.EmailError));
             email_validate = false;
-        } else if ((emailText.getText().toString().contains(" ") || !(emailText.getText().toString().contains("@")) || !(emailText.getText().toString().contains(".")) || (emailText.getText().toString().lastIndexOf("@") > emailText.getText().toString().lastIndexOf(".")))) {
+        } else if ((emailText.getText().toString().contains(" ") ||
+                !(emailText.getText().toString().contains("@")) ||
+                !(emailText.getText().toString().contains(".")) ||
+                (emailText.getText().toString().lastIndexOf("@") > emailText.getText().toString().lastIndexOf("."))) ||
+                (emailText.getText().toString().contains("'")) ||
+                (emailText.getText().toString().contains("#")) ||
+                !((emailText.getText().toString().lastIndexOf(".") - emailText.getText().toString().lastIndexOf("@")) > 1 )) {
             tilEmail.setErrorEnabled(true);
             tilEmail.setError(getString(R.string.EmailError2));
             email_validate = false;
