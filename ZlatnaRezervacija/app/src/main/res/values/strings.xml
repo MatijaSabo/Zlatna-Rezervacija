@@ -52,4 +52,10 @@
     <string name="NoDescription">Nema opisa</string>
     <string name="Kuna">" Kn"</string>
     <string name="ReservationTitle">Rezervacija</string>
+    <string name="persons">Broj osoba</string>
+    <string name="number_of_meals">Broj jela</string>
+    <string name="datum">Datum</string>
+    <string name="vrijeme">Vrijeme</string>
+    <string name="remark">Napomene</string>
+    <string name="Reserve">Rezerviraj</string>
 </resources>

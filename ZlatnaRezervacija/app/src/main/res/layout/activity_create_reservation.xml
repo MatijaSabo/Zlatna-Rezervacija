@@ -1,13 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_create_reservation"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.matija.zlatnarezervacija.CreateReservationActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.matija.zlatnarezervacija.CreateReservationActivity"
+    android:background="@color/colorBackground">
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <!-- Broj osoba label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_persons"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_number_of_persons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:inputType="number"
+                android:hint="@string/persons"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Broj jela -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_meals"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_number_of_meals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:inputType="number"
+                android:hint="@string/number_of_meals"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Datum rezervacije -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_date"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:inputType="text"
+                android:hint="@string/datum"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Vrijeme rezervacije -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_time"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:inputType="text"
+                android:hint="@string/vrijeme"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Napomene -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_remark"
+            app:counterEnabled="true"
+            app:counterMaxLength="500"
+            app:counterOverflowTextAppearance="@style/error_appearance">
+
+            <EditText android:id="@+id/input_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:inputType="textMultiLine"
+                android:hint="@string/remark"
+                android:textColor="@color/btnColor"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_registration"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="@string/Reserve"
+            android:theme="@style/Button"/>
+
+    </LinearLayout>
+</ScrollView>
