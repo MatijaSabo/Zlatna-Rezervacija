@@ -30,14 +30,14 @@ public class MenuActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
 
-    private String user_intent;
+    private String user_intent, name_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String role_intent = getIntent().getStringExtra("role_id");
         user_intent = getIntent().getStringExtra("user_id");
-        String name_intent = getIntent().getStringExtra("name");
+        name_intent = getIntent().getStringExtra("name");
         String email_intent = getIntent().getStringExtra("email");
 
         setContentView(R.layout.activity_menu);
@@ -70,6 +70,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), CreateReservationActivity.class);
                 intent.putExtra("user_id", user_intent);
+                intent.putExtra("user_name", name_intent);
                 startActivity(intent);
 
             } else if (item.getItemId() == R.id.menu_option3) {

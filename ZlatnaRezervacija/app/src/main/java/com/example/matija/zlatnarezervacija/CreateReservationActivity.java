@@ -5,15 +5,18 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.support.annotation.IntegerRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -25,6 +28,8 @@ import butterknife.OnFocusChange;
 
 public class CreateReservationActivity extends AppCompatActivity {
 
+    String name_intent, id_intent;
+
     TextInputLayout broj_osoba_label, broj_jela_label, datum_label, vrijeme_label;
     EditText broj_osoba_input, broj_jela_input, datum_input, vrijeme_input, napomene_input;
 
@@ -35,6 +40,8 @@ public class CreateReservationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        name_intent = getIntent().getStringExtra("user_name");
+        id_intent = getIntent().getStringExtra("user_id");
         setContentView(R.layout.activity_create_reservation);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -86,7 +93,6 @@ public class CreateReservationActivity extends AppCompatActivity {
                                     dialog.dismiss();
                                 }
                             });
-
                     builder.create().show();
                 }
             }
@@ -225,9 +231,40 @@ public class CreateReservationActivity extends AppCompatActivity {
         }
 
         if(broj_osoba_validator && broj_jela_validator && datum_validator && vrijeme_validator && napomena_validator){
-            Toast.makeText(this, "Forma je prošla validaciju", Toast.LENGTH_SHORT).show();
+            createReservation();
         } else{
             Toast.makeText(this, "Forma nije prošla validaciju", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void createReservation() {
+        String string = "<p>Ukoliko su svi podaci točni pritisnite OK kako bi podnijeli rezervaciju</p><b>Ime i prezime: </b>" + name_intent + "<br><b>Broj osoba: </b>" + broj_osoba_input.getText()
+                + "<br><b>Broj jela: </b>" + broj_jela_input.getText() + "<br><b>Datum: </b>" + datum_input.getText()
+                + "<br><b>Vrijeme: </b>" + vrijeme_input.getText() + "<br><b>Napomene: </b>" + napomene_input.getText()
+                + "<br><b>Obavijest: </b><br><br><i>Za promjenu načina primanja obavijsti posjesite postavke aplikacije</i>";
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        if (cm.getActiveNetworkInfo() != null) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
+            builder.setCancelable(true);
+            builder.setTitle("Vaša rezervacija");
+            builder.setMessage(Html.fromHtml(string));
+            builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    Toast.makeText(getApplication(), "Šaljem rezervaciju", Toast.LENGTH_LONG).show();
+                }
+            })
+                    .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int i) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        } else {
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_LONG).show();
         }
     }
 
