@@ -78,7 +78,7 @@ public class CreateReservationActivity extends AppCompatActivity {
 
         if(broj_osoba_input.length()  < 1){
             broj_osoba_label.setErrorEnabled(true);
-            broj_osoba_label.setError("Unsite broj osoba");
+            broj_osoba_label.setError("Unesite broj osoba");
         } else if(Integer.parseInt(broj_osoba_input.getText().toString()) < 1){
             broj_osoba_label.setErrorEnabled(true);
             broj_osoba_label.setError("Broj osoba mora biti minimalno 1");

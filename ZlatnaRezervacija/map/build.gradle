@@ -1,16 +1,17 @@
-apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "25.0.0"
+
     defaultConfig {
-        applicationId "com.example.matija.zlatnarezervacija"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -25,16 +26,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    testCompile 'junit:junit:4.12'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.android.support:recyclerview-v7:24.2.+'
-    compile 'com.android.support:cardview-v7:24.2.+'
-    compile project (':webservice')
-    compile project (':map')
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 
+    compile 'com.android.support:appcompat-v7:24.2.1'
+
+    testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services-maps:8.3.0'
 }

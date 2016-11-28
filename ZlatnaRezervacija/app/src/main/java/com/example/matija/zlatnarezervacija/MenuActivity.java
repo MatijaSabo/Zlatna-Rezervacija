@@ -1,13 +1,14 @@
 package com.example.matija.zlatnarezervacija;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
-import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +16,14 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
+import com.example.map.MapFragmentActivity;
+import com.example.webservice.DataLoader;
+import com.example.webservice.WsDataRegistrationLoader;
+
+import static android.R.id.progress;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -73,6 +75,8 @@ public class MenuActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.menu_option3) {
 
             } else if (item.getItemId() == R.id.menu_option4) {
+
+                checkInternetMap();
 
             } else if (item.getItemId() == R.id.menu_option5) {
 
@@ -139,5 +143,16 @@ public class MenuActivity extends AppCompatActivity {
             builder.create().show();
         }
     }
+    public void checkInternetMap(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if(cm.getActiveNetworkInfo() != null){
+    //progress = ProgressDialog.show(this, getString(R.string.MapLoading), getString(R.string.PleaseWait));
+            Intent intent = new Intent(getApplicationContext(), MapFragmentActivity.class);
+            startActivity(intent);
+        }
 
+        else{
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
+        }
+    }
 }

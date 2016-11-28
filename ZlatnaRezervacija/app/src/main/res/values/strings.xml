@@ -57,5 +57,6 @@
     <string name="datum">Datum</string>
     <string name="vrijeme">Vrijeme</string>
     <string name="remark">Napomene</string>
+    <string name="MapLoading">Učitavanje mape</string>
     <string name="Reserve">Rezerviraj</string>
 </resources>
