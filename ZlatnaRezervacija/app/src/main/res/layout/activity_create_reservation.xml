@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:inputType="text"
+                android:inputType="number"
                 android:hint="@string/datum"
                 android:textColor="@color/btnColor" />
         </android.support.design.widget.TextInputLayout>
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:inputType="text"
+                android:inputType="number"
                 android:hint="@string/vrijeme"
                 android:textColor="@color/btnColor" />
         </android.support.design.widget.TextInputLayout>
@@ -108,7 +108,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_registration"
+            android:id="@+id/btn_reserve"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
