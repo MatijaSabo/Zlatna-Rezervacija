@@ -3,8 +3,11 @@ package com.example.matija.zlatnarezervacija;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.support.annotation.IntegerRes;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -46,6 +49,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         broj_jela_input = (EditText) findViewById(R.id.input_number_of_meals);
         datum_input = (EditText) findViewById(R.id.input_date);
         vrijeme_input = (EditText) findViewById(R.id.input_time);
+        napomene_input = (EditText) findViewById(R.id.input_remark);
 
         calendar = Calendar.getInstance();
         system_day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -60,9 +64,32 @@ public class CreateReservationActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
+            case android.R.id.home:{
+                if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
+                        (datum_input.length() < 1) && (vrijeme_input.length() < 1) &&
+                        (napomene_input.length() < 1)){
+                    finish();
+                } else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
+                    builder.setCancelable(false);
+                    builder.setTitle("Odustajanje?");
+                    builder.setMessage("Jeste li sigurni da želite odustati? Podaci koje ste unijeli biti će izgubljeni");
+                    builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                        }
+                    })
+                            .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
 
+                    builder.create().show();
+                }
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -70,35 +97,67 @@ public class CreateReservationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
+                (datum_input.length() < 1) && (vrijeme_input.length() < 1) &&
+                (napomene_input.length() < 1)){
+            finish();
+        } else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
+            builder.setCancelable(false);
+            builder.setTitle("Odustajanje?");
+            builder.setMessage("Jeste li sigurni da želite odustati? Podaci koje ste unijeli biti će izgubljeni");
+            builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            })
+                    .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            builder.create().show();
+        }
     }
 
     @OnClick(R.id.btn_reserve)
     public void Click(View view){
 
+        boolean broj_osoba_validator, broj_jela_validator, datum_validator, vrijeme_validator, napomena_validator;
+
         if(broj_osoba_input.length()  < 1){
             broj_osoba_label.setErrorEnabled(true);
             broj_osoba_label.setError("Unesite broj osoba");
+            broj_osoba_validator = false;
         } else if(Integer.parseInt(broj_osoba_input.getText().toString()) < 1){
             broj_osoba_label.setErrorEnabled(true);
             broj_osoba_label.setError("Broj osoba mora biti minimalno 1");
+            broj_osoba_validator = false;
         } else{
             broj_osoba_label.setErrorEnabled(false);
+            broj_osoba_validator = true;
         }
 
         if(broj_jela_input.length()  < 1){
             broj_jela_label.setErrorEnabled(true);
             broj_jela_label.setError("Unesite broj jela");
+            broj_jela_validator = false;
         } else if(Integer.parseInt(broj_jela_input.getText().toString()) < 1){
             broj_jela_label.setErrorEnabled(true);
             broj_jela_label.setError("Broj jela mora biti minimalno 1");
+            broj_jela_validator = false;
         } else{
             broj_jela_label.setErrorEnabled(false);
+            broj_jela_validator = true;
         }
 
         if(datum_input.length() < 1){
             datum_label.setErrorEnabled(true);
             datum_label.setError("Unesite datum");
+            datum_validator = false;
         } else {
             Integer a = datum_input.getText().toString().indexOf("-");
             Integer b = datum_input.getText().toString().lastIndexOf("-");
@@ -106,6 +165,7 @@ public class CreateReservationActivity extends AppCompatActivity {
             if((a == -1) || (b == -1) || (a == b)){
                 datum_label.setErrorEnabled(true);
                 datum_label.setError("Datum nije ispravnog oblika");
+                datum_validator = false;
             } else {
                 selected_year = Integer.parseInt(datum_input.getText().toString().substring(0, a));
                 selected_month = Integer.parseInt(datum_input.getText().toString().substring(a+1, b));
@@ -115,13 +175,16 @@ public class CreateReservationActivity extends AppCompatActivity {
                         || (selected_year < 1) || (((selected_month - 2) == 0) && (selected_day > 29))){
                     datum_label.setErrorEnabled(true);
                     datum_label.setError("Datum nije ispravnog oblika");
+                    datum_validator = false;
                 } else if((system_year > selected_year) ||
                         (((system_year - selected_year) == 0) && ((system_month+1) > selected_month)) ||
                         (((system_year - selected_year) == 0) && (((system_month+1) - selected_month) == 0) && (system_day > selected_day))){
                     datum_label.setErrorEnabled(true);
                     datum_label.setError("Datum ne smije biti u prošlosti");
+                    datum_validator = false;
                 } else{
                     datum_label.setErrorEnabled(false);
+                    datum_validator = true;
                 }
             }
         }
@@ -129,6 +192,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         if(vrijeme_input.length() < 1){
             vrijeme_label.setErrorEnabled(true);
             vrijeme_label.setError("Unsetite vrijeme");
+            vrijeme_validator = false;
         } else{
             Integer a = vrijeme_input.getText().toString().indexOf(":");
             Integer b = vrijeme_input.getText().toString().lastIndexOf(":");
@@ -137,6 +201,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                     ((vrijeme_input.length() - b) < 3) || ((vrijeme_input.length() - b) > 3)){
                 vrijeme_label.setErrorEnabled(true);
                 vrijeme_label.setError("Vrijeme nije ispravnog oblika");
+                vrijeme_validator = false;
             } else{
                 selected_hour = Integer.parseInt(vrijeme_input.getText().toString().substring(0, a));
                 selected_minute = Integer.parseInt(vrijeme_input.getText().toString().substring(a+1, b));
@@ -145,10 +210,24 @@ public class CreateReservationActivity extends AppCompatActivity {
                 if( (s < 0) || (s > 60) || (selected_hour < 0) || (selected_hour > 23) || (selected_minute < 0) || (selected_minute > 59)){
                     vrijeme_label.setErrorEnabled(true);
                     vrijeme_label.setError("Vrijeme nije ispravnog oblika");
+                    vrijeme_validator = false;
                 } else{
                     vrijeme_label.setErrorEnabled(false);
+                    vrijeme_validator = true;
                 }
             }
+        }
+
+        if(napomene_input.length() > 500){
+            napomena_validator = false;
+        } else {
+            napomena_validator = true;
+        }
+
+        if(broj_osoba_validator && broj_jela_validator && datum_validator && vrijeme_validator && napomena_validator){
+            Toast.makeText(this, "Forma je prošla validaciju", Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(this, "Forma nije prošla validaciju", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -229,7 +308,4 @@ public class CreateReservationActivity extends AppCompatActivity {
     private void showDate(Integer year, Integer i, Integer day) {
         datum_input.setText(new StringBuilder().append(year).append("-").append(i).append("-").append(day));
     }
-
-
-
 }

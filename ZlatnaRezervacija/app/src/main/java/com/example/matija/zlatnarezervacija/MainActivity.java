@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             tilEmail.setError(getString(R.string.EmailError2));
             email_validate = false;
         } else {
-            tilEmail.setError(null);
+            tilEmail.setErrorEnabled(false);
             email_validate = true;
         }
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             tilPass.setError(getString(R.string.PassError));
             pass_validate = false;
         } else {
-            tilPass.setError(null);
+            tilPass.setErrorEnabled(false);
             pass_validate = true;
         }
 

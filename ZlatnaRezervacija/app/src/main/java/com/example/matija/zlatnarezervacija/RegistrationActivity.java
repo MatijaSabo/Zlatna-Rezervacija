@@ -107,7 +107,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilName.setError(getString(R.string.FirstNameError));
             name_validate=false;
         } else {
-            tilName.setError(null);
+            tilName.setErrorEnabled(false);
             first_name = first_name.replace(" ","_");
             name_validate = true;
         }
@@ -116,7 +116,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilSurname.setError(getString(R.string.LastNameError));
             surname_validate=false;
         } else {
-            tilSurname.setError(null);
+            tilSurname.setErrorEnabled(false);
             last_name = last_name.replace(" ","_");
             surname_validate = true;
         }
@@ -135,7 +135,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilEmail.setError(getString(R.string.EmailError2));
             email_validate=false;
         } else {
-            tilEmail.setError(null);
+            tilEmail.setErrorEnabled(false);
             email_validate = true;
         }
         if (phoneRegistration.getText().toString().length() == 0) {
@@ -143,7 +143,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilPhone.setError(getString(R.string.PhoneError));
             phone_validate=false;
         } else {
-            tilPhone.setError(null);
+            tilPhone.setErrorEnabled(false);
             phone_validate = true;
         }
         if (passwordRegistration.getText().toString().length() == 0) {
@@ -151,7 +151,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilPass.setError(getString(R.string.PassError));
             pass_validate=false;
         } else {
-            tilPass.setError(null);
+            tilPass.setErrorEnabled(false);
             pass_validate = true;
         }
         if (rePassRegistration.getText().toString().length() == 0) {
@@ -159,7 +159,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilRePass.setError(getString(R.string.SecondPassError));
             second_pass_validate=false;
         } else if(rePassRegistration.getText().toString().equals(passwordRegistration.getText().toString())){
-            tilRePass.setError(null);
+            tilRePass.setErrorEnabled(false);
             second_pass_validate = true;
 
             } else {

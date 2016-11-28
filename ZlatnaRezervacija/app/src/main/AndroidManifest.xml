@@ -32,7 +32,8 @@
 
         <activity android:name=".MenuCategoryActivity" />
         <activity android:name=".MenuDetailsActivity" />
-        <activity android:name=".CreateReservationActivity"></activity>
+        <activity android:name=".CreateReservationActivity"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 
