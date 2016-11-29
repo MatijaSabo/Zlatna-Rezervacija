@@ -80,6 +80,8 @@ public class MenuActivity extends AppCompatActivity {
                 checkInternetMap();
 
             } else if (item.getItemId() == R.id.menu_option5) {
+                Intent intent = new Intent(getApplicationContext(), RestaurantDetailsActivity.class);
+                startActivity(intent);
 
             } else {
 

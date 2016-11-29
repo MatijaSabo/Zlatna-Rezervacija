@@ -64,6 +64,8 @@ public class AdminMenuActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.menu_admin_option4) {
 
             } else if (item.getItemId() == R.id.menu_admin_option5) {
+                Intent intent = new Intent(getApplicationContext(), RestaurantDetailsActivity.class);
+                startActivity(intent);
 
             } else {
 
