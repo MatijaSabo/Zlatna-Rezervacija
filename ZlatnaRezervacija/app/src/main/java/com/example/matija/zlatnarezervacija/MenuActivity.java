@@ -77,7 +77,7 @@ public class MenuActivity extends AppCompatActivity {
 
             } else if (item.getItemId() == R.id.menu_option4) {
 
-                checkInternetMap();
+               Map();
 
             } else if (item.getItemId() == R.id.menu_option5) {
                 Intent intent = new Intent(getApplicationContext(), RestaurantDetailsActivity.class);
@@ -146,10 +146,10 @@ public class MenuActivity extends AppCompatActivity {
             builder.create().show();
         }
     }
-    public void checkInternetMap(){
+    public void Map(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if(cm.getActiveNetworkInfo() != null){
-    //progress = ProgressDialog.show(this, getString(R.string.MapLoading), getString(R.string.PleaseWait));
+  //  progress = ProgressDialog.show(this.getActivity(), getString(R.string.MapLoading), getString(R.string.PleaseWait));
             Intent intent = new Intent(getApplicationContext(), MapFragmentActivity.class);
             startActivity(intent);
         }

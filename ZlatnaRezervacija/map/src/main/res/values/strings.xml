@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Map</string>
-    <string name="map_id">AIzaSyB0AtSK-Vsgd1yZHVFqJ526VcbRRe9EIRY</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCK6834-96ear3cTS_JiWq7CR1G9kkFb5A</string>
+    <string name="title_activity_maps">Lokacija</string>
 </resources>
