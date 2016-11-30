@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,8 +17,10 @@ import com.google.android.gms.maps.GoogleMap;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -52,10 +56,33 @@ public class MapFragmentActivity extends AppCompatActivity implements  OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         progress.dismiss();
         gMap = googleMap;
-        LatLng ZlatneGorice = new LatLng(46.235996,16.402431);
-        gMap.addMarker(new MarkerOptions().position(ZlatneGorice).title("Zlatne gorice"));
-        gMap.getUiSettings().setMapToolbarEnabled(false);
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ZlatneGorice, 10));
+        if(gMap != null ){
+            gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter(){
+
+                @Override
+                public View getInfoWindow(Marker marker) {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker) {
+                    View v = getLayoutInflater().inflate(R.layout.marker_info,null);
+                    TextView markerInfoTittle = (TextView) v.findViewById(R.id.markerInfoTittle);
+                    TextView markerInfoAdress = (TextView) v.findViewById(R.id.markerInfoAdress);
+                    TextView markerInfoAdressCity = (TextView) v.findViewById(R.id.markerInfoAdressCity);
+                    markerInfoTittle.setText(R.string.markerInfoTittle);
+                    markerInfoAdress.setText(R.string.markerInfoAdress);
+                    markerInfoAdressCity.setText(R.string.markerInfoAdressCity);
+                    return v;
+                }
+            });
+            LatLng ZlatneGorice = new LatLng(46.235996,16.402431);
+            gMap.addMarker(new MarkerOptions().position(ZlatneGorice)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            gMap.getUiSettings().setMapToolbarEnabled(false);
+            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ZlatneGorice, 10));
+        }
+
 
 
     }

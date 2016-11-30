@@ -4,4 +4,7 @@
     <string name="title_activity_maps">Lokacija</string>
     <string name="PleaseWait">Molimo pričekajte</string>
     <string name="MapLoading">Učitavanje mape</string>
+    <string name="markerInfoTittle">Restoran Zlatne Gorice</string>
+    <string name="markerInfoAdress">Banjščina 104, Varaždin Breg</string>
+    <string name="markerInfoAdressCity">42204 Turčin</string>
 </resources>
