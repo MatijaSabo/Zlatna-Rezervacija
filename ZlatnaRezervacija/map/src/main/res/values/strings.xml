@@ -2,4 +2,6 @@
     <string name="app_name">Map</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCK6834-96ear3cTS_JiWq7CR1G9kkFb5A</string>
     <string name="title_activity_maps">Lokacija</string>
+    <string name="PleaseWait">Molimo pričekajte</string>
+    <string name="MapLoading">Učitavanje mape</string>
 </resources>

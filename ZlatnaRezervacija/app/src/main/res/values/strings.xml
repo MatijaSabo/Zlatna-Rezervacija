@@ -43,6 +43,7 @@
     <string name="EqualsPassError">Unesite jednake lozinke</string>
     <string name="LoginInProgres">Prijava u tijeku</string>
     <string name="PleaseWait">Molimo pričekajte</string>
+    <string name="MapLoading">Učitavanje mape</string>
     <string name="RegistrationInProgress">Registracija u tijeku</string>
     <string name="LogoutToastText">Uspješna odjava iz sustava</string>
     <string name="AppName_AppVersion">Zlatna Rezervacija - Verzija 1.2</string>
@@ -57,6 +58,5 @@
     <string name="datum">Datum</string>
     <string name="vrijeme">Vrijeme</string>
     <string name="remark">Napomene</string>
-    <string name="MapLoading">Učitavanje mape</string>
     <string name="Reserve">Rezerviraj</string>
 </resources>

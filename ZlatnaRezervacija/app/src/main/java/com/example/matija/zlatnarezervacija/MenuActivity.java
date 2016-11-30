@@ -149,11 +149,9 @@ public class MenuActivity extends AppCompatActivity {
     public void Map(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if(cm.getActiveNetworkInfo() != null){
-  //  progress = ProgressDialog.show(this.getActivity(), getString(R.string.MapLoading), getString(R.string.PleaseWait));
             Intent intent = new Intent(getApplicationContext(), MapFragmentActivity.class);
             startActivity(intent);
         }
-
         else{
             Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
         }

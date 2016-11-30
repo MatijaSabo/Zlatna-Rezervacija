@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.matija.zlatnarezervacija.MenuActivity;
 import static android.R.id.toggle;
 
 public class AdminMenuActivity extends AppCompatActivity {
@@ -62,7 +62,8 @@ public class AdminMenuActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.menu_admin_option3) {
 
             } else if (item.getItemId() == R.id.menu_admin_option4) {
-
+                MenuActivity activity = new MenuActivity();
+                activity.Map();
             } else if (item.getItemId() == R.id.menu_admin_option5) {
                 Intent intent = new Intent(getApplicationContext(), RestaurantDetailsActivity.class);
                 startActivity(intent);
