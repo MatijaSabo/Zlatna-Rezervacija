@@ -5,25 +5,31 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="220dp"
-        android:layout_height="100dp"
+        android:layout_width="175dp"
+        android:layout_height="120dp"
         android:id="@+id/markerInfoImage"
         android:src="@drawable/slikazlatnihgorici"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/markerInfoTittle"
-            android:textSize="20sp"
-            android:padding="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/markerInfoAdress"
-            android:paddingLeft="25dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/markerInfoAdressCity"
-            android:paddingLeft="25dp"
-            android:paddingBottom="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/markerInfoTittle"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/markerInfoAdress"
+        android:textSize="10sp"
+        android:paddingLeft="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/markerInfoAdressCity"
+        android:paddingLeft="15dp"
+        android:textSize="10sp"
+        android:paddingBottom="10dp"/>
 </LinearLayout>
