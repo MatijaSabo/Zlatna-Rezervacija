@@ -27,7 +27,8 @@
         <activity android:name=".MenuDetailsActivity" />
         <activity
             android:name=".CreateReservationActivity"
-            android:screenOrientation="portrait" />
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden" />
         <activity android:name=".RestaurantDetailsActivity"></activity>
     </application>
 

@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,11 +32,12 @@ public class CreateReservationActivity extends AppCompatActivity {
     String name_intent, id_intent;
 
     TextInputLayout broj_osoba_label, broj_jela_label, datum_label, vrijeme_label;
-    EditText broj_osoba_input, broj_jela_input, datum_input, vrijeme_input, napomene_input;
+    EditText broj_osoba_input, broj_jela_input, napomene_input;
+    TextView datum_input, vrijeme_input;
 
     private Calendar calendar;
-    private Integer day, month, year, system_day, system_month, system_year, selected_day, selected_month, selected_year;
-    private int minute, hour, selected_minute, selected_hour, system_minute, sysetem_hour;
+    private Integer system_day, system_month, system_year;
+    private Integer system_minute, sysetem_hour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,11 @@ public class CreateReservationActivity extends AppCompatActivity {
 
         broj_osoba_label = (TextInputLayout) findViewById(R.id.textinputlayout_persons);
         broj_jela_label = (TextInputLayout) findViewById(R.id.textinputlayout_meals);
-        datum_label = (TextInputLayout) findViewById(R.id.textinputlayout_date);
-        vrijeme_label = (TextInputLayout) findViewById(R.id.textinputlayout_time);
 
         broj_osoba_input = (EditText) findViewById(R.id.input_number_of_persons);
         broj_jela_input = (EditText) findViewById(R.id.input_number_of_meals);
-        datum_input = (EditText) findViewById(R.id.input_date);
-        vrijeme_input = (EditText) findViewById(R.id.input_time);
+        datum_input = (TextView) findViewById(R.id.input_date);
+        vrijeme_input = (TextView) findViewById(R.id.input_time);
         napomene_input = (EditText) findViewById(R.id.input_remark);
 
         calendar = Calendar.getInstance();
@@ -73,14 +73,15 @@ public class CreateReservationActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:{
                 if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
-                        (datum_input.length() < 1) && (vrijeme_input.length() < 1) &&
+                        (datum_input.getText().toString().equals("Datum nije odabran")) &&
+                        (vrijeme_input.getText().toString().equals("Vrijeme nije odabrano")) &&
                         (napomene_input.length() < 1)){
                     finish();
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
                     builder.setCancelable(false);
-                    builder.setTitle("Odustajanje?");
-                    builder.setMessage("Jeste li sigurni da želite odustati? Podaci koje ste unijeli biti će izgubljeni");
+                    builder.setTitle("Povratak");
+                    builder.setMessage("Jeste li sigurni da se želite vratiti? Promjene koje ste napravili neće biti spremljene.");
                     builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
@@ -104,14 +105,15 @@ public class CreateReservationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
-                (datum_input.length() < 1) && (vrijeme_input.length() < 1) &&
+                (datum_input.getText().toString().equals("Datum nije odabran")) &&
+                (vrijeme_input.getText().toString().equals("Vrijeme nije odabrano")) &&
                 (napomene_input.length() < 1)){
             finish();
         } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
             builder.setCancelable(false);
-            builder.setTitle("Odustajanje?");
-            builder.setMessage("Jeste li sigurni da želite odustati? Podaci koje ste unijeli biti će izgubljeni");
+            builder.setTitle("Povratak");
+            builder.setMessage("Jeste li sigurni da se želite vratiti? Promjene koje ste napravili neće biti spremljene.");
             builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -160,68 +162,20 @@ public class CreateReservationActivity extends AppCompatActivity {
             broj_jela_validator = true;
         }
 
-        if(datum_input.length() < 1){
-            datum_label.setErrorEnabled(true);
-            datum_label.setError("Unesite datum");
+        if(datum_input.getText().toString().equals("Datum nije odabran")){
+            datum_input.setTextColor(getResources().getColor(R.color.errorColor));
+            datum_input.setText("Datum nije odabran");
             datum_validator = false;
         } else {
-            Integer a = datum_input.getText().toString().indexOf("-");
-            Integer b = datum_input.getText().toString().lastIndexOf("-");
-
-            if((a == -1) || (b == -1) || (a == b)){
-                datum_label.setErrorEnabled(true);
-                datum_label.setError("Datum nije ispravnog oblika");
-                datum_validator = false;
-            } else {
-                selected_year = Integer.parseInt(datum_input.getText().toString().substring(0, a));
-                selected_month = Integer.parseInt(datum_input.getText().toString().substring(a+1, b));
-                selected_day = Integer.parseInt(datum_input.getText().toString().substring(b+1, datum_input.length()));
-
-                if((selected_year > 2100) || (selected_month > 12) || (selected_month < 1) || (selected_day < 1) || (selected_day > 31)
-                        || (selected_year < 1) || (((selected_month - 2) == 0) && (selected_day > 29))){
-                    datum_label.setErrorEnabled(true);
-                    datum_label.setError("Datum nije ispravnog oblika");
-                    datum_validator = false;
-                } else if((system_year > selected_year) ||
-                        (((system_year - selected_year) == 0) && ((system_month+1) > selected_month)) ||
-                        (((system_year - selected_year) == 0) && (((system_month+1) - selected_month) == 0) && (system_day > selected_day))){
-                    datum_label.setErrorEnabled(true);
-                    datum_label.setError("Datum ne smije biti u prošlosti");
-                    datum_validator = false;
-                } else{
-                    datum_label.setErrorEnabled(false);
-                    datum_validator = true;
-                }
-            }
+            datum_validator = true;
         }
 
-        if(vrijeme_input.length() < 1){
-            vrijeme_label.setErrorEnabled(true);
-            vrijeme_label.setError("Unsetite vrijeme");
+        if(vrijeme_input.getText().toString().equals("Vrijeme nije odabrano")){
+            vrijeme_input.setTextColor(getResources().getColor(R.color.errorColor));
+            vrijeme_input.setText("Vrijeme nije odabrano");
             vrijeme_validator = false;
         } else{
-            Integer a = vrijeme_input.getText().toString().indexOf(":");
-            Integer b = vrijeme_input.getText().toString().lastIndexOf(":");
-
-            if((a == -1) || (b == -1) || (a == b) ||(a > 2) || ((b-a) > 3) || (a == 0) || ((b-a) == 1) ||
-                    ((vrijeme_input.length() - b) < 3) || ((vrijeme_input.length() - b) > 3)){
-                vrijeme_label.setErrorEnabled(true);
-                vrijeme_label.setError("Vrijeme nije ispravnog oblika");
-                vrijeme_validator = false;
-            } else{
-                selected_hour = Integer.parseInt(vrijeme_input.getText().toString().substring(0, a));
-                selected_minute = Integer.parseInt(vrijeme_input.getText().toString().substring(a+1, b));
-                Integer s = Integer.parseInt(vrijeme_input.getText().toString().substring(b+1, vrijeme_input.length()));
-
-                if( (s < 0) || (s > 60) || (selected_hour < 0) || (selected_hour > 23) || (selected_minute < 0) || (selected_minute > 59)){
-                    vrijeme_label.setErrorEnabled(true);
-                    vrijeme_label.setError("Vrijeme nije ispravnog oblika");
-                    vrijeme_validator = false;
-                } else{
-                    vrijeme_label.setErrorEnabled(false);
-                    vrijeme_validator = true;
-                }
-            }
+            vrijeme_validator = true;
         }
 
         if(napomene_input.length() > 500){
@@ -238,9 +192,10 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     private void createReservation() {
-        String string = "<p>Ukoliko su svi podaci točni pritisnite OK kako bi podnijeli rezervaciju</p><b>Ime i prezime: </b>" + name_intent + "<br><b>Broj osoba: </b>" + broj_osoba_input.getText()
-                + "<br><b>Broj jela: </b>" + broj_jela_input.getText() + "<br><b>Datum: </b>" + datum_input.getText()
-                + "<br><b>Vrijeme: </b>" + vrijeme_input.getText() + "<br><b>Napomene: </b>" + napomene_input.getText()
+        String string = "<p>Slanje rezervacije sa ovim podacima?</p>"
+                + "<b>Ime i prezime: </b>" + name_intent + "<br><b>Datum: </b>" + datum_input.getText()
+                + "<br><b>Vrijeme: </b>" + vrijeme_input.getText() + "<br><b>Broj osoba: </b>" + broj_osoba_input.getText()
+                + "<br><b>Broj jela: </b>" + broj_jela_input.getText() +  "<br><b>Napomene: </b>" + napomene_input.getText()
                 + "<br><b>Obavijest: </b><br><br><i>Za promjenu načina primanja obavijsti posjesite postavke aplikacije</i>";
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
@@ -248,7 +203,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         if (cm.getActiveNetworkInfo() != null) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
             builder.setCancelable(true);
-            builder.setTitle("Vaša rezervacija");
+            builder.setTitle("Rezervacija");
             builder.setMessage(Html.fromHtml(string));
             builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                 @Override
@@ -268,61 +223,34 @@ public class CreateReservationActivity extends AppCompatActivity {
         }
     }
 
-    @OnFocusChange(R.id.input_date)
-    public void Date_Focus(View view){
-        if(datum_input.isFocused()){
-
-            calendar = Calendar.getInstance();
-            day = calendar.get(Calendar.DAY_OF_MONTH);
-            month = calendar.get(Calendar.MONTH);
-            year = calendar.get(Calendar.YEAR);
-
-            showDialog(999);
-        }
-    }
-
-    @OnFocusChange(R.id.input_time)
-    public void Time_Focus(View view){
-        if(vrijeme_input.isFocused()){
-            calendar = Calendar.getInstance();
-            minute = calendar.get(Calendar.MINUTE);
-            hour = calendar.get(Calendar.HOUR_OF_DAY);
-
-            showDialog(998);
-        }
-    }
-
-
-    @OnClick(R.id.input_date)
+    @OnClick(R.id.input_date_button)
     public void Date_Click(View view){
-        calendar = Calendar.getInstance();
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
-
         showDialog(999);
     }
 
-    @OnClick(R.id.input_time)
+    @OnClick(R.id.input_time_button)
     public void Time_Click(View view){
-        calendar = Calendar.getInstance();
-        minute = calendar.get(Calendar.MINUTE);
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-
         showDialog(998);
     }
 
     @Override
     protected Dialog onCreateDialog(int id) {
         if(id == 999){
-            return new DatePickerDialog(this, myDateListener, year, month, day);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(CreateReservationActivity.this, myDateListener, system_year, system_month, system_day);
+            datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+            datePickerDialog.setTitle(null);
+            return datePickerDialog;
         }
 
         if(id == 998){
-            return  new TimePickerDialog(this, myTimeListener, hour, minute, true);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(CreateReservationActivity.this, myTimeListener, sysetem_hour, system_minute, true);
+            timePickerDialog.setTitle(null);
+            return timePickerDialog;
         }
         return null;
     }
+
+
 
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener(){
         @Override
@@ -339,10 +267,17 @@ public class CreateReservationActivity extends AppCompatActivity {
     };
 
     private void showTime(Integer sati, Integer minute) {
-        vrijeme_input.setText(new StringBuilder().append(sati).append(":").append(minute).append(":00"));
+        vrijeme_input.setTextColor(getResources().getColor(R.color.btnColor));
+        vrijeme_input.setText(new StringBuilder().append(sati).append(" : ").append(minute).append(" : 00"));
     }
 
     private void showDate(Integer year, Integer i, Integer day) {
-        datum_input.setText(new StringBuilder().append(year).append("-").append(i).append("-").append(day));
+        datum_input.setTextColor(getResources().getColor(R.color.btnColor));
+        datum_input.setText(new StringBuilder().append(year).append(" - ").append(i).append(" - ").append(day));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }
