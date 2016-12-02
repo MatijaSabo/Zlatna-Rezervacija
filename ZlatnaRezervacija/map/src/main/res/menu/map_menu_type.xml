@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MapFragmentActivity">
+
+        <item android:id="@+id/menuTypeNormal"
+            android:title="@string/menuTypeNormal" />
+        <item android:id="@+id/menuTypeTerrain"
+            android:title="@string/menuTypeTerrain" />
+        <item android:id="@+id/menuTypeSatellite"
+            android:title="@string/menuTypeSatellite" />
+        <item android:id="@+id/menuTypeHybrid"
+            android:title="@string/menuTypeHybrid" />
+
+</menu>

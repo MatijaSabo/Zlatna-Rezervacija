@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="100dp"
+        android:layout_width="220dp"
         android:layout_height="100dp"
         android:id="@+id/markerInfoImage"
-        android:src="@drawable/zlatnegorice"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:src="@drawable/slikazlatnihgorici"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/markerInfoTittle"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:padding="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/markerInfoAdress"/>
+            android:id="@+id/markerInfoAdress"
+            android:paddingLeft="25dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/markerInfoAdressCity"
-            />
-
-    </LinearLayout>
-
+            android:paddingLeft="25dp"
+            android:paddingBottom="15dp"/>
 </LinearLayout>

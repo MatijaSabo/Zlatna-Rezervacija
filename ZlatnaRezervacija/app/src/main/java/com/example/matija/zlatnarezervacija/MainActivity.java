@@ -4,9 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Uri;
-import android.provider.ContactsContract;
-import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -19,14 +16,9 @@ import android.widget.Toast;
 
 import com.example.webservice.DataLoadedListener;
 import com.example.webservice.DataLoader;
-import com.example.webservice.WebServiceCaller;
-import com.example.webservice.WebServiceHandler;
 import com.example.webservice.WebServiceResponse;
 import com.example.webservice.WsDataLoader;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

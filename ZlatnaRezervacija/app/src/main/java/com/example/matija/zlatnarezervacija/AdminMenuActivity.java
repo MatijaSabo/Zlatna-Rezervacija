@@ -2,6 +2,7 @@ package com.example.matija.zlatnarezervacija;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.matija.zlatnarezervacija.MenuActivity;
+
+import com.example.map.MapFragmentActivity;
+
 import static android.R.id.toggle;
 
 public class AdminMenuActivity extends AppCompatActivity {
@@ -62,8 +65,7 @@ public class AdminMenuActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.menu_admin_option3) {
 
             } else if (item.getItemId() == R.id.menu_admin_option4) {
-                MenuActivity activity = new MenuActivity();
-                activity.Map();
+               Map();
             } else if (item.getItemId() == R.id.menu_admin_option5) {
                 Intent intent = new Intent(getApplicationContext(), RestaurantDetailsActivity.class);
                 startActivity(intent);
@@ -129,6 +131,16 @@ public class AdminMenuActivity extends AppCompatActivity {
                     });
 
             builder.create().show();
+        }
+    }
+    public void Map(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if(cm.getActiveNetworkInfo() != null){
+            Intent intent = new Intent(getApplicationContext(), MapFragmentActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
         }
     }
 }

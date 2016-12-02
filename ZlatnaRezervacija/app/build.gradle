@@ -35,6 +35,6 @@ dependencies {
     compile project (':webservice')
     compile project (':map')
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+
 
 }

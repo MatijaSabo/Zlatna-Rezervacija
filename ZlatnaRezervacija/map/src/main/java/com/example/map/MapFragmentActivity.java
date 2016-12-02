@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,17 +42,6 @@ public class MapFragmentActivity extends AppCompatActivity implements  OnMapRead
         mapFragment.getMapAsync(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.title_activity_maps);
-
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
@@ -82,9 +74,31 @@ public class MapFragmentActivity extends AppCompatActivity implements  OnMapRead
             gMap.getUiSettings().setMapToolbarEnabled(false);
             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ZlatneGorice, 10));
         }
-
-
-
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.map_menu_type,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getTitle()==getString(R.string.menuTypeNormal)){
+            gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        } if(item.getTitle()==getString(R.string.menuTypeTerrain)){
+            gMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        } if(item.getTitle()==getString(R.string.menuTypeHybrid)){
+            gMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        } if(item.getTitle()==getString(R.string.menuTypeSatellite)){
+            gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        }
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
