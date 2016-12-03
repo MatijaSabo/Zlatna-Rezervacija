@@ -5,13 +5,14 @@ package com.example.webservice;
  */
 
 public class ReservationItemDetails {
+
     public String id;
     public String persons;
     public String meals;
-    public String status;
+    public int status;
     public String remark;
     public String description;
-    public String data;
+    public String date;
     public String time_arrival;
     public String time_checkout;
     public ReservationTableItemDetails[] tables;
@@ -40,15 +41,18 @@ public class ReservationItemDetails {
         this.meals = meals;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
     public String getRemark() {
+        if(remark==null){
+            remark="Nema napomena";
+        }
         return remark;
     }
 
@@ -57,6 +61,9 @@ public class ReservationItemDetails {
     }
 
     public String getDescription() {
+        if(description==null){
+            description="Nema opisa";
+        }
         return description;
     }
 
@@ -64,12 +71,12 @@ public class ReservationItemDetails {
         this.description = description;
     }
 
-    public String getData() {
-        return data;
+    public String getDate() {
+        return date;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime_arrival() {
@@ -81,12 +88,16 @@ public class ReservationItemDetails {
     }
 
     public String getTime_checkout() {
+        if(time_checkout==null){
+            time_checkout="Nije definirano";
+        }
         return time_checkout;
     }
 
     public void setTime_checkout(String time_checkout) {
         this.time_checkout = time_checkout;
     }
+
 
     public ReservationTableItemDetails[] getTables() {
         return tables;

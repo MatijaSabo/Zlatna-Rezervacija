@@ -1,9 +1,13 @@
 package com.example.matija.zlatnarezervacija;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import com.example.matija.zlatnarezervacija.adapters.UserReservationsRecycleAdapter;
 import com.example.webservice.DataLoadedListener;
 import com.example.webservice.DataLoader;
 import com.example.webservice.ReservationItemDetails;
@@ -14,6 +18,8 @@ import java.util.ArrayList;
 
 public class UserReservationsActivity extends AppCompatActivity implements DataLoadedListener{
     String user;
+    private RecyclerView recyclerView;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,12 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         ReservationItemDetails[] items = (ReservationItemDetails[]) DataArrived.getReservations();
         ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
         for (ReservationItemDetails m: items) { item.add(m); }
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new UserReservationsRecycleAdapter(item));
+
+        progress.dismiss();
+
 
     }
 }
