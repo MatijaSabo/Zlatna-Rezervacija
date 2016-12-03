@@ -25,6 +25,10 @@ public abstract class DataLoader {
         this.mDataLoadedListner = dataLoadedListener;
     }
 
+    public void loadReservationCreateStatus(DataLoadedListener dataLoadedListener, int user, int persons, String date, String time, int meals, String remark){
+        this.mDataLoadedListner = dataLoadedListener;
+    }
+
     public boolean dataLoaded(){
         if(result == null){
             return false;

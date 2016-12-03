@@ -27,4 +27,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("reservations_user.php")
     Call<WebServiceReservationResponse> getMyReservations(@Field("user") String user);
+
+    @FormUrlEncoded
+    @POST("create_reservation.php")
+    Call<WebServiceResponseRegistration> createReservation(@Field("user") int user, @Field("persons") int persons, @Field("date") String date, @Field("time") String time, @Field("meals") int meals, @Field("remark") String remark);
 }

@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class WebServiceResponseRegistration {
-  //  @SerializedName("status")
     public String status;
     public String getStatus() {
         return status;

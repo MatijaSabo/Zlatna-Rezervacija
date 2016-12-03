@@ -2,11 +2,11 @@ package com.example.matija.zlatnarezervacija;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
-import android.support.annotation.IntegerRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,24 +20,31 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.webservice.DataLoadedListener;
+import com.example.webservice.DataLoader;
+import com.example.webservice.WebServiceResponseRegistration;
+import com.example.webservice.WsCreateReservationDataLoader;
+
 import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
 
-public class CreateReservationActivity extends AppCompatActivity {
+public class CreateReservationActivity extends AppCompatActivity implements DataLoadedListener{
 
     String name_intent, id_intent;
+    String napomene;
 
-    TextInputLayout broj_osoba_label, broj_jela_label, datum_label, vrijeme_label;
+    TextInputLayout broj_osoba_label, broj_jela_label;
     EditText broj_osoba_input, broj_jela_input, napomene_input;
     TextView datum_input, vrijeme_input;
 
     private Calendar calendar;
     private Integer system_day, system_month, system_year;
     private Integer system_minute, sysetem_hour;
+
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,11 +199,18 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     private void createReservation() {
+        
+        if(napomene_input.getText().length() > 0){
+            napomene = napomene_input.getText().toString();
+        } else {
+            napomene = "Nema napomena";
+        }
+        
         String string = "<p>Slanje rezervacije sa ovim podacima?</p>"
                 + "<b>Ime i prezime: </b>" + name_intent + "<br><b>Datum: </b>" + datum_input.getText()
                 + "<br><b>Vrijeme: </b>" + vrijeme_input.getText() + "<br><b>Broj osoba: </b>" + broj_osoba_input.getText()
-                + "<br><b>Broj jela: </b>" + broj_jela_input.getText() +  "<br><b>Napomene: </b>" + napomene_input.getText()
-                + "<br><b>Obavijest: </b><br><br><i>Za promjenu načina primanja obavijsti posjesite postavke aplikacije</i>";
+                + "<br><b>Broj jela: </b>" + broj_jela_input.getText() +  "<br><b>Napomene: </b>" + napomene
+                + "<br><b>Obavijest: </b><br><br><i>Za promjenu načina primanja obavijesti posjetite postavke aplikacije</i>";
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
 
@@ -208,7 +222,8 @@ public class CreateReservationActivity extends AppCompatActivity {
             builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    Toast.makeText(getApplication(), "Šaljem rezervaciju", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                    sendReservation();
                 }
             })
                     .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
@@ -250,8 +265,6 @@ public class CreateReservationActivity extends AppCompatActivity {
         return null;
     }
 
-
-
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener(){
         @Override
         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -279,5 +292,31 @@ public class CreateReservationActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    private void sendReservation() {
+        dialog = ProgressDialog.show(this, "Slanje rezervacije u tijeku", getString(R.string.PleaseWait));
+
+        int broj_osoba = Integer.parseInt(broj_osoba_input.getText().toString());
+        int broj_jela = Integer.parseInt(broj_jela_input.getText().toString());
+        int user_id = Integer.parseInt(id_intent);
+
+        DataLoader dataLoader;
+        dataLoader = new WsCreateReservationDataLoader();
+        dataLoader.loadReservationCreateStatus(this, user_id, broj_osoba, datum_input.getText().toString(), vrijeme_input.getText().toString(), broj_jela, napomene);
+    }
+
+    @Override
+    public void onDataLoaded(Object result) {
+        WebServiceResponseRegistration Wsresult = (WebServiceResponseRegistration) result;
+
+        dialog.dismiss();
+
+        if(Wsresult.getStatus().equals("1")){
+            Toast.makeText(this, "Vaša rezervacija je uspješno kreirana", Toast.LENGTH_SHORT).show();
+            finish();
+        } else{
+            Toast.makeText(this, "Slanje rezervacije nije uspjelo, pokušajte ponovo...", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -24,9 +24,7 @@ public class WebServiceCaller extends AppCompatActivity {
     WebServiceHandler mWebServiceHandler;
 
     private final String baseUrl = "https://barka.foi.hr/WebDiP/2015_projekti/WebDiP2015x070/zlatna_rezervacija/";
-    //ButterKnife.bind(this);
 
-    // constructor
     public WebServiceCaller(WebServiceHandler webServiceHandler) {
         this.mWebServiceHandler = webServiceHandler;
         OkHttpClient client = new OkHttpClient();
@@ -131,7 +129,35 @@ public class WebServiceCaller extends AppCompatActivity {
 
             }
         });
+    }
 
+    public void sendReservationRequest(final int user, final int persons, final String date, final String time, final int meals, final String remark){
+        WebService serviceCaller=retrofit.create(WebService.class);
+        retrofit.Call<WebServiceResponseRegistration> call=serviceCaller.createReservation(user, persons, date, time, meals, remark);
+        call.enqueue(new Callback<WebServiceResponseRegistration>() {
+            @Override
+            public void onResponse(Response<WebServiceResponseRegistration> response, Retrofit retrofit) {
+                try {
+                    if(response.isSuccess()){
+                        System.out.println("--- Status rezervacije ---");
+                        System.out.println(response.body().getStatus());
+                        handleCreateReservationResponse((WebServiceResponseRegistration) response.body());
+                    }
+                }catch (Exception ex){
+                    System.out.println(ex);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
+    private void handleCreateReservationResponse(WebServiceResponseRegistration response) {
+        if(mWebServiceHandler != null){
+            mWebServiceHandler.onDataArrived(response, true);
+        }
     }
 
     private void handleResponse(WebServiceResponse response) {
@@ -146,9 +172,6 @@ public class WebServiceCaller extends AppCompatActivity {
     }
 
     private void handleMenuDataResponse(WebServiceMenuResponse response){
-
-        Gson gson = new Gson();
-        //MenuItem[] Items = gson.fromJson(re, MenuItem.class);
 
         if(mWebServiceHandler != null) {
             mWebServiceHandler.onDataArrived(response, true);
