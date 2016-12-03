@@ -19,56 +19,43 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <LinearLayout
+        <!-- Datum input -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="150dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_date"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_date"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Odaberite datum"
-                android:id="@+id/input_date_button"
-                android:background="@color/btnColor"
-                android:textColor="@color/btnColorText"/>
+                android:fontFamily="sans-serif"
+                android:clickable="true"
+                android:inputType="none"
+                android:focusableInTouchMode="false"
+                android:hint="@string/datum"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Datum nije odabran"
-                android:freezesText="true"
-                android:id="@+id/input_date"
-                android:textSize="15sp"
-                android:paddingLeft="20dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <!-- Vrijeme input -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="150dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/textinputlayout_time"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_time"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Odaberite vrijeme"
-                android:id="@+id/input_time_button"
-                android:background="@color/btnColor"
-                android:textColor="@color/btnColorText"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vrijeme nije odabrano"
-                android:freezesText="true"
-                android:id="@+id/input_time"
-                android:textSize="15sp"
-                android:paddingLeft="20dp"/>
-
-        </LinearLayout>
+                android:fontFamily="sans-serif"
+                android:clickable="true"
+                android:inputType="none"
+                android:focusableInTouchMode="false"
+                android:hint="@string/vrijeme"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
 
         <!-- Broj osoba label -->
         <android.support.design.widget.TextInputLayout

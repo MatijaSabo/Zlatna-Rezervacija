@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -36,9 +35,8 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     String name_intent, id_intent;
     String napomene;
 
-    TextInputLayout broj_osoba_label, broj_jela_label;
-    EditText broj_osoba_input, broj_jela_input, napomene_input;
-    TextView datum_input, vrijeme_input;
+    TextInputLayout broj_osoba_label, broj_jela_label, datum_label, vrijeme_label;
+    EditText broj_osoba_input, broj_jela_input, napomene_input, datum_input, vrijeme_input;
 
     private Calendar calendar;
     private Integer system_day, system_month, system_year;
@@ -58,11 +56,13 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         broj_osoba_label = (TextInputLayout) findViewById(R.id.textinputlayout_persons);
         broj_jela_label = (TextInputLayout) findViewById(R.id.textinputlayout_meals);
+        datum_label = (TextInputLayout) findViewById(R.id.textinputlayout_date);
+        vrijeme_label = (TextInputLayout) findViewById(R.id.textinputlayout_time);
 
         broj_osoba_input = (EditText) findViewById(R.id.input_number_of_persons);
         broj_jela_input = (EditText) findViewById(R.id.input_number_of_meals);
-        datum_input = (TextView) findViewById(R.id.input_date);
-        vrijeme_input = (TextView) findViewById(R.id.input_time);
+        datum_input = (EditText) findViewById(R.id.input_date);
+        vrijeme_input = (EditText) findViewById(R.id.input_time);
         napomene_input = (EditText) findViewById(R.id.input_remark);
 
         calendar = Calendar.getInstance();
@@ -115,6 +115,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
                 (datum_input.getText().toString().equals("Datum nije odabran")) &&
                 (vrijeme_input.getText().toString().equals("Vrijeme nije odabrano")) &&
                 (napomene_input.length() < 1)){
+
             finish();
         } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
@@ -169,19 +170,21 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
             broj_jela_validator = true;
         }
 
-        if(datum_input.getText().toString().equals("Datum nije odabran")){
-            datum_input.setTextColor(getResources().getColor(R.color.errorColor));
-            datum_input.setText("Datum nije odabran");
+        if(datum_input.length() < 1){
+            datum_label.setErrorEnabled(true);
+            datum_label.setError("Unesite datum");
             datum_validator = false;
         } else {
+            datum_label.setErrorEnabled(false);
             datum_validator = true;
         }
 
-        if(vrijeme_input.getText().toString().equals("Vrijeme nije odabrano")){
-            vrijeme_input.setTextColor(getResources().getColor(R.color.errorColor));
-            vrijeme_input.setText("Vrijeme nije odabrano");
+        if(vrijeme_input.length() < 1){
+            vrijeme_label.setErrorEnabled(true);
+            vrijeme_label.setError("Unesite vrijeme");
             vrijeme_validator = false;
         } else{
+            vrijeme_label.setErrorEnabled(false);
             vrijeme_validator = true;
         }
 
@@ -193,8 +196,6 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         if(broj_osoba_validator && broj_jela_validator && datum_validator && vrijeme_validator && napomena_validator){
             createReservation();
-        } else{
-            Toast.makeText(this, "Forma nije prošla validaciju", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -238,12 +239,12 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         }
     }
 
-    @OnClick(R.id.input_date_button)
+    @OnClick(R.id.input_date)
     public void Date_Click(View view){
         showDialog(999);
     }
 
-    @OnClick(R.id.input_time_button)
+    @OnClick(R.id.input_time)
     public void Time_Click(View view){
         showDialog(998);
     }
