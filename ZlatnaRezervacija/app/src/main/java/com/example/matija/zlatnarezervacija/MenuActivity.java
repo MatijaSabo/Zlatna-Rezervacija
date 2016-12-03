@@ -74,6 +74,9 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
 
             } else if (item.getItemId() == R.id.menu_option3) {
+                Intent intent = new Intent(getApplicationContext(), UserReservationsActivity.class);
+                intent.putExtra("user_id", user_intent);
+                startActivity(intent);
 
             } else if (item.getItemId() == R.id.menu_option4) {
 

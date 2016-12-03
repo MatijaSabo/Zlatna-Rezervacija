@@ -23,4 +23,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("menu.php")
     Call<WebServiceMenuResponse> getMenuData(@Field("category") String category);
+
+    @FormUrlEncoded
+    @POST("reservations_user.php")
+    Call<WebServiceReservationResponse> getMyReservations(@Field("user") String user);
 }

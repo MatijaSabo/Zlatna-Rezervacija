@@ -21,6 +21,10 @@ public abstract class DataLoader {
         this.mDataLoadedListner = dataLoadedListener;
     }
 
+    public void loadDataMyReservations(DataLoadedListener dataLoadedListener, String user){
+        this.mDataLoadedListner = dataLoadedListener;
+    }
+
     public boolean dataLoaded(){
         if(result == null){
             return false;
