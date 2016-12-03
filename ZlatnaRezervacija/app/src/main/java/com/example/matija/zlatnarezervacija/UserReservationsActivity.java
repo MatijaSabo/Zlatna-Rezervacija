@@ -52,6 +52,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
         for (ReservationItemDetails m: items) { item.add(m); }
 
+        recyclerView = (RecyclerView) findViewById(R.id.my_reservations);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new UserReservationsRecycleAdapter(item));
 
