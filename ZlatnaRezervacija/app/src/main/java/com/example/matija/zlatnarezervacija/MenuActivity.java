@@ -1,7 +1,5 @@
 package com.example.matija.zlatnarezervacija;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -20,10 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.map.MapFragmentActivity;
-import com.example.webservice.DataLoader;
-import com.example.webservice.WsDataRegistrationLoader;
-
-import static android.R.id.progress;
 
 public class MenuActivity extends AppCompatActivity {
 
