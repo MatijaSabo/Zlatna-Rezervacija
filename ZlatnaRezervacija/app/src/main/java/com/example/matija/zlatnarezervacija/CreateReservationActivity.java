@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -12,10 +13,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -43,6 +48,8 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     private Integer system_minute, sysetem_hour;
 
     ProgressDialog dialog;
+
+    TextView alert_person, alert_date, alert_time, alert_persons, alert_meals, alert_remark, alert_notifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +87,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         switch (item.getItemId()) {
             case android.R.id.home:{
                 if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
-                        (datum_input.getText().toString().equals("Datum nije odabran")) &&
-                        (vrijeme_input.getText().toString().equals("Vrijeme nije odabrano")) &&
+                        (datum_input.length() < 1) && (vrijeme_input.length() <1) &&
                         (napomene_input.length() < 1)){
                     finish();
                 } else {
@@ -112,8 +118,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     @Override
     public void onBackPressed() {
         if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
-                (datum_input.getText().toString().equals("Datum nije odabran")) &&
-                (vrijeme_input.getText().toString().equals("Vrijeme nije odabrano")) &&
+                (datum_input.length() < 1) && (vrijeme_input.length() < 1) &&
                 (napomene_input.length() < 1)){
 
             finish();
@@ -141,6 +146,12 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
     @OnClick(R.id.btn_reserve)
     public void Click(View view){
+
+        view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
         boolean broj_osoba_validator, broj_jela_validator, datum_validator, vrijeme_validator, napomena_validator;
 
@@ -206,20 +217,40 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         } else {
             napomene = "Nema napomena";
         }
-        
-        String string = "<p>Slanje rezervacije sa ovim podacima?</p>"
-                + "<b>Ime i prezime: </b>" + name_intent + "<br><b>Datum: </b>" + datum_input.getText()
-                + "<br><b>Vrijeme: </b>" + vrijeme_input.getText() + "<br><b>Broj osoba: </b>" + broj_osoba_input.getText()
-                + "<br><b>Broj jela: </b>" + broj_jela_input.getText() +  "<br><b>Napomene: </b>" + napomene
-                + "<br><b>Obavijest: </b><br><br><i>Za promjenu načina primanja obavijesti posjetite postavke aplikacije</i>";
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
 
         if (cm.getActiveNetworkInfo() != null) {
+
+            LayoutInflater li = LayoutInflater.from(this);
+            View alertView = li.inflate(R.layout.alert_create_reservation, null);
+
+            alert_person = (TextView) alertView.findViewById(R.id.alert_person_name);
+            alert_date = (TextView) alertView.findViewById(R.id.alert_date);
+            alert_time = (TextView) alertView.findViewById(R.id.alert_time);
+            alert_persons = (TextView) alertView.findViewById(R.id.alert_persons);
+            alert_meals = (TextView) alertView.findViewById(R.id.alert_meals);
+            alert_remark = (TextView) alertView.findViewById(R.id.alert_remark);
+            alert_notifications = (TextView) alertView.findViewById(R.id.alert_notifications);
+
+            alert_person.setText(name_intent);
+            alert_date.setText(datum_input.getText().toString());
+            alert_time.setText(vrijeme_input.getText().toString());
+            alert_persons.setText(broj_osoba_input.getText().toString());
+            alert_meals.setText(broj_jela_input.getText().toString());
+
+            if(napomene_input.length() < 1){
+                alert_remark.setText("Nema napomena");
+            } else{
+                alert_remark.setText(napomene_input.getText().toString());
+            }
+
+            alert_notifications.setText("E-mail");
+
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
-            builder.setCancelable(true);
+            builder.setCancelable(false);
             builder.setTitle("Rezervacija");
-            builder.setMessage(Html.fromHtml(string));
+            builder.setView(alertView);
             builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -233,6 +264,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
                     dialog.dismiss();
                 }
             });
+
             builder.create().show();
         } else {
             Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_LONG).show();
