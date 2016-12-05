@@ -22,7 +22,7 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
     ArrayList<ReservationItemDetails> reservations;
 
     private Integer[] status_image_id = {R.mipmap.ic_hourglass_empty_black_18dp, R.mipmap.ic_done_black_18dp, R.mipmap.ic_block_black_18dp,
-            R.mipmap.ic_report_problem_black_18dp, R.mipmap.ic_cancel_black_18dp};
+            R.mipmap.ic_report_problem_black_18dp, R.mipmap.ic_clear_black_18dp};
 
     public UserReservationsRecycleAdapter(ArrayList<ReservationItemDetails> reservations) {
         this.reservations = reservations;
