@@ -1,4 +1,8 @@
-package com.example.webservice;
+package com.example.webservice.data_loaders;
+
+import com.example.webservice.WebServiceCaller;
+import com.example.webservice.WebServiceHandler;
+import com.example.webservice.responses.WebServiceResponseRegistration;
 
 /**
  * Created by masrnec on 10.11.2016..
@@ -7,7 +11,7 @@ package com.example.webservice;
 public class WsDataRegistrationLoader extends DataLoader {
 
     @Override
-    public void loadDataRegistration(DataLoadedListener dataLoadedListener,String first_name,String last_name,Integer phone, String email, Integer pass) {
+    public void loadDataRegistration(DataLoadedListener dataLoadedListener, String first_name, String last_name, Integer phone, String email, Integer pass) {
         super.loadDataRegistration(dataLoadedListener,first_name,last_name,phone, email, pass);
 
         WebServiceCaller webServiceCaller = new WebServiceCaller(responseHandler);

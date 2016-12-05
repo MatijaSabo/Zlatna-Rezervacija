@@ -12,22 +12,20 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.webservice.DataLoadedListener;
-import com.example.webservice.DataLoader;
-import com.example.webservice.WebServiceResponseRegistration;
-import com.example.webservice.WsCreateReservationDataLoader;
+import com.example.webservice.data_loaders.DataLoadedListener;
+import com.example.webservice.data_loaders.DataLoader;
+import com.example.webservice.responses.WebServiceResponseRegistration;
+import com.example.webservice.data_loaders.WsCreateReservationDataLoader;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -151,6 +149,8 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+            view.clearFocus();
         }
 
         boolean broj_osoba_validator, broj_jela_validator, datum_validator, vrijeme_validator, napomena_validator;
@@ -261,6 +261,10 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
                     .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int i) {
+
+                    View view = CreateReservationActivity.this.getCurrentFocus();
+                    if (view != null) { view.clearFocus(); }
+
                     dialog.dismiss();
                 }
             });
@@ -273,11 +277,30 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
     @OnClick(R.id.input_date)
     public void Date_Click(View view){
+
+        view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+            view.clearFocus();
+        }
+
         showDialog(999);
+
     }
 
     @OnClick(R.id.input_time)
     public void Time_Click(View view){
+
+        view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+            view.clearFocus();
+        }
+
         showDialog(998);
     }
 

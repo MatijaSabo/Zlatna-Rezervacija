@@ -1,4 +1,4 @@
-package com.example.webservice;
+package com.example.webservice.responses;
 
 /**
  * Created by Lovro on 3.12.2016..

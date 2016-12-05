@@ -14,10 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.webservice.DataLoadedListener;
-import com.example.webservice.DataLoader;
-import com.example.webservice.WebServiceResponse;
-import com.example.webservice.WsDataLoader;
+import com.example.webservice.data_loaders.DataLoadedListener;
+import com.example.webservice.data_loaders.DataLoader;
+import com.example.webservice.responses.WebServiceResponse;
+import com.example.webservice.data_loaders.WsDataLoader;
 
 
 import butterknife.BindView;

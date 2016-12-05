@@ -1,4 +1,4 @@
-package com.example.webservice;
+package com.example.webservice.responses;
 
 import java.lang.reflect.Array;
 

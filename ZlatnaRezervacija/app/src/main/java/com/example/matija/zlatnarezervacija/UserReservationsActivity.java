@@ -8,11 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.example.matija.zlatnarezervacija.adapters.UserReservationsRecycleAdapter;
-import com.example.webservice.DataLoadedListener;
-import com.example.webservice.DataLoader;
-import com.example.webservice.ReservationItemDetails;
-import com.example.webservice.WebServiceReservationResponse;
-import com.example.webservice.WsReservationsDataLoader;
+import com.example.webservice.data_loaders.DataLoadedListener;
+import com.example.webservice.data_loaders.DataLoader;
+import com.example.webservice.responses.ReservationItemDetails;
+import com.example.webservice.responses.WebServiceReservationResponse;
+import com.example.webservice.data_loaders.WsReservationsDataLoader;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,11 @@
 package com.example.webservice;
 
+import com.example.webservice.responses.WebServiceMenuResponse;
+import com.example.webservice.responses.WebServiceReservationResponse;
+import com.example.webservice.responses.WebServiceResponse;
+import com.example.webservice.responses.WebServiceResponseRegistration;
+
 import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
-import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
@@ -18,7 +19,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("registration.php")
-    Call<WebServiceResponseRegistration> getStatusRegistration(@Field("first_name") String first_name,@Field("last_name")String last_name,@Field("phone")int phone,@Field("email") String email,@Field("pass") int password);
+    Call<WebServiceResponseRegistration> getStatusRegistration(@Field("first_name") String first_name, @Field("last_name")String last_name, @Field("phone")int phone, @Field("email") String email, @Field("pass") int password);
 
     @FormUrlEncoded
     @POST("menu.php")

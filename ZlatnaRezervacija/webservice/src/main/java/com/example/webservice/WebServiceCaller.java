@@ -1,18 +1,13 @@
 package com.example.webservice;
 
-import android.content.Intent;
-import android.os.SystemClock;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 
-import com.google.gson.Gson;
+import com.example.webservice.responses.WebServiceMenuResponse;
+import com.example.webservice.responses.WebServiceReservationResponse;
+import com.example.webservice.responses.WebServiceResponse;
+import com.example.webservice.responses.WebServiceResponseRegistration;
 import com.squareup.okhttp.OkHttpClient;
 
-import java.util.List;
-
-import butterknife.ButterKnife;
-import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;

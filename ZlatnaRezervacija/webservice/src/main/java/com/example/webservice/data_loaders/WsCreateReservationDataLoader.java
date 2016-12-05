@@ -1,4 +1,8 @@
-package com.example.webservice;
+package com.example.webservice.data_loaders;
+
+import com.example.webservice.WebServiceCaller;
+import com.example.webservice.WebServiceHandler;
+import com.example.webservice.responses.WebServiceResponseRegistration;
 
 /**
  * Created by Matija on 3.12.2016..

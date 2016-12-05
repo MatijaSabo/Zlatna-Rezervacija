@@ -1,6 +1,8 @@
-package com.example.webservice;
+package com.example.webservice.data_loaders;
 
-import android.content.Intent;
+import com.example.webservice.WebServiceCaller;
+import com.example.webservice.WebServiceHandler;
+import com.example.webservice.responses.WebServiceResponse;
 
 /**
  * Created by Matija on 10.11.2016..

@@ -10,15 +10,13 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.matija.zlatnarezervacija.adapters.MenuDetailsRecycleAdapter;
-import com.example.webservice.DataLoadedListener;
-import com.example.webservice.DataLoader;
-import com.example.webservice.MenuItemDetails;
-import com.example.webservice.WebServiceMenuResponse;
-import com.example.webservice.WsMenuDataLoader;
+import com.example.webservice.data_loaders.DataLoadedListener;
+import com.example.webservice.data_loaders.DataLoader;
+import com.example.webservice.responses.MenuItemDetails;
+import com.example.webservice.responses.WebServiceMenuResponse;
+import com.example.webservice.data_loaders.WsMenuDataLoader;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MenuDetailsActivity extends AppCompatActivity implements DataLoadedListener{
 

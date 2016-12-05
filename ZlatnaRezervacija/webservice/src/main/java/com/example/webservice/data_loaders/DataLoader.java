@@ -1,4 +1,4 @@
-package com.example.webservice;
+package com.example.webservice.data_loaders;
 
 /**
  * Created by Matija on 10.11.2016..

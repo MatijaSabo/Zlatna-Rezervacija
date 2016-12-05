@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.matija.zlatnarezervacija.R;
-import com.example.webservice.MenuItemDetails;
+import com.example.webservice.responses.MenuItemDetails;
 
 import java.util.ArrayList;
 

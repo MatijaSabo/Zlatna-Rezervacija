@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.matija.zlatnarezervacija.R;
-import com.example.webservice.ReservationItemDetails;
-import com.example.webservice.ReservationTableItemDetails;
+import com.example.webservice.responses.ReservationItemDetails;
+import com.example.webservice.responses.ReservationTableItemDetails;
 
 import java.util.ArrayList;
 

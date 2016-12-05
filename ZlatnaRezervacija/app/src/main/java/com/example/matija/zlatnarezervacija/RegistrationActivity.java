@@ -1,44 +1,25 @@
 package com.example.matija.zlatnarezervacija;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telecom.Call;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.webservice.DataLoadedListener;
-import com.example.webservice.DataLoader;
-import com.example.webservice.WebService;
-import com.example.webservice.WebServiceCaller;
-import com.example.webservice.WebServiceRequestRegistration;
-import com.example.webservice.WebServiceResponse;
-import com.example.webservice.WebServiceResponseRegistration;
-import com.example.webservice.WsDataLoader;
-import com.example.webservice.WsDataRegistrationLoader;
-import com.squareup.okhttp.OkHttpClient;
+import com.example.webservice.data_loaders.DataLoadedListener;
+import com.example.webservice.data_loaders.DataLoader;
+import com.example.webservice.responses.WebServiceResponseRegistration;
+import com.example.webservice.data_loaders.WsDataRegistrationLoader;
 
-import org.w3c.dom.Text;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 /**
  * Created by masrnec on 8.11.2016..
