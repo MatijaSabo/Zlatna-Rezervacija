@@ -41,17 +41,8 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getTitle()==getString(com.example.matija.zlatnarezervacija.R.string.Legend)){
             final AlertDialog.Builder builder = new AlertDialog.Builder(UserReservationsActivity.this);
-            builder.setCancelable(false);
-            builder.setTitle(R.string.Legend);
+            builder.setCancelable(true);
             builder.setView(R.layout.settings_about_characters);
-            builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-
-            });
-
             builder.create().show();
         }
         switch (item.getItemId()) {
