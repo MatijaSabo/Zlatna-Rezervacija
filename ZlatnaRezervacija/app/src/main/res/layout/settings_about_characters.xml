@@ -13,6 +13,7 @@
             android:id="@+id/reservation_detail_time_arrival"
             android:textSize="16sp"
             android:textAlignment="center"
+            android:text="@string/Rejected"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp"
             android:layout_below="@+id/reservation_ok"/>
@@ -41,6 +42,7 @@
             android:layout_alignParentLeft="true"
             android:id="@+id/reservation_detail_id"
             android:textSize="16sp"
+            android:text="@string/onWait"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="1dp"/>
@@ -56,6 +58,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/reservation_detail_date"
             android:textSize="16sp"
+            android:text="@string/Confirmed"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/reservation_wait"/>
@@ -84,6 +87,7 @@
             android:id="@+id/reservation_detail_time_checkout"
             android:textSize="16sp"
             android:textAlignment="center"
+            android:text="@string/Request"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp"
@@ -113,6 +117,7 @@
             android:id="@+id/reservation_detail_number_persons"
             android:textSize="16sp"
             android:textAlignment="center"
+            android:text="@string/Canceled"
             android:layout_marginLeft="25dp"
             android:layout_below="@+id/reservation_wait_respond"
             android:layout_marginTop="10dp"/>
