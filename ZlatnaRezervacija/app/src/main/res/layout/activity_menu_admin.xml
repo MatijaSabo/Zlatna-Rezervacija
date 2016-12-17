@@ -5,7 +5,7 @@
     android:id="@+id/activity_menu_admin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.matija.zlatnarezervacija.MenuActivity"
+    tools:context="com.foi.air.zlatnarezervacija.MenuActivity"
     android:background="@color/colorBackground">
 
     <LinearLayout

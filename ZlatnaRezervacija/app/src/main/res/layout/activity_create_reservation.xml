@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.matija.zlatnarezervacija.CreateReservationActivity"
+    tools:context="com.foi.air.zlatnarezervacija.CreateReservationActivity"
     android:background="@color/colorBackground">
 
     <LinearLayout

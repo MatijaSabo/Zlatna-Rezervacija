@@ -5,7 +5,7 @@
     android:id="@+id/activity_restaurant_details"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.example.matija.zlatnarezervacija.RestaurantDetailsActivity">
+    tools:context="com.foi.air.zlatnarezervacija.RestaurantDetailsActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

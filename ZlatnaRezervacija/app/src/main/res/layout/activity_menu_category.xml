@@ -4,7 +4,7 @@
     android:id="@+id/activity_menu_category"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.matija.zlatnarezervacija.MenuCategoryActivity">
+    tools:context="com.foi.air.zlatnarezervacija.MenuCategoryActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

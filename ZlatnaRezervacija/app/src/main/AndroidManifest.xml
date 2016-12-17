@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.matija.zlatnarezervacija">
+    package="com.foi.air.zlatnarezervacija">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -12,24 +12,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.foi.air.zlatnarezervacija.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".AdminMenuActivity" />
-        <activity android:name=".MenuCategoryActivity" />
-        <activity android:name=".MenuDetailsActivity" />
+        <activity android:name="com.foi.air.zlatnarezervacija.MenuActivity" />
+        <activity android:name="com.foi.air.zlatnarezervacija.RegistrationActivity" />
+        <activity android:name="com.foi.air.zlatnarezervacija.AdminMenuActivity" />
+        <activity android:name="com.foi.air.zlatnarezervacija.MenuCategoryActivity" />
+        <activity android:name="com.foi.air.zlatnarezervacija.MenuDetailsActivity" />
         <activity
-            android:name=".CreateReservationActivity"
+            android:name="com.foi.air.zlatnarezervacija.CreateReservationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name" />
-        <activity android:name=".RestaurantDetailsActivity" />
-        <activity android:name=".UserReservationsActivity"></activity>
+        <activity android:name="com.foi.air.zlatnarezervacija.RestaurantDetailsActivity" />
+        <activity android:name="com.foi.air.zlatnarezervacija.UserReservationsActivity"></activity>
     </application>
 
 </manifest>

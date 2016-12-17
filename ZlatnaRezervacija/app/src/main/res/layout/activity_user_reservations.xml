@@ -4,7 +4,7 @@
     android:id="@+id/activity_user_reservations"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.matija.zlatnarezervacija.UserReservationsActivity">
+    tools:context="com.foi.air.zlatnarezervacija.UserReservationsActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
