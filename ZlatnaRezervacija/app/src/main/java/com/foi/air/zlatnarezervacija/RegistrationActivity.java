@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ import butterknife.OnClick;
 public class RegistrationActivity extends AppCompatActivity implements DataLoadedListener {
     WebServiceResponseRegistration WSresult;
     ProgressDialog progress;
+
+    @BindView(R.id.btn_registration) Button btnRegistration;
 
     @BindView(R.id.textinputlayout_name) TextInputLayout tilName;
     @BindView(R.id.textinputlayout_surname) TextInputLayout tilSurname;
@@ -75,6 +78,9 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
 
     @OnClick(R.id.btn_registration)
     public void Click(View view) {
+
+        btnRegistration.setEnabled(false);
+        btnRegistration.setClickable(false);
 
         view = this.getCurrentFocus();
         if (view != null) {
@@ -180,8 +186,10 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             else{
                 Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
             }
-
         }
+
+        btnRegistration.setEnabled(true);
+        btnRegistration.setClickable(true);
     }
     @Override
     public void onDataLoaded(Object result) {

@@ -35,7 +35,7 @@ import butterknife.OnClick;
 
 public class CreateReservationActivity extends AppCompatActivity implements DataLoadedListener{
 
-    String name_intent, id_intent;
+    String name_intent, id_intent,notifications_intent;
     String napomene;
 
     TextInputLayout broj_osoba_label, broj_jela_label, datum_label, vrijeme_label;
@@ -54,6 +54,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         super.onCreate(savedInstanceState);
         name_intent = getIntent().getStringExtra("user_name");
         id_intent = getIntent().getStringExtra("user_id");
+        notifications_intent = getIntent().getStringExtra("notifications");
         setContentView(R.layout.activity_create_reservation);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -245,7 +246,11 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
                 alert_remark.setText(napomene_input.getText().toString());
             }
 
-            alert_notifications.setText("E-mail");
+            if(notifications_intent.endsWith("1")){
+                alert_notifications.setText("Vibracija");
+            } else{
+                alert_notifications.setText("Notifikacija");
+            }
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
             builder.setCancelable(false);

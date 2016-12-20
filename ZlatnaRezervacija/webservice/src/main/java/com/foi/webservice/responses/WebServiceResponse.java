@@ -6,6 +6,7 @@ public class WebServiceResponse {
     public String email;
     public String user_id;
     public String user_role;
+    public String notifications;
 
 
     public String getStatus() {
@@ -28,6 +29,10 @@ public class WebServiceResponse {
         return user_role;
     }
 
+    public String getNotifications(){
+        return notifications;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -46,6 +51,10 @@ public class WebServiceResponse {
 
     public void setRole_id(String user_role) {
         this.user_role = user_role;
+    }
+
+    public void setNotifications(String notifications){
+        this.notifications = notifications;
     }
 
 

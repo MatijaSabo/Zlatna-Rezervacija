@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
                 intent.putExtra("email", WSresult.getEmail());
                 intent.putExtra("role_id", WSresult.getRole_id());
                 intent.putExtra("user_id", WSresult.getUser_id());
+                intent.putExtra("notifications", WSresult.getNotifications());
 
                 progress.dismiss();
 

@@ -24,15 +24,17 @@ public class MenuActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
 
-    private String user_intent, name_intent;
+    private String user_intent, name_intent, notifications_intent, email_intent, role_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String role_intent = getIntent().getStringExtra("role_id");
+        role_intent = getIntent().getStringExtra("role_id");
         user_intent = getIntent().getStringExtra("user_id");
         name_intent = getIntent().getStringExtra("name");
-        String email_intent = getIntent().getStringExtra("email");
+        email_intent = getIntent().getStringExtra("email");
+        notifications_intent = getIntent().getStringExtra("notifications");
+
 
         setContentView(R.layout.activity_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_menu);
@@ -50,6 +52,8 @@ public class MenuActivity extends AppCompatActivity {
         TextView email = (TextView) menuHeader.findViewById(R.id.user_email);
         name.setText(name_intent);
         email.setText(email_intent);
+
+        Toast.makeText(this, notifications_intent, Toast.LENGTH_LONG).show();
     }
 
     NavigationView.OnNavigationItemSelectedListener navigationOptionSelected = new NavigationView.OnNavigationItemSelectedListener() {
@@ -65,6 +69,7 @@ public class MenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CreateReservationActivity.class);
                 intent.putExtra("user_id", user_intent);
                 intent.putExtra("user_name", name_intent);
+                intent.putExtra("notifications", notifications_intent);
                 startActivity(intent);
 
             } else if (item.getItemId() == R.id.menu_option3) {
