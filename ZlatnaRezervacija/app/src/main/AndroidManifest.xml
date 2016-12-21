@@ -30,6 +30,7 @@
             android:label="@string/app_name" />
         <activity android:name="com.foi.air.zlatnarezervacija.RestaurantDetailsActivity" />
         <activity android:name="com.foi.air.zlatnarezervacija.UserReservationsActivity"></activity>
+        <activity android:name="com.foi.air.zlatnarezervacija.SettingsActivity" />
     </application>
 
 </manifest>

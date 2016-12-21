@@ -4,6 +4,7 @@ import com.foi.webservice.responses.WebServiceMenuResponse;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
+import com.foi.webservice.responses.WebServiceResponseSettings;
 
 import retrofit.Call;
 import retrofit.http.Field;
@@ -32,4 +33,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("create_reservation.php")
     Call<WebServiceResponseRegistration> createReservation(@Field("user") int user, @Field("persons") int persons, @Field("date") String date, @Field("time") String time, @Field("meals") int meals, @Field("remark") String remark);
+
+    @FormUrlEncoded
+    @POST("change_notifications.php")
+    Call<WebServiceResponseSettings> getStatusSettings(@Field("user") String user, @Field("type") String type);
 }

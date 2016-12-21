@@ -6,6 +6,7 @@ import com.foi.webservice.responses.WebServiceMenuResponse;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
+import com.foi.webservice.responses.WebServiceResponseSettings;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.Callback;
@@ -33,9 +34,6 @@ public class WebServiceCaller extends AppCompatActivity {
     public void registrateUser(final String first_name,final String last_name, final Integer phone, final String email, final Integer pass ) {
         WebService serviceCaller = retrofit.create(WebService.class);
         retrofit.Call<WebServiceResponseRegistration> call = serviceCaller.getStatusRegistration(first_name,last_name,phone,email,pass);
-
-
-
             call.enqueue(new Callback<WebServiceResponseRegistration>() {
                 @Override
                 public void onResponse(Response<WebServiceResponseRegistration> response, Retrofit retrofit) {
@@ -57,7 +55,30 @@ public class WebServiceCaller extends AppCompatActivity {
             });
 
     }
+    public void changeSettings(final String user,final String type ) {
+        WebService serviceCaller = retrofit.create(WebService.class);
+        retrofit.Call<WebServiceResponseSettings> call = serviceCaller.getStatusSettings(user,type);
+        call.enqueue(new Callback<WebServiceResponseSettings>() {
+            @Override
+            public void onResponse(Response<WebServiceResponseSettings> response, Retrofit retrofit) {
+                try {
+                    if (response.isSuccess() ) {
+                        handleResponseSettings((WebServiceResponseSettings) response.body());
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
 
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+
+            }
+        });
+
+    }
     public void getAll(final String method, final int pass){
         WebService  webServiceRezervacije=retrofit.create(WebService.class);
         retrofit.Call<WebServiceResponse> call=webServiceRezervacije.getUserData(method, pass);
@@ -161,6 +182,11 @@ public class WebServiceCaller extends AppCompatActivity {
         }
     }
     private void handleResponseRegistration(WebServiceResponseRegistration response){
+        if(mWebServiceHandler !=null){
+            mWebServiceHandler.onDataArrived(response,true);
+        }
+    }
+    private void handleResponseSettings(WebServiceResponseSettings response){
         if(mWebServiceHandler !=null){
             mWebServiceHandler.onDataArrived(response,true);
         }

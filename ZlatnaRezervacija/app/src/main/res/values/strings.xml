@@ -7,8 +7,8 @@
     <string name="emailHint">Email</string>
     <string name="passwordHint">Lozinka</string>
     <string name="noAccount">Nemate račun? Registrirajte se!</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="open">Otvori</string>
+    <string name="close">Zatvori</string>
     <string name="cjenik">Cjenik</string>
     <string name="rezervacija">Rezervacija</string>
     <string name="moje_rezervacije">Moje rezervacije</string>
@@ -20,8 +20,8 @@
     <string name="rezervacije_na_cekanju">Rezervacije na čekanju</string>
     <string name="logout_alert_title">Odjava?</string>
     <string name="logout_alert_message">Jeste li sigurni da se želite odjaviti iz aplikacije?</string>
-    <string name="Alert_positive_button">Ok</string>
-    <string name="Alert_cancel_button">Cancel</string>
+    <string name="Alert_positive_button">U redu</string>
+    <string name="Alert_cancel_button">Poništi</string>
     <string name="Exit_alert_title">Izlaz?</string>
     <string name="Exit_alert_message">Jeste li sigurni da želite izaći iz aplikacije?</string>
     <string name="repasswordHint">Ponovljena lozinka</string>
@@ -65,4 +65,11 @@
     <string name="Rejected">Odbijena</string>
     <string name="Request">Zahtjev za otkazivanjem</string>
     <string name="Canceled">Otkazana</string>
+    <string name="postavke">Postavke</string>
+    <string name="option1">Opcija 1</string>
+    <string name="option2">Opcija 2</string>
+    <string name="textMainOption">Obavijesti</string>
+    <string name="textOption">Odaberite način primanja obavijesti o prihvaćanju/odbijanju Vaše rezervacije</string>
+    <string name="settingsSucces">Način primanja obavijesti je promijenjen</string>
+    <string name="settingsUnsucces">Način primanja obavijesti je ostao isti</string>
 </resources>

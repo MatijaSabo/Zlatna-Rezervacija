@@ -2,7 +2,9 @@ package com.foi.air.zlatnarezervacija;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -53,7 +55,17 @@ public class MenuActivity extends AppCompatActivity {
         name.setText(name_intent);
         email.setText(email_intent);
 
-        Toast.makeText(this, notifications_intent, Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String tip = sharedPreferences.getString("obavijest", "");
+        if(tip!=notifications_intent){
+            notifications_intent=tip;
+        }
     }
 
     NavigationView.OnNavigationItemSelectedListener navigationOptionSelected = new NavigationView.OnNavigationItemSelectedListener() {
@@ -85,7 +97,7 @@ public class MenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), RestaurantDetailsActivity.class);
                 startActivity(intent);
 
-            } else {
+            } else if (item.getItemId() == R.id.menu_option6) {
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
                 builder.setCancelable(false);
@@ -106,6 +118,12 @@ public class MenuActivity extends AppCompatActivity {
                         });
 
                 builder.create().show();
+
+            } else if (item.getItemId() == R.id.menu_option7){
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                intent.putExtra("user_id", user_intent);
+                intent.putExtra("notifications", notifications_intent);
+                startActivity(intent);
             }
 
             return false;

@@ -28,6 +28,9 @@ public abstract class DataLoader {
     public void loadReservationCreateStatus(DataLoadedListener dataLoadedListener, int user, int persons, String date, String time, int meals, String remark){
         this.mDataLoadedListner = dataLoadedListener;
     }
+    public void loadDataSettings(DataLoadedListener dataLoadedListener, String user, String type){
+        this.mDataLoadedListner = dataLoadedListener;
+    }
 
     public boolean dataLoaded(){
         if(result == null){
