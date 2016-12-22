@@ -15,4 +15,8 @@
     <style name="error_appearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/errorColor</item>
     </style>
+    <style name="MyRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/btnColor</item>
+        <item name="colorControlActivated">@color/btnColorText</item>
+    </style>
 </resources>

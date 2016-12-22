@@ -17,7 +17,7 @@
         />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true"
@@ -28,14 +28,16 @@
             android:layout_height="wrap_content"
             android:text="@string/option1"
             android:textColor="@color/btnColor"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked"
+            android:theme="@style/MyRadioButton"/>
 
         <RadioButton android:id="@+id/option2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/option2"
             android:textColor="@color/btnColor"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked"
+            android:theme="@style/MyRadioButton"/>
 
     </RadioGroup>
 </RelativeLayout>

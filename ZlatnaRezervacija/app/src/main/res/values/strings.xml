@@ -69,7 +69,7 @@
     <string name="option1">Opcija 1</string>
     <string name="option2">Opcija 2</string>
     <string name="textMainOption">Obavijesti</string>
-    <string name="textOption">Odaberite način primanja obavijesti o prihvaćanju/odbijanju Vaše rezervacije</string>
+    <string name="textOption">Način primanja obavijesti</string>
     <string name="settingsSucces">Način primanja obavijesti je promijenjen</string>
     <string name="settingsUnsucces">Način primanja obavijesti je ostao isti</string>
 </resources>
