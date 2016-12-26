@@ -72,4 +72,8 @@
     <string name="textOption">Način primanja obavijesti</string>
     <string name="settingsSucces">Način primanja obavijesti je promijenjen</string>
     <string name="settingsUnsucces">Način primanja obavijesti je ostao isti</string>
+    <string name="reason_for_cancel">Razlog za otkazivanje</string>
+    <string name="Alert_cancel_button_for_reservation">Cancel</string>
+    <string name="Alert_cancel_title">Poništenje rezervacija</string>
+
 </resources>
