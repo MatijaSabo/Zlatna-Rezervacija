@@ -9,28 +9,31 @@
     android:paddingTop="10dp"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    android:paddingBottom="1dp"
     android:focusable="true"
     android:focusableInTouchMode="true">
-
-    <ListView
-        android:id="@+id/custom_list"
-        android:layout_width="fill_parent"
+    
+    <RadioGroup
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="1dp" />
+        android:orientation="vertical"
+        android:id="@+id/RadioGroup">
+    </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/textinputlayout_reservation"
+        app:counterEnabled="true"
+        app:counterMaxLength="500"
+        app:counterOverflowTextAppearance="@style/error_appearance"
         app:errorTextAppearance="@style/error_appearance">
+
         <EditText android:id="@+id/reason_for_cancel_of_reservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:hint="@string/reason_for_cancel" />
     </android.support.design.widget.TextInputLayout>
 

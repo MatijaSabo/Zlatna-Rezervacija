@@ -11,9 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-import com.foi.air.zlatnarezervacija.adapters.UserCancelReservationListViewAdapter;
 import com.foi.air.zlatnarezervacija.adapters.UserReservationsRecycleAdapter;
 import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
@@ -89,12 +90,23 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
     }
 
     private void showDialog(){
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         View view = getLayoutInflater().inflate(R.layout.cancel_of_reservation, null);
+
+        for(int i=0; i < 1 ; i++){
+            RadioGroup rg = new RadioGroup(this);
+
+            for (ReservationItemDetails item: item1) {
+                RadioButton rb = new RadioButton(this);
+                rb.setId(Integer.parseInt(item.getId()));
+                rb.setText("Rezervacija " + item.getId().toString());
+                rg.addView(rb);
+            }
+
+            ((ViewGroup) view.findViewById(R.id.RadioGroup)).addView(rg);
+        }
+
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         dialog.setTitle(R.string.Alert_cancel_title);
-        ListView lv = (ListView) view.findViewById(R.id.custom_list);
-        UserCancelReservationListViewAdapter clad=new UserCancelReservationListViewAdapter(UserReservationsActivity.this, item1);
-        lv.setAdapter(clad);
         dialog.setView(view);
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

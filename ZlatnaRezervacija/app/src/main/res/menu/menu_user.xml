@@ -29,7 +29,7 @@
 
     <item android:id="@+id/menu_option7"
         android:title="@string/postavke"
-        android:icon="@mipmap/postavke"/>
+        android:icon="@mipmap/ic_settings_black_48dp"/>
 
     <item android:id="@+id/menu_option6"
         android:title="@string/odjava"
