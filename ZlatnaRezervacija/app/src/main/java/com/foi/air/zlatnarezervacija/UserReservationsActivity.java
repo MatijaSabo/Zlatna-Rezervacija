@@ -2,6 +2,7 @@ package com.foi.air.zlatnarezervacija;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +13,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.foi.air.zlatnarezervacija.adapters.UserReservationsRecycleAdapter;
 import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
+import com.foi.webservice.data_loaders.WsReservationCancelDataLoader;
 import com.foi.webservice.responses.ReservationItemDetails;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.data_loaders.WsReservationsDataLoader;
@@ -40,9 +44,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         getSupportActionBar().setTitle(R.string.moje_rezervacije);
         user = getIntent().getStringExtra("user_id");
 
-        DataLoader dataLoader;
-        dataLoader = new WsReservationsDataLoader();
-        dataLoader.loadDataMyReservations(this, user);
+        getAllReservation();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -66,7 +68,8 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         WebServiceReservationResponse DataArrived = (WebServiceReservationResponse) result;
         ReservationItemDetails[] items = (ReservationItemDetails[]) DataArrived.getReservations();
         ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
-        for (ReservationItemDetails m: items) { item.add(m);item1.add(m); }
+        for (ReservationItemDetails m: items) { item.add(m); if(m.getStatus()==1 || m.getStatus()==2)
+        {item1.add(m);} }
 
         recyclerView = (RecyclerView) findViewById(R.id.my_reservations);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -90,11 +93,10 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
     }
 
     private void showDialog(){
-        View view = getLayoutInflater().inflate(R.layout.cancel_of_reservation, null);
+        final View view = getLayoutInflater().inflate(R.layout.cancel_of_reservation, null);
+        final RadioGroup rg = new RadioGroup(this);
 
         for(int i=0; i < 1 ; i++){
-            RadioGroup rg = new RadioGroup(this);
-
             for (ReservationItemDetails item: item1) {
                 RadioButton rb = new RadioButton(this);
                 rb.setId(Integer.parseInt(item.getId()));
@@ -111,6 +113,11 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                EditText e=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
+                if(e.getText().toString().isEmpty() || rg.getCheckedRadioButtonId()==-1){}
+                else{
+                    sendDataForCancelReservation(rg.getCheckedRadioButtonId() ,e.getText().toString());
+                }
 
             }
         })
@@ -123,4 +130,21 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         dialog.show();
 
     }
-}
+    private void sendDataForCancelReservation(int reservation, String description){
+        DataLoader dataLoader;
+        dataLoader = new WsReservationCancelDataLoader();
+        dataLoader.loadReservationCancel(this,reservation ,description);
+    }
+
+    private void getAllReservation(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) {
+            DataLoader dataLoader1;
+            dataLoader1 = new WsReservationsDataLoader();
+            dataLoader1.loadDataMyReservations(this, user);
+        }else {
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    }

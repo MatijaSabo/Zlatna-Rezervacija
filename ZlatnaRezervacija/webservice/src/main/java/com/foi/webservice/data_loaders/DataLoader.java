@@ -31,6 +31,9 @@ public abstract class DataLoader {
     public void loadDataSettings(DataLoadedListener dataLoadedListener, String user, String type){
         this.mDataLoadedListner = dataLoadedListener;
     }
+    public void loadReservationCancel(DataLoadedListener dataLoadedListener, int reservation, String description){
+        this.mDataLoadedListner = dataLoadedListener;
+    }
 
     public boolean dataLoaded(){
         if(result == null){

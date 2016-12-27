@@ -60,6 +60,16 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
     public int getItemCount() {
         return reservations.size();
     }
+
+    public void clearData(){
+        int size=getItemCount();
+        if(size>0){
+            for(int i=0;i<size;i++){
+                this.reservations.remove(0);
+            }
+            this.notifyItemRangeRemoved(0, size);
+        }
+    }
     public class MyReservationViewHolder extends RecyclerView.ViewHolder{
 
         TextView reservationStatus;

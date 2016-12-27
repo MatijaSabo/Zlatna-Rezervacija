@@ -3,6 +3,7 @@ package com.foi.webservice;
 import android.support.v7.app.AppCompatActivity;
 
 import com.foi.webservice.responses.WebServiceMenuResponse;
+import com.foi.webservice.responses.WebServiceReservationCancelResponse;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
@@ -170,6 +171,36 @@ public class WebServiceCaller extends AppCompatActivity {
         });
     }
 
+    public void sendReservationCancelRequest(final int status, final String description) {
+
+            WebService serviceCaller = retrofit.create(WebService.class);
+            retrofit.Call<WebServiceReservationCancelResponse> call = serviceCaller.getReservationCancel(status, description);
+            call.enqueue(new Callback<WebServiceReservationCancelResponse>() {
+                @Override
+                public void onResponse(Response<WebServiceReservationCancelResponse> response, Retrofit retrofit) {
+                    try {
+                        if (response.isSuccess()) {
+                            System.out.println("-----Cancel Reservation------");
+                            System.out.println(response.body().getStatus());
+                            System.out.println("===============KRAJ=============");
+                            handleMyReservationsCancelResponse((WebServiceReservationCancelResponse) response.body());
+                        }
+
+                    } catch (Exception ex) {
+                        System.out.println(ex);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+
+        }
+
+
     private void handleCreateReservationResponse(WebServiceResponseRegistration response) {
         if(mWebServiceHandler != null){
             mWebServiceHandler.onDataArrived(response, true);
@@ -202,6 +233,13 @@ public class WebServiceCaller extends AppCompatActivity {
     private void handleMyReservationsResponse(WebServiceReservationResponse response){
 
         if(mWebServiceHandler != null) {
+            mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+
+    private void handleMyReservationsCancelResponse(WebServiceReservationCancelResponse response) {
+
+        if (mWebServiceHandler != null) {
             mWebServiceHandler.onDataArrived(response, true);
         }
     }
