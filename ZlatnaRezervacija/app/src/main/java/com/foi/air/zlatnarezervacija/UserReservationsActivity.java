@@ -23,17 +23,20 @@ import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
 import com.foi.webservice.data_loaders.WsReservationCancelDataLoader;
 import com.foi.webservice.responses.ReservationItemDetails;
+import com.foi.webservice.responses.WebServiceReservationCancelResponse;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.data_loaders.WsReservationsDataLoader;
 
 import java.util.ArrayList;
 
 public class UserReservationsActivity extends AppCompatActivity implements DataLoadedListener{
+
     String user;
     private RecyclerView recyclerView;
     ProgressDialog progress;
     ArrayList<ReservationItemDetails> item1 = new ArrayList<ReservationItemDetails>();
     private FloatingActionButton floatingActionButton;
+    private Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +68,34 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
 
     @Override
     public void onDataLoaded(Object result) {
-        WebServiceReservationResponse DataArrived = (WebServiceReservationResponse) result;
-        ReservationItemDetails[] items = (ReservationItemDetails[]) DataArrived.getReservations();
-        ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
-        for (ReservationItemDetails m: items) { item.add(m); if(m.getStatus()==1 || m.getStatus()==2)
-        {item1.add(m);} }
 
-        recyclerView = (RecyclerView) findViewById(R.id.my_reservations);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new UserReservationsRecycleAdapter(item));
+        if(flag){
+            WebServiceReservationCancelResponse DataArrived = (WebServiceReservationCancelResponse) result;
+            if(DataArrived.getStatus().endsWith("1")){
+                flag = false;
+
+                getAllReservation();
+
+            } else{
+                Toast.makeText(this, "Otkazivanje rezervacije nije uspjelo, pokušajte ponovo...", Toast.LENGTH_LONG).show();
+            }
+
+        } else{
+            WebServiceReservationResponse DataArrived = (WebServiceReservationResponse) result;
+            ReservationItemDetails[] items = (ReservationItemDetails[]) DataArrived.getReservations();
+            ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
+
+            for (ReservationItemDetails m: items) {
+                item.add(m);
+                if(m.getStatus()==1 || m.getStatus()==2) {
+                    item1.add(m);
+                }
+            }
+
+            recyclerView = (RecyclerView) findViewById(R.id.my_reservations);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new UserReservationsRecycleAdapter(item));
+        }
 
         floatingActionButton=(FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +105,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             }
         });
 
-        progress.dismiss();
+        //progress.dismiss();
 
     }
     @Override
@@ -131,6 +153,9 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
 
     }
     private void sendDataForCancelReservation(int reservation, String description){
+
+        flag = true;
+
         DataLoader dataLoader;
         dataLoader = new WsReservationCancelDataLoader();
         dataLoader.loadReservationCancel(this,reservation ,description);
@@ -138,13 +163,15 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
 
     private void getAllReservation(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
         if (cm.getActiveNetworkInfo() != null) {
+
             DataLoader dataLoader1;
             dataLoader1 = new WsReservationsDataLoader();
             dataLoader1.loadDataMyReservations(this, user);
-        }else {
+        } else {
             Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
         }
     }
 
-    }
+}
