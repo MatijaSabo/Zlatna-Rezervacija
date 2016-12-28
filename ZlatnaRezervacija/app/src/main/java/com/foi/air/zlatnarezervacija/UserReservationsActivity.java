@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -136,18 +139,15 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         dialog.setTitle(R.string.Alert_cancel_title);
         dialog.setView(view);
 
+        final EditText editText=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditText e=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
-                if(e.getText().toString().isEmpty()){
-
-                }
-                else if(rg.getCheckedRadioButtonId()==-1){
+                 if(rg.getCheckedRadioButtonId()==-1){
                     Toast.makeText(getBaseContext(), R.string.ToastCancelOfReservation, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    sendDataForCancelReservation(rg.getCheckedRadioButtonId() ,e.getText().toString());
+                    sendDataForCancelReservation(rg.getCheckedRadioButtonId() ,editText.getText().toString());
                 }
 
             }
@@ -158,7 +158,35 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
 
                     }
                 });
-        dialog.show();
+        final AlertDialog builder = dialog.create();
+        builder.show();
+
+
+        ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    ((AlertDialog) builder).getButton(
+                            AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+                else{
+                    ((AlertDialog) builder).getButton(
+                            AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+        });
     }
     private void sendDataForCancelReservation(int reservation, String description){
         progressOfCancelReservation = ProgressDialog.show(this, getString(R.string.CancelOfReservationInProcess), getString(R.string.PleaseWait));
