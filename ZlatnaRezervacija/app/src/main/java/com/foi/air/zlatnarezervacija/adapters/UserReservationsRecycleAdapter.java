@@ -38,21 +38,25 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         String tables="";
+
         ReservationItemDetails item = reservations.get(position);
+
         for (ReservationTableItemDetails i : item.getTables()){
             tables=tables + i.getLabel()+ ", ";
         }
+
         if(tables.isEmpty())tables="-";
         tables = tables.replaceAll(", $", "");
-        ((MyReservationViewHolder) holder).reservationTime_Arrival.setText("Vrijeme dolaska: " + item.getTime_arrival());
+
+        ((MyReservationViewHolder) holder).reservationTime_Arrival.setText(item.getTime_arrival());
         ((MyReservationViewHolder) holder).reservationId.setText("Broj rezervacije: " + item.getId());
-        ((MyReservationViewHolder) holder).reservationDate.setText("Datum: " + item.getDate());
-        ((MyReservationViewHolder) holder).reservationTime_Checkout.setText("Vrijeme odlaska: " + item.getTime_checkout());
-        ((MyReservationViewHolder) holder).reservationPersons.setText("Broj ljudi: " + item.getPersons());
-        ((MyReservationViewHolder) holder).reservationMeals.setText("Broj jela: " + item.getMeals());
-        ((MyReservationViewHolder) holder).reservationTable.setText("Stolovi: " + tables);
-        ((MyReservationViewHolder) holder).reservationDescription.setText("Opis: " + item.getDescription());
-        ((MyReservationViewHolder) holder).reservationRemark.setText("Napomena: " + item.getRemark());
+        ((MyReservationViewHolder) holder).reservationDate.setText(item.getDate());
+        ((MyReservationViewHolder) holder).reservationTime_Checkout.setText(item.getTime_checkout());
+        ((MyReservationViewHolder) holder).reservationPersons.setText(item.getPersons());
+        ((MyReservationViewHolder) holder).reservationMeals.setText(item.getMeals());
+        ((MyReservationViewHolder) holder).reservationTable.setText(tables);
+        ((MyReservationViewHolder) holder).reservationDescription.setText(item.getDescription());
+        ((MyReservationViewHolder) holder).reservationRemark.setText(item.getRemark());
         ((MyReservationViewHolder) holder).status_image.setImageResource(status_image_id[item.getStatus()-1]);
     }
 
@@ -86,15 +90,15 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
 
         public MyReservationViewHolder(View itemView) {
             super(itemView);
-            reservationTime_Arrival = (TextView) itemView.findViewById(R.id.reservation_detail_time_arrival);
-            reservationRemark = (TextView) itemView.findViewById(R.id.reservation_detail_remark);
-            reservationDate = (TextView) itemView.findViewById(R.id.reservation_detail_date);
+            reservationTime_Arrival = (TextView) itemView.findViewById(R.id.reservation_detail_time_arrival_text);
+            reservationRemark = (TextView) itemView.findViewById(R.id.reservation_detail_remark_text);
+            reservationDate = (TextView) itemView.findViewById(R.id.reservation_detail_date_text);
             reservationId = (TextView) itemView.findViewById(R.id.reservation_detail_id);
-            reservationTime_Checkout = (TextView) itemView.findViewById(R.id.reservation_detail_time_checkout);
-            reservationPersons = (TextView) itemView.findViewById(R.id.reservation_detail_number_persons);
-            reservationMeals = (TextView) itemView.findViewById(R.id.reservation_detail_number_meals);
-            reservationTable = (TextView) itemView.findViewById(R.id.reservation_detail_tables);
-            reservationDescription = (TextView) itemView.findViewById(R.id.reservation_detail_description);
+            reservationTime_Checkout = (TextView) itemView.findViewById(R.id.reservation_detail_time_checkout_text);
+            reservationPersons = (TextView) itemView.findViewById(R.id.reservation_detail_number_persons_text);
+            reservationMeals = (TextView) itemView.findViewById(R.id.reservation_detail_number_meals_text);
+            reservationTable = (TextView) itemView.findViewById(R.id.reservation_detail_tables_text);
+            reservationDescription = (TextView) itemView.findViewById(R.id.reservation_detail_description_text);
             status_image = (ImageView) itemView.findViewById(R.id.reservation_detail_status);
         }
     }

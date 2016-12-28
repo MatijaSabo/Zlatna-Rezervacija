@@ -7,16 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.foi.air.zlatnarezervacija.UserReservationsActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/my_reservations"
-        android:scrollbars="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
-    </android.support.v7.widget.RecyclerView>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
@@ -29,5 +19,15 @@
         app:fabSize="normal"
         app:elevation="5dp"
         />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_reservations"
+        android:scrollbars="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

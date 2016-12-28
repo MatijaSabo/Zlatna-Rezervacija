@@ -45,6 +45,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
     private UserReservationsRecycleAdapter adapterForAllReservatons=new UserReservationsRecycleAdapter(item);
     private FloatingActionButton floatingActionButton;
     private Boolean flag = false;
+    private Boolean flag2 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +81,9 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
 
         if(flag){
             WebServiceReservationCancelResponse DataArrived = (WebServiceReservationCancelResponse) result;
+            progressOfCancelReservation.dismiss();
+
             if(DataArrived.getStatus().endsWith("1")){
-                progressOfCancelReservation.dismiss();
                 flag = false;
                 getAllReservation();
 
@@ -103,21 +105,45 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             recyclerView = (RecyclerView) findViewById(R.id.my_reservations);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(new UserReservationsRecycleAdapter(item));
+
+            progress.dismiss();
         }
 
         floatingActionButton=(FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+                if(item1.size() > 0) {
+                    showDialog();
+                } else {
+                    showNoReservationDialog();
+                }
             }
         });
-        progress.dismiss();
+
+
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.legend,menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void showNoReservationDialog() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
+        dialog.setTitle(R.string.Alert_cancel_title);
+        dialog.setMessage("Trenutno nemate niti jednu rezervaciju koju možete otkazati");
+        dialog.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        final AlertDialog builder = dialog.create();
+        builder.show();
     }
 
     private void showDialog(){
@@ -135,32 +161,29 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             ((ViewGroup) view.findViewById(R.id.RadioGroup)).addView(rg);
         }
 
+        final EditText editText=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
+
         final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         dialog.setTitle(R.string.Alert_cancel_title);
         dialog.setView(view);
-
-        final EditText editText=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                 if(rg.getCheckedRadioButtonId()==-1){
-                    Toast.makeText(getBaseContext(), R.string.ToastCancelOfReservation, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    sendDataForCancelReservation(rg.getCheckedRadioButtonId() ,editText.getText().toString());
-                }
+                flag2 = false;
+                sendDataForCancelReservation(rg.getCheckedRadioButtonId(), editText.getText().toString());
 
             }
         })
                 .setNegativeButton(R.string.Alert_cancel_button_for_reservation, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        flag2 = false;
+                        dialog.dismiss();
                     }
                 });
+
         final AlertDialog builder = dialog.create();
         builder.show();
-
 
         ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
@@ -178,35 +201,58 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             @Override
             public void afterTextChanged(Editable s) {
                 if (TextUtils.isEmpty(s)) {
+                    ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else if(s.length() > 300){
+                    ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    if(!flag2){
+                        ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    } else{
+                        ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
+                }
+            }
+        });
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(radioGroup.getCheckedRadioButtonId() == -1){
                     ((AlertDialog) builder).getButton(
                             AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                }
-                else{
-                    ((AlertDialog) builder).getButton(
-                            AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    flag2 = false;
+                } else {
+                    if(editText.getText().toString().isEmpty()){
+                        ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    } else if(editText.getText().toString().length() > 300) {
+                        ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    } else {
+                        ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
+
+                    flag2 = true;
                 }
             }
         });
     }
     private void sendDataForCancelReservation(int reservation, String description){
-        progressOfCancelReservation = ProgressDialog.show(this, getString(R.string.CancelOfReservationInProcess), getString(R.string.PleaseWait));
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
+            progressOfCancelReservation = ProgressDialog.show(this, getString(R.string.CancelOfReservationInProcess), getString(R.string.PleaseWait));
             flag = true;
             adapter.clearData();
             DataLoader dataLoader;
             dataLoader = new WsReservationCancelDataLoader();
             dataLoader.loadReservationCancel(this, reservation, description);
-        }
-        else {
+        } else {
             Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void getAllReservation(){
-        progress = ProgressDialog.show(this, getString(R.string.GetAllReservationsInProcess), getString(R.string.PleaseWait));
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
+            progress = ProgressDialog.show(this, getString(R.string.GetAllReservationsInProcess), getString(R.string.PleaseWait));
             adapterForAllReservatons.clearData();
             DataLoader dataLoader1;
             dataLoader1 = new WsReservationsDataLoader();
