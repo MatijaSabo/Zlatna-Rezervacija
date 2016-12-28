@@ -28,7 +28,6 @@
         app:counterMaxLength="500"
         app:counterOverflowTextAppearance="@style/error_appearance"
         app:errorTextAppearance="@style/error_appearance">
-
         <EditText android:id="@+id/reason_for_cancel_of_reservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

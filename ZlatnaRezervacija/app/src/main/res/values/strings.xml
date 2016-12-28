@@ -75,5 +75,8 @@
     <string name="reason_for_cancel">Razlog za otkazivanje</string>
     <string name="Alert_cancel_button_for_reservation">Cancel</string>
     <string name="Alert_cancel_title">Poništenje rezervacija</string>
+    <string name="GetAllReservationsInProcess">Dohvaćanje rezervacija u tijeku</string>
+    <string name="CancelOfReservationInProcess">Otkazivanje rezervacije u tijeku</string>
+    <string name="ToastCancelOfReservation">Niste odabrali koju rezervaciju želite otkazati.</string>
 
 </resources>

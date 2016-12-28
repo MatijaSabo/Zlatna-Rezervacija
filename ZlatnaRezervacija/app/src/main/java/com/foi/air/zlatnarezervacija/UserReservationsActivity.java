@@ -29,12 +29,17 @@ import com.foi.webservice.data_loaders.WsReservationsDataLoader;
 
 import java.util.ArrayList;
 
+
 public class UserReservationsActivity extends AppCompatActivity implements DataLoadedListener{
 
     String user;
     private RecyclerView recyclerView;
     ProgressDialog progress;
+    ProgressDialog progressOfCancelReservation;
     ArrayList<ReservationItemDetails> item1 = new ArrayList<ReservationItemDetails>();
+    ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
+    private UserReservationsRecycleAdapter adapter=new UserReservationsRecycleAdapter(item1);
+    private UserReservationsRecycleAdapter adapterForAllReservatons=new UserReservationsRecycleAdapter(item);
     private FloatingActionButton floatingActionButton;
     private Boolean flag = false;
 
@@ -48,6 +53,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         user = getIntent().getStringExtra("user_id");
 
         getAllReservation();
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,8 +78,8 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         if(flag){
             WebServiceReservationCancelResponse DataArrived = (WebServiceReservationCancelResponse) result;
             if(DataArrived.getStatus().endsWith("1")){
+                progressOfCancelReservation.dismiss();
                 flag = false;
-
                 getAllReservation();
 
             } else{
@@ -83,7 +89,6 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         } else{
             WebServiceReservationResponse DataArrived = (WebServiceReservationResponse) result;
             ReservationItemDetails[] items = (ReservationItemDetails[]) DataArrived.getReservations();
-            ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
 
             for (ReservationItemDetails m: items) {
                 item.add(m);
@@ -104,9 +109,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
                 showDialog();
             }
         });
-
-        //progress.dismiss();
-
+        progress.dismiss();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -132,11 +135,17 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         dialog.setTitle(R.string.Alert_cancel_title);
         dialog.setView(view);
+
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 EditText e=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
-                if(e.getText().toString().isEmpty() || rg.getCheckedRadioButtonId()==-1){}
+                if(e.getText().toString().isEmpty()){
+
+                }
+                else if(rg.getCheckedRadioButtonId()==-1){
+                    Toast.makeText(getBaseContext(), R.string.ToastCancelOfReservation, Toast.LENGTH_SHORT).show();
+                }
                 else{
                     sendDataForCancelReservation(rg.getCheckedRadioButtonId() ,e.getText().toString());
                 }
@@ -150,22 +159,27 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
                     }
                 });
         dialog.show();
-
     }
     private void sendDataForCancelReservation(int reservation, String description){
-
-        flag = true;
-
-        DataLoader dataLoader;
-        dataLoader = new WsReservationCancelDataLoader();
-        dataLoader.loadReservationCancel(this,reservation ,description);
+        progressOfCancelReservation = ProgressDialog.show(this, getString(R.string.CancelOfReservationInProcess), getString(R.string.PleaseWait));
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) {
+            flag = true;
+            adapter.clearData();
+            DataLoader dataLoader;
+            dataLoader = new WsReservationCancelDataLoader();
+            dataLoader.loadReservationCancel(this, reservation, description);
+        }
+        else {
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getAllReservation(){
+        progress = ProgressDialog.show(this, getString(R.string.GetAllReservationsInProcess), getString(R.string.PleaseWait));
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
-
         if (cm.getActiveNetworkInfo() != null) {
-
+            adapterForAllReservatons.clearData();
             DataLoader dataLoader1;
             dataLoader1 = new WsReservationsDataLoader();
             dataLoader1.loadDataMyReservations(this, user);
