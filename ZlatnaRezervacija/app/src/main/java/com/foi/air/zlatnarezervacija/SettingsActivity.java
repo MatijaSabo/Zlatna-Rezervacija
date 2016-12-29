@@ -1,7 +1,9 @@
 package com.foi.air.zlatnarezervacija;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -37,14 +39,21 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
         type = getIntent().getStringExtra("notifications");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.postavke);
-        if(type.contains("1")){
-            RadioButton opcija1 = (RadioButton)findViewById(R.id.option1);
-            opcija1.setChecked(true);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) {
+            if(type.contains("1")){
+                RadioButton opcija1 = (RadioButton)findViewById(R.id.option1);
+                opcija1.setChecked(true);
+            }
+            else if (type.contains("2")) {
+                RadioButton opcija2 = (RadioButton)findViewById(R.id.option2);
+                opcija2.setChecked(true);
+            }
+
+        } else {
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
         }
-        else if (type.contains("2")) {
-            RadioButton opcija2 = (RadioButton)findViewById(R.id.option2);
-            opcija2.setChecked(true);
-        }
+
         ButterKnife.bind(this);
 
     }
@@ -72,27 +81,29 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
     }
 
     public void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-        switch(view.getId()) {
-            case R.id.option1:
-                if (checked){
-                     WSresult = null;
-                     type="1";
-                     DataLoader dataLoader;
-                     dataLoader = new WsDataSettingsLoader();
-                     dataLoader.loadDataSettings(this,user,type);
+            boolean checked = ((RadioButton) view).isChecked();
+            switch(view.getId()) {
+                case R.id.option1:
+                    if (checked){
+                        WSresult = null;
+                        type="1";
+                        DataLoader dataLoader;
+                        dataLoader = new WsDataSettingsLoader();
+                        dataLoader.loadDataSettings(this,user,type);
 
-                    break;}
-            case R.id.option2:
-                if (checked){
-                    type="2";
-                    WSresult = null;
-                    DataLoader dataLoader;
-                    dataLoader = new WsDataSettingsLoader();
-                    dataLoader.loadDataSettings(this,user,type);
+                        break;}
+                case R.id.option2:
+                    if (checked){
+                        type="2";
+                        WSresult = null;
+                        DataLoader dataLoader;
+                        dataLoader = new WsDataSettingsLoader();
+                        dataLoader.loadDataSettings(this,user,type);
 
-                      break;}
-        }
+                        break;}
+            }
+
+
     }
 
     @Override

@@ -66,8 +66,8 @@
     <string name="Request">Zahtjev za otkazivanjem</string>
     <string name="Canceled">Otkazana</string>
     <string name="postavke">Postavke</string>
-    <string name="option1">Opcija 1</string>
-    <string name="option2">Opcija 2</string>
+    <string name="option1">Vibracija</string>
+    <string name="option2">Notifikacija</string>
     <string name="textMainOption">Obavijesti</string>
     <string name="textOption">Način primanja obavijesti</string>
     <string name="settingsSucces">Način primanja obavijesti je promijenjen</string>

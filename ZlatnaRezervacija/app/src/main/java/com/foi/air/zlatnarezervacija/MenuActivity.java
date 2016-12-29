@@ -63,7 +63,10 @@ public class MenuActivity extends AppCompatActivity {
         super.onResume();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String tip = sharedPreferences.getString("obavijest", "");
-        if(tip!=notifications_intent){
+        if(tip.isEmpty()){
+            sharedPreferences.edit().clear().commit();
+        }
+        else if(tip!=notifications_intent){
             notifications_intent=tip;
         }
     }
