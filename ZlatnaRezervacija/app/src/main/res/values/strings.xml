@@ -18,11 +18,11 @@
     <string name="odjava">Odjava</string>
     <string name="rezervacije_restorana">Rezervacije restorana</string>
     <string name="rezervacije_na_cekanju">Rezervacije na čekanju</string>
-    <string name="logout_alert_title">Odjava?</string>
+    <string name="logout_alert_title">Odjava</string>
     <string name="logout_alert_message">Jeste li sigurni da se želite odjaviti iz aplikacije?</string>
     <string name="Alert_positive_button">U redu</string>
     <string name="Alert_cancel_button">Poništi</string>
-    <string name="Exit_alert_title">Izlaz?</string>
+    <string name="Exit_alert_title">Izlaz</string>
     <string name="Exit_alert_message">Jeste li sigurni da želite izaći iz aplikacije?</string>
     <string name="repasswordHint">Ponovljena lozinka</string>
     <string name="name_registration">Ime</string>
@@ -119,7 +119,7 @@
     <string name="RestaurantContactPhone">042 666 054</string>
     <string name="RestaurantContactEmail">zlatni-restorani@net.hr</string>
     <string name="RestaurantWebTitle">Web stranice</string>
-    <string name="RestaurantContactWeb">http://www.zlatne-gorice.eu/</string>
+    <string name="RestaurantContactWeb">www.zlatne-gorice.eu</string>
     <string name="RestaurantPaying">Načini plačanja</string>
     <string name="RestaurantWorkingTitle">Radno vrijeme</string>
     <string name="RestaurantWorking1">Pon: ZATVORENO</string>
