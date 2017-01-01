@@ -12,11 +12,11 @@ public class MenuCategoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private String[] kategorije = {getString(R.string.MenuCategory1), getString(R.string.MenuCategory2), getString(R.string.MenuCategory3),
-            getString(R.string.MenuCategory4), getString(R.string.MenuCategory5), getString(R.string.MenuCategory6),
-            getString(R.string.MenuCategory7), getString(R.string.MenuCategory8), getString(R.string.MenuCategory9),
-            getString(R.string.MenuCategory10), getString(R.string.MenuCategoty11), getString(R.string.MenuCategory12),
-            getString(R.string.MenuCategory13), getString(R.string.MenuCategory14), getString(R.string.MenuCategory15)};
+    private String[] kategorije = {"Hladna predjela", "Juhe", "Tjestenine i rižota",
+            "Mesna jela", "Specijaliteti Zlatnih gorica", "Jela od riba",
+            "Vegetarijanska jela", "Prilozi", "Salate",
+            "Slatka jela", "Kava i topli napici", "Bezalkoholna pića",
+            "Piva", "Žestoka alkoholna pića", "Miješana vina"};
 
     private Integer[] slike = {R.mipmap.restaurant_menu, R.mipmap.restaurant_menu, R.mipmap.restaurant_menu,
             R.mipmap.restaurant_menu, R.mipmap.restaurant_menu, R.mipmap.restaurant_menu,
@@ -47,6 +47,4 @@ public class MenuCategoryActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 }
