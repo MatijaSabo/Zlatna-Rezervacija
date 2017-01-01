@@ -76,7 +76,6 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
     }
     public class MyReservationViewHolder extends RecyclerView.ViewHolder{
 
-        TextView reservationStatus;
         TextView reservationDate;
         TextView reservationPersons;
         TextView reservationMeals;

@@ -33,7 +33,7 @@
                 android:id="@+id/reservation_detail_id"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="1"
+                android:text="@string/StringForChange"
                 android:padding="10dp"/>
 
             <LinearLayout
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_date"
                     android:textSize="14sp"
-                    android:text="Datum:"
+                    android:text="@string/UserReservationsDate"
                     android:textStyle="bold"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_date_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:padding="2dp"/>
 
             </LinearLayout>
@@ -72,7 +72,7 @@
                     android:id="@+id/reservation_detail_time_arrival"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Vrijeme dolaska:"
+                    android:text="@string/UserReservationsTimeStart"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
 
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_time_arrival_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:padding="2dp"/>
 
             </LinearLayout>
@@ -97,7 +97,7 @@
                     android:id="@+id/reservation_detail_time_checkout"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Vrijeme kraja:"
+                    android:text="@string/UserReservationsTimeCheckout"
                     android:layout_alignParentLeft="true"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_time_checkout_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:layout_alignParentLeft="true"
                     android:padding="2dp"/>
 
@@ -124,7 +124,7 @@
                     android:id="@+id/reservation_detail_number_persons"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Broj osoba"
+                    android:text="@string/UserReservationsPersons"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
 
@@ -133,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_number_persons_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:padding="2dp"/>
 
             </LinearLayout>
@@ -149,7 +149,7 @@
                     android:id="@+id/reservation_detail_number_meals"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Broj jela:"
+                    android:text="@string/UserReservationsMeals"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
 
@@ -158,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_number_meals_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:padding="2dp"/>
 
             </LinearLayout>
@@ -174,7 +174,7 @@
                     android:id="@+id/reservation_detail_tables"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Stolovi:"
+                    android:text="@string/UserReservationsTables"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
 
@@ -183,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_tables_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:padding="2dp"/>
 
             </LinearLayout>
@@ -199,7 +199,7 @@
                     android:id="@+id/reservation_detail_remark"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Napomene:"
+                    android:text="@string/UserReservationsRemark"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
 
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_remark_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:padding="2dp"/>
 
             </LinearLayout>
@@ -224,7 +224,7 @@
                     android:id="@+id/reservation_detail_description"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Opis:"
+                    android:text="@string/UserReservationsDescription"
                     android:padding="2dp"
                     android:layout_marginLeft="8dp"/>
 
@@ -233,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reservation_detail_description_text"
                     android:textSize="14sp"
-                    android:text="text"
+                    android:text="@string/StringForChange"
                     android:padding="2dp"/>
 
             </LinearLayout>

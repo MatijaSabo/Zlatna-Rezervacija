@@ -88,7 +88,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
                 getAllReservation();
 
             } else{
-                Toast.makeText(this, "Otkazivanje rezervacije nije uspjelo, pokušajte ponovo...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.UnsuccessCancelReservation, Toast.LENGTH_LONG).show();
             }
 
         } else{
@@ -120,8 +120,6 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
                 }
             }
         });
-
-
     }
 
     @Override
@@ -133,7 +131,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
     private void showNoReservationDialog() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         dialog.setTitle(R.string.Alert_cancel_title);
-        dialog.setMessage("Trenutno nemate niti jednu rezervaciju koju možete otkazati");
+        dialog.setMessage(R.string.EmptyListReservationForCancel);
         dialog.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener(){
 
             @Override
@@ -166,7 +164,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         dialog.setTitle(R.string.Alert_cancel_title);
         dialog.setView(view);
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 flag2 = false;

@@ -20,7 +20,7 @@
             android:layout_margin="20dp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:text="12.0 Kn"/>
+            android:text="@string/StringForChange"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:id="@+id/menu_detail_name"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="Hladna plata Zlatne gorice"
+            android:text="@string/StringForChange"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"/>
@@ -42,7 +42,7 @@
             android:layout_toLeftOf="@+id/menu_detail_price"
             android:layout_alignParentLeft="true"
             android:textSize="13sp"
-            android:text="Hladna plata Zlatne gorice"
+            android:text="@string/StringForChange"
             android:layout_below="@+id/menu_detail_name"
             android:textStyle="italic"
             android:layout_marginLeft="20dp"

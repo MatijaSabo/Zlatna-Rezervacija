@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Molimo Vas da provjerite unesene podatke prije slanja. Slanje rezervacije sa ovim podacima?"
+            android:text="@string/CreateReservationMessage"
             android:textSize="15sp"
             android:layout_marginBottom="10dp"/>
 
@@ -28,14 +28,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Ime i prezime: "
+                android:text="@string/UserName"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alert_person_name"
-                android:text="-"
+                android:text="@string/StringForChange"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -50,14 +50,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Datum: "
+                android:text="@string/ReservationCreateAlertDate"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alert_date"
-                android:text="-"
+                android:text="@string/StringForChange"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -72,14 +72,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Vrijeme: "
+                android:text="@string/ReservationCreateAlertTime"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alert_time"
-                android:text="-"
+                android:text="@string/StringForChange"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -94,14 +94,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Broj osoba: "
+                android:text="@string/ReservationCreateAlertPersons"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alert_persons"
-                android:text="-"
+                android:text="@string/StringForChange"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -116,14 +116,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Broj jela: "
+                android:text="@string/ReservationCreateAlertMeals"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alert_meals"
-                android:text="-"
+                android:text="@string/StringForChange"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -138,14 +138,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Napomene: "
+                android:text="@string/ReservationCreateAlertRemark"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alert_remark"
-                android:text="-"
+                android:text="@string/StringForChange"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -160,14 +160,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Obavijesti: *"
+                android:text="@string/ReservationCreateAlertNotification"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alert_notifications"
-                android:text="-"
+                android:text="@string/StringForChange"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -175,7 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="* Za promjenu načina primanja obavijesti posjetite postavke aplikacije"
+            android:text="@string/ChangeNotificationMessage"
             android:textStyle="italic"
             android:textSize="10dp"
             android:textColor="@color/errorColor"/>

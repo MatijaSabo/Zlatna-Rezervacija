@@ -68,6 +68,7 @@ public class MenuActivity extends AppCompatActivity {
         }
         else if(tip!=notifications_intent){
             notifications_intent=tip;
+            sharedPreferences.edit().clear().commit();
         }
     }
 

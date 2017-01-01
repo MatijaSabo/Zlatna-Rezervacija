@@ -92,8 +92,8 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
                     builder.setCancelable(false);
-                    builder.setTitle("Povratak");
-                    builder.setMessage("Jeste li sigurni da se želite vratiti? Promjene koje ste napravili neće biti spremljene.");
+                    builder.setTitle(R.string.BackAlertTitle);
+                    builder.setMessage(R.string.BackAlertMessage);
                     builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
@@ -124,8 +124,8 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
             builder.setCancelable(false);
-            builder.setTitle("Povratak");
-            builder.setMessage("Jeste li sigurni da se želite vratiti? Promjene koje ste napravili neće biti spremljene.");
+            builder.setTitle(R.string.BackAlertTitle);
+            builder.setMessage(R.string.BackAlertMessage);
             builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -158,11 +158,11 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         if(broj_osoba_input.length()  < 1){
             broj_osoba_label.setErrorEnabled(true);
-            broj_osoba_label.setError("Unesite broj osoba");
+            broj_osoba_label.setError(getString(R.string.PersonsError));
             broj_osoba_validator = false;
         } else if(Integer.parseInt(broj_osoba_input.getText().toString()) < 1){
             broj_osoba_label.setErrorEnabled(true);
-            broj_osoba_label.setError("Broj osoba mora biti minimalno 1");
+            broj_osoba_label.setError(getString(R.string.PersonsError2));
             broj_osoba_validator = false;
         } else{
             broj_osoba_label.setErrorEnabled(false);
@@ -171,11 +171,11 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         if(broj_jela_input.length()  < 1){
             broj_jela_label.setErrorEnabled(true);
-            broj_jela_label.setError("Unesite broj jela");
+            broj_jela_label.setError(getString(R.string.MealsError));
             broj_jela_validator = false;
         } else if(Integer.parseInt(broj_jela_input.getText().toString()) < 1){
             broj_jela_label.setErrorEnabled(true);
-            broj_jela_label.setError("Broj jela mora biti minimalno 1");
+            broj_jela_label.setError(getString(R.string.MealsError2));
             broj_jela_validator = false;
         } else{
             broj_jela_label.setErrorEnabled(false);
@@ -184,7 +184,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         if(datum_input.length() < 1){
             datum_label.setErrorEnabled(true);
-            datum_label.setError("Unesite datum");
+            datum_label.setError(getString(R.string.DateError));
             datum_validator = false;
         } else {
             datum_label.setErrorEnabled(false);
@@ -193,7 +193,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         if(vrijeme_input.length() < 1){
             vrijeme_label.setErrorEnabled(true);
-            vrijeme_label.setError("Unesite vrijeme");
+            vrijeme_label.setError(getString(R.string.TimeError));
             vrijeme_validator = false;
         } else{
             vrijeme_label.setErrorEnabled(false);
@@ -216,7 +216,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         if(napomene_input.getText().length() > 0){
             napomene = napomene_input.getText().toString();
         } else {
-            napomene = "Nema napomena";
+            napomene = getString(R.string.EmptyRemark);
         }
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
@@ -241,20 +241,20 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
             alert_meals.setText(broj_jela_input.getText().toString());
 
             if(napomene_input.length() < 1){
-                alert_remark.setText("Nema napomena");
+                alert_remark.setText(R.string.EmptyRemark);
             } else{
                 alert_remark.setText(napomene_input.getText().toString());
             }
 
             if(notifications_intent.endsWith("1")){
-                alert_notifications.setText("Vibracija");
+                alert_notifications.setText(R.string.Vibration);
             } else{
-                alert_notifications.setText("Notifikacija");
+                alert_notifications.setText(R.string.Notification);
             }
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
             builder.setCancelable(false);
-            builder.setTitle("Rezervacija");
+            builder.setTitle(R.string.ReservationTitle);
             builder.setView(alertView);
             builder.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
                 @Override
@@ -356,7 +356,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     }
 
     private void sendReservation() {
-        dialog = ProgressDialog.show(this, "Slanje rezervacije u tijeku", getString(R.string.PleaseWait));
+        dialog = ProgressDialog.show(this, getString(R.string.SendReservationInProgress), getString(R.string.PleaseWait));
 
         int broj_osoba = Integer.parseInt(broj_osoba_input.getText().toString());
         int broj_jela = Integer.parseInt(broj_jela_input.getText().toString());
@@ -374,10 +374,10 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         dialog.dismiss();
 
         if(Wsresult.getStatus().equals("1")){
-            Toast.makeText(this, "Vaša rezervacija je uspješno kreirana", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.SuccessCreatingReservation, Toast.LENGTH_SHORT).show();
             finish();
         } else{
-            Toast.makeText(this, "Slanje rezervacije nije uspjelo, pokušajte ponovo...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ErrorCreatingReservation, Toast.LENGTH_SHORT).show();
         }
     }
 }
