@@ -1,368 +1,361 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_restaurant_details"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.foi.air.zlatnarezervacija.RestaurantDetailsActivity">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#303030"
-        android:id="@+id/cv"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardUseCompatPadding="true">
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_margin="10dp"
-            android:longClickable="true"
-            android:background="@color/btnColorText"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/RestaurantAdressTitle"
-                android:id="@+id/txtAdresaRestorana"
-                android:layout_marginLeft="50dp"
-                android:elevation="4dp"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:layout_marginBottom="2dp"
-                />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/category_item_icon"
-                android:layout_alignParentLeft="true"
-                android:src="@mipmap/location"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="10dp"
-                android:layout_below="@+id/txtAdresaRestorana"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/RestaurantAdress1"
-                android:layout_marginLeft="50dp"
-                android:id="@+id/txtUnosAdreseRestorana"
-                android:layout_below="@+id/txtAdresaRestorana"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="2dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/RestaurantAdress2"
-                android:layout_marginLeft="50dp"
-                android:id="@+id/txtUnosAdreseRestorana1"
-                android:layout_below="@+id/txtUnosAdreseRestorana"
-                android:layout_alignParentStart="true"
-                />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#303030"
-        android:id="@+id/cv2"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_below="@+id/cv1"
-        android:layout_alignParentStart="true"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardUseCompatPadding="true">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:longClickable="true"
-            android:background="@color/btnColorText"
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            android:id="@+id/cv"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout"
-            android:layout_marginBottom="10dp">
+            card_view:cardCornerRadius="2dp"
+            card_view:cardUseCompatPadding="true">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/RestaurantContactTitle"
-                android:id="@+id/txtTelefon"
-                android:layout_alignParentTop="true"
-                android:elevation="4dp"
-                android:textSize="20dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginBottom="2dp"
-                />
+                android:background="@color/btnColorText"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/category_phone"
-                android:src="@mipmap/ic_call_black_18dp"
-                android:layout_below="@+id/txtTelefon"
-                android:layout_marginLeft="35dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/RestaurantAdressTitle"
+                    android:id="@+id/txtAdresaRestorana"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20dp"
+                    android:padding="5dp"
+                    android:layout_alignParentTop="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:autoLink="phone"
-                android:clickable="true"
-                android:text="@string/RestaurantContactPhone"
-                android:layout_marginLeft="60dp"
-                android:id="@+id/txtTelefonUpis"
-                android:layout_below="@+id/txtTelefon"
-                android:layout_marginBottom="2dp"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/category_item_icon"
+                    android:layout_alignParentLeft="true"
+                    android:src="@mipmap/location"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@+id/txtAdresaRestorana" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/category_email"
-                android:src="@mipmap/ic_message_black_18dp"
-                android:layout_marginLeft="35dp"
-                android:layout_below="@+id/txtTelefonUpis"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/RestaurantAdress1"
+                    android:layout_marginLeft="53dp"
+                    android:id="@+id/txtUnosAdreseRestorana"
+                    android:layout_below="@+id/txtAdresaRestorana"
+                    android:padding="2dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/RestaurantContactEmail"
-                android:id="@+id/txtEmail"
-                android:layout_marginLeft="60dp"
-                android:layout_below="@+id/txtTelefonUpis"
-                android:layout_alignParentBottom="false"
-                android:autoLink="email" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/RestaurantAdress2"
+                    android:layout_marginLeft="53dp"
+                    android:id="@+id/txtUnosAdreseRestorana1"
+                    android:layout_below="@+id/txtUnosAdreseRestorana"
+                    android:padding="2dp"/>
 
-        </RelativeLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#303030"
-        android:id="@+id/cv4"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/cv3"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardUseCompatPadding="true">
-
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_margin="10dp"
-            android:longClickable="true"
-            android:background="@color/btnColorText">
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            android:id="@+id/cv1"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_below="@+id/cv"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardUseCompatPadding="true">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/RestaurantWebTitle"
-                android:id="@+id/txtWebStranica"
-                android:layout_alignParentTop="true"
-                android:elevation="4dp"
-                android:textSize="20dp"
-                android:layout_marginLeft="50dp"/>
+                android:background="@color/btnColorText"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/category_hour1"
-                android:src="@mipmap/ic_cloud_upload_black_18dp"
-                android:layout_below="@+id/txtWebStranica"
-                android:layout_marginLeft="25dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/RestaurantWorkingTitle"
+                    android:id="@+id/txtRadnoVrijeme"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="50dp"
+                    android:padding="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/RestaurantContactWeb"
-                android:id="@+id/txtUpisWebStranice"
-                android:layout_marginLeft="50dp"
-                android:layout_below="@+id/txtWebStranica"
-                android:layout_alignParentBottom="false"
-                android:autoLink="web" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/category_hour"
+                    android:src="@mipmap/ic_schedule_black_18dp"
+                    android:layout_below="@+id/txtRadnoVrijeme"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="2dp"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/RestaurantWorking1"
+                    android:id="@+id/txtRadnoVrijemePon"
+                    android:layout_marginLeft="53dp"
+                    android:padding="2dp"
+                    android:layout_below="@+id/txtRadnoVrijeme" />
 
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_marginLeft="53dp"
+                    android:padding="2dp"
+                    android:text="@string/RestaurantWorking2"
+                    android:id="@+id/txtRadnoVrijemeCet"
+                    android:layout_below="@+id/txtRadnoVrijemePon" />
 
-    </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="53dp"
+                    android:padding="2dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/RestaurantWorking3"
+                    android:id="@+id/txtRadnoVrijemeSub"
+                    android:layout_below="@+id/txtRadnoVrijemeCet" />
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#303030"
-        android:id="@+id/cv3"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/cv2"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardUseCompatPadding="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="53dp"
+                    android:padding="2dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/RestaurantWorking4"
+                    android:id="@+id/txtRadnoVrijemeNed"
+                    android:layout_below="@+id/txtRadnoVrijemeSub" />
 
-        <RelativeLayout
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="95dp"
-            android:longClickable="true"
-            android:background="@color/btnColorText"
-            android:layout_marginBottom="10dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            android:id="@+id/cv2"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_below="@+id/cv1"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/RestaurantPaying"
-                android:id="@+id/txtNacini"
-                android:layout_alignParentTop="true"
-                android:elevation="4dp"
-                android:textSize="20dp"
-                android:layout_marginLeft="60dp" />
+                android:background="@color/btnColorText"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/category_Visa"
-                android:src="@mipmap/visa_card"
-                android:layout_marginLeft="60dp"
-                android:layout_below="@+id/txtNacini" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/RestaurantContactTitle"
+                    android:id="@+id/txtTelefon"
+                    android:padding="5dp"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="50dp" />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/category_Am"
-                android:src="@mipmap/americanxpress"
-                android:layout_marginLeft="140dp"
-                android:layout_below="@+id/txtNacini" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/category_phone"
+                    android:src="@mipmap/ic_call_black_18dp"
+                    android:layout_below="@+id/txtTelefon"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="2dp"/>
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/category_MasterCard"
-                android:src="@mipmap/master_card"
-                android:layout_marginLeft="210dp"
-                android:layout_below="@+id/txtNacini" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:autoLink="phone"
+                    android:clickable="true"
+                    android:text="@string/RestaurantContactPhone"
+                    android:layout_marginLeft="53dp"
+                    android:padding="2dp"
+                    android:id="@+id/txtTelefonUpis"
+                    android:layout_below="@+id/txtTelefon"
+                    android:layout_marginBottom="2dp"/>
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/category_Diners"
-                android:src="@mipmap/diners_club"
-                android:layout_marginLeft="60dp"
-                android:layout_below="@+id/category_Visa" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/category_email"
+                    android:src="@mipmap/ic_mail_outline_black_48dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@id/txtTelefonUpis"/>
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/category_VisaElectronic"
-                android:src="@mipmap/visa_electron"
-                android:layout_marginLeft="140dp"
-                android:layout_below="@+id/category_Visa" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/RestaurantContactEmail"
+                    android:id="@+id/txtEmail"
+                    android:layout_marginLeft="53dp"
+                    android:padding="2dp"
+                    android:layout_below="@+id/txtTelefonUpis"
+                    android:autoLink="email" />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/category_Cash"
-                android:src="@mipmap/coins"
-                android:layout_marginLeft="210dp"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/category_MasterCard" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#303030"
-        android:id="@+id/cv1"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginTop="92dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/cv"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardUseCompatPadding="true">
-
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:longClickable="true"
-            android:background="@color/btnColorText">
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            android:id="@+id/cv3"
+            android:foreground="?android:attr/selectableItemBackground"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardUseCompatPadding="true"
+            android:layout_below="@+id/cv2"
+            android:layout_alignParentStart="true">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/RestaurantWorkingTitle"
-                android:id="@+id/txtRadnoVrijeme"
-                android:layout_alignParentTop="true"
-                android:elevation="4dp"
-                android:textSize="20dp"
-                android:layout_marginLeft="50dp"/>
+                android:background="@color/btnColorText"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/RestaurantPaying"
+                    android:id="@+id/txtNacini"
+                    android:layout_alignParentTop="true"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="50dp"
+                    android:padding="5dp"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/category_Visa"
+                    android:src="@mipmap/visa"
+                    android:layout_marginLeft="55dp"
+                    android:layout_below="@+id/txtNacini" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/category_Am"
+                    android:src="@mipmap/american"
+                    android:layout_marginLeft="115dp"
+                    android:layout_below="@+id/txtNacini" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/category_MasterCard"
+                    android:src="@mipmap/master"
+                    android:layout_marginLeft="175dp"
+                    android:layout_below="@+id/txtNacini" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/category_Diners"
+                    android:src="@mipmap/diners"
+                    android:layout_marginLeft="55dp"
+                    android:layout_below="@+id/category_Visa" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/category_VisaElectronic"
+                    android:src="@mipmap/visaelectron"
+                    android:layout_marginLeft="115dp"
+                    android:layout_below="@+id/category_Visa" />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/category_Cash"
+                    android:src="@mipmap/cash_dark"
+                    android:layout_marginLeft="165dp"
+                    android:layout_below="@+id/category_MasterCard" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            android:id="@+id/cv4"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_below="@+id/cv3"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/RestaurantWorking1"
-                android:id="@+id/txtRadnoVrijemePon"
-                android:layout_marginLeft="50dp"
-                android:layout_below="@+id/txtRadnoVrijeme" />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/category_hour"
-                android:src="@mipmap/ic_schedule_black_18dp"
-                android:layout_below="@+id/txtRadnoVrijeme"
-                android:layout_marginLeft="25dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_marginLeft="50dp"
-                android:text="@string/RestaurantWorking2"
-                android:id="@+id/txtRadnoVrijemeCet"
-                android:layout_below="@+id/txtRadnoVrijemePon" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/RestaurantWorking3"
-                android:id="@+id/txtRadnoVrijemeSub"
-                android:layout_below="@+id/txtRadnoVrijemeCet" />
+                android:background="@color/btnColorText"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/RestaurantWorking4"
-                android:id="@+id/txtRadnoVrijemeNed"
-                android:layout_below="@+id/txtRadnoVrijemeSub" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/RestaurantWebTitle"
+                    android:id="@+id/txtWebStranica"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="50dp"
+                    android:padding="5dp"/>
 
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/category_hour1"
+                    android:src="@mipmap/ic_public_black_48dp"
+                    android:layout_below="@+id/txtWebStranica"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="2dp"/>
 
-    </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/RestaurantContactWeb"
+                    android:id="@+id/txtUpisWebStranice"
+                    android:layout_marginLeft="53dp"
+                    android:padding="2dp"
+                    android:layout_below="@+id/txtWebStranica"
+                    android:layout_alignParentBottom="false"
+                    android:autoLink="web" />
 
-</RelativeLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
