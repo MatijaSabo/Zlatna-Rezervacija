@@ -32,7 +32,6 @@ import com.foi.webservice.data_loaders.WsReservationsDataLoader;
 
 import java.util.ArrayList;
 
-
 public class UserReservationsActivity extends AppCompatActivity implements DataLoadedListener{
 
     String user;

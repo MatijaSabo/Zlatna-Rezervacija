@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.foi.webservice.responses.WebServiceMenuResponse;
 import com.foi.webservice.responses.WebServiceReservationCancelResponse;
+import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
@@ -109,8 +110,6 @@ public class WebServiceCaller extends AppCompatActivity {
             public void onResponse(Response<WebServiceMenuResponse> response, Retrofit retrofit) {
                 try {
                     if(response.isSuccess()){
-                        System.out.println("1");
-                        System.out.println(response.body().getItems());
                         handleMenuDataResponse((WebServiceMenuResponse) response.body());
                     }
                 }catch (Exception ex){
@@ -132,8 +131,6 @@ public class WebServiceCaller extends AppCompatActivity {
             public void onResponse(Response<WebServiceReservationResponse> response, Retrofit retrofit) {
                 try{
                     if(response.isSuccess()){
-                        System.out.println("1====================");
-                        System.out.println(response.body().getReservations());
                         handleMyReservationsResponse((WebServiceReservationResponse) response.body());
                     }
 
@@ -156,7 +153,6 @@ public class WebServiceCaller extends AppCompatActivity {
             public void onResponse(Response<WebServiceResponseRegistration> response, Retrofit retrofit) {
                 try {
                     if(response.isSuccess()){
-                        System.out.println("--- Status rezervacije ---");
                         System.out.println(response.body().getStatus());
                         handleCreateReservationResponse((WebServiceResponseRegistration) response.body());
                     }
@@ -180,9 +176,6 @@ public class WebServiceCaller extends AppCompatActivity {
                 public void onResponse(Response<WebServiceReservationCancelResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            System.out.println("-----Cancel Reservation------");
-                            System.out.println(response.body().getStatus());
-                            System.out.println("===============KRAJ=============");
                             handleMyReservationsCancelResponse((WebServiceReservationCancelResponse) response.body());
                         }
 
@@ -197,8 +190,32 @@ public class WebServiceCaller extends AppCompatActivity {
 
                 }
             });
+    }
 
-        }
+    public void getReservationsOnHold(final String restaurant) {
+
+        WebService serviceCaller = retrofit.create(WebService.class);
+        retrofit.Call<WebServiceReservationOnHold> call = serviceCaller.getReservationOnHold(restaurant);
+        call.enqueue(new Callback<WebServiceReservationOnHold>() {
+            @Override
+            public void onResponse(Response<WebServiceReservationOnHold> response, Retrofit retrofit) {
+                try {
+                    if (response.isSuccess()) {
+                        System.out.println("1");
+                        handleReservationsOnHold((WebServiceReservationOnHold) response.body());
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
 
 
     private void handleCreateReservationResponse(WebServiceResponseRegistration response) {
@@ -240,6 +257,14 @@ public class WebServiceCaller extends AppCompatActivity {
     private void handleMyReservationsCancelResponse(WebServiceReservationCancelResponse response) {
 
         if (mWebServiceHandler != null) {
+            mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+
+    private void handleReservationsOnHold(WebServiceReservationOnHold response) {
+
+        if (mWebServiceHandler != null) {
+            System.out.println("2");
             mWebServiceHandler.onDataArrived(response, true);
         }
     }

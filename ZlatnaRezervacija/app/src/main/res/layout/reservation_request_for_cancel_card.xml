@@ -211,7 +211,8 @@
             android:layout_height="wrap_content"
             android:text="Odgovor na otkazivanje"
             android:background="@color/btnColor"
-            android:textColor="@color/btnColorText"/>
+            android:textColor="@color/btnColorText"
+            android:id="@+id/request_for_cancel_button"/>
 
     </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.foi.webservice;
 
 import com.foi.webservice.responses.WebServiceMenuResponse;
 import com.foi.webservice.responses.WebServiceReservationCancelResponse;
+import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
@@ -42,4 +43,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("cancel_reservation.php")
     Call<WebServiceReservationCancelResponse> getReservationCancel(@Field("reservation") int reservation, @Field("description") String description);
+
+    @FormUrlEncoded
+    @POST("reservations_on_hold.php")
+    Call<WebServiceReservationOnHold> getReservationOnHold(@Field("restaurant") String reservation);
 }

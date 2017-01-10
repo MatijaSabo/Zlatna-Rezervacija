@@ -18,19 +18,9 @@
             android:padding="5dp"
             android:textStyle="bold"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#808080"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp">
-        </View>
-
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:id="@+id/restaurant_reservations_on_hold">
         </android.support.v7.widget.RecyclerView>
 
@@ -41,22 +31,11 @@
             android:padding="5dp"
             android:textStyle="bold"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#808080"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp">
-        </View>
-
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:id="@+id/restaurant_reservations_request_for_cancel">
         </android.support.v7.widget.RecyclerView>
-
     </LinearLayout>
 
 </ScrollView>

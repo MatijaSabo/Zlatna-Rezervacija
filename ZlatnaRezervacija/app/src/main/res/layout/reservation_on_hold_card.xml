@@ -155,7 +155,8 @@
             android:layout_height="wrap_content"
             android:text="Odgovor na zahtjev"
             android:background="@color/btnColor"
-            android:textColor="@color/btnColorText"/>
+            android:textColor="@color/btnColorText"
+            android:id="@+id/reservation_on_hold_button"/>
 
     </LinearLayout>
 
