@@ -12,25 +12,26 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.foi.air.zlatnarezervacija.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.foi.air.zlatnarezervacija.MenuActivity" />
-        <activity android:name="com.foi.air.zlatnarezervacija.RegistrationActivity" />
-        <activity android:name="com.foi.air.zlatnarezervacija.AdminMenuActivity" />
-        <activity android:name="com.foi.air.zlatnarezervacija.MenuCategoryActivity" />
-        <activity android:name="com.foi.air.zlatnarezervacija.MenuDetailsActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".AdminMenuActivity" />
+        <activity android:name=".MenuCategoryActivity" />
+        <activity android:name=".MenuDetailsActivity" />
         <activity
-            android:name="com.foi.air.zlatnarezervacija.CreateReservationActivity"
+            android:name=".CreateReservationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name" />
-        <activity android:name="com.foi.air.zlatnarezervacija.RestaurantDetailsActivity" />
-        <activity android:name="com.foi.air.zlatnarezervacija.UserReservationsActivity"></activity>
-        <activity android:name="com.foi.air.zlatnarezervacija.SettingsActivity" />
+        <activity android:name=".RestaurantDetailsActivity" />
+        <activity android:name=".UserReservationsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".ReservationsOnHoldActivity"></activity>
     </application>
 
 </manifest>
