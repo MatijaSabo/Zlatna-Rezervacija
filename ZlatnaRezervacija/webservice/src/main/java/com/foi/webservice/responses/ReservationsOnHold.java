@@ -7,16 +7,11 @@ public class ReservationsOnHold {
 
     public String id;
     public String date;
-    public String persons;
-    public String meals;
     public String time_arrival;
     public String time_checkout;
-    public String remark;
-    public String description;
     public String user_first_name;
     public String user_last_name;
     public String status;
-    public ReservationTableItemDetails[] tables;
 
     public String getId() {
         return id;
@@ -34,22 +29,6 @@ public class ReservationsOnHold {
         this.date = date;
     }
 
-    public String getpersons() {
-        return persons;
-    }
-
-    public void setPersons(String persons) {
-        this.persons = persons;
-    }
-
-    public String getMeals() {
-        return meals;
-    }
-
-    public void setMeals(String meals) {
-        this.meals = meals;
-    }
-
     public String getTime_arrival() {
         return time_arrival;
     }
@@ -64,22 +43,6 @@ public class ReservationsOnHold {
 
     public void setTime_checkout(String time_checkout) {
         this.time_checkout = time_checkout;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getUser_first_name() {
@@ -101,12 +64,4 @@ public class ReservationsOnHold {
     }
 
     public void setStatus(String status) { this.status = status; }
-
-    public ReservationTableItemDetails[] getTables() {
-        return tables;
-    }
-
-    public void setTables(ReservationTableItemDetails[] tables) {
-        this.tables = tables;
-    }
 }

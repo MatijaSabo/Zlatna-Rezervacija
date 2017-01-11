@@ -1,13 +1,15 @@
 package com.foi.air.zlatnarezervacija.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.foi.air.zlatnarezervacija.R;
+import com.foi.air.zlatnarezervacija.ReservationOnHoldActivity;
 import com.foi.webservice.responses.ReservationsOnHold;
 
 import java.util.ArrayList;
@@ -18,9 +20,11 @@ import java.util.ArrayList;
 
 public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<ReservationsOnHold> items;
+    Context context;
 
-    public ReservationsOnHoldAdapter(ArrayList<ReservationsOnHold> Items){
+    public ReservationsOnHoldAdapter(ArrayList<ReservationsOnHold> Items, Context context){
         this.items = Items;
+        this.context = context;
     }
 
     @Override
@@ -40,9 +44,6 @@ public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView
         ((ReservationOnHoldViewHolder) holder).itemUser.setText(user);
         ((ReservationOnHoldViewHolder) holder).itemDate.setText(item.getDate());
         ((ReservationOnHoldViewHolder) holder).itemTime.setText(item.getTime_arrival());
-        ((ReservationOnHoldViewHolder) holder).itemPersons.setText(item.getpersons());
-        ((ReservationOnHoldViewHolder) holder).itemMeals.setText(item.getMeals());
-        ((ReservationOnHoldViewHolder) holder).itemRemark.setText(item.getRemark());
     }
 
     @Override
@@ -50,28 +51,27 @@ public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView
         return items.size();
     }
 
-    public class ReservationOnHoldViewHolder extends RecyclerView.ViewHolder{
+    public class ReservationOnHoldViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView itemId;
         TextView itemUser;
         TextView itemDate;
         TextView itemTime;
-        TextView itemPersons;
-        TextView itemMeals;
-        TextView itemRemark;
-        Button itemButton;
 
         public ReservationOnHoldViewHolder(View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(this);
             itemId = (TextView) itemView.findViewById(R.id.reservation_on_hold_reservation_id);
             itemUser = (TextView) itemView.findViewById(R.id.reservation_on_hold_user);
             itemDate = (TextView) itemView.findViewById(R.id.reservation_on_hold_date);
             itemTime = (TextView) itemView.findViewById(R.id.reservation_on_hold_time);
-            itemPersons = (TextView) itemView.findViewById(R.id.reservation_on_hold_persons);
-            itemMeals = (TextView) itemView.findViewById(R.id.reservation_on_hold_meals);
-            itemRemark = (TextView) itemView.findViewById(R.id.reservation_on_hold_remark);
-            itemButton = (Button) itemView.findViewById(R.id.reservation_on_hold_button);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context, ReservationOnHoldActivity.class);
+            intent.putExtra("reservation_id", itemId.getText());
+            context.startActivity(intent);
         }
     }
 }

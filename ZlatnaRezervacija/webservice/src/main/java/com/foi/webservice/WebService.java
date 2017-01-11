@@ -6,6 +6,7 @@ import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
+import com.foi.webservice.responses.WebServiceResponseReservationOnHold;
 import com.foi.webservice.responses.WebServiceResponseSettings;
 
 import retrofit.Call;
@@ -46,5 +47,9 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("reservations_on_hold.php")
-    Call<WebServiceReservationOnHold> getReservationOnHold(@Field("restaurant") String reservation);
+    Call<WebServiceReservationOnHold> getReservationsOnHold(@Field("restaurant") String reservation);
+
+    @FormUrlEncoded
+    @POST("reservation_on_hold.php")
+    Call<WebServiceResponseReservationOnHold> getReservationOnHold(@Field("reservation") String reservation);
 }

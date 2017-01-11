@@ -8,6 +8,7 @@ import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
+import com.foi.webservice.responses.WebServiceResponseReservationOnHold;
 import com.foi.webservice.responses.WebServiceResponseSettings;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -195,14 +196,37 @@ public class WebServiceCaller extends AppCompatActivity {
     public void getReservationsOnHold(final String restaurant) {
 
         WebService serviceCaller = retrofit.create(WebService.class);
-        retrofit.Call<WebServiceReservationOnHold> call = serviceCaller.getReservationOnHold(restaurant);
+        retrofit.Call<WebServiceReservationOnHold> call = serviceCaller.getReservationsOnHold(restaurant);
         call.enqueue(new Callback<WebServiceReservationOnHold>() {
             @Override
             public void onResponse(Response<WebServiceReservationOnHold> response, Retrofit retrofit) {
                 try {
                     if (response.isSuccess()) {
-                        System.out.println("1");
                         handleReservationsOnHold((WebServiceReservationOnHold) response.body());
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
+    public void getReservationOnHold(final String reservation) {
+
+        WebService serviceCaller = retrofit.create(WebService.class);
+        retrofit.Call<WebServiceResponseReservationOnHold> call = serviceCaller.getReservationOnHold(reservation);
+        call.enqueue(new Callback<WebServiceResponseReservationOnHold>() {
+            @Override
+            public void onResponse(Response<WebServiceResponseReservationOnHold> response, Retrofit retrofit) {
+                try {
+                    if (response.isSuccess()) {
+                        handleReservationOnHold((WebServiceResponseReservationOnHold) response.body());
                     }
 
                 } catch (Exception ex) {
@@ -264,7 +288,13 @@ public class WebServiceCaller extends AppCompatActivity {
     private void handleReservationsOnHold(WebServiceReservationOnHold response) {
 
         if (mWebServiceHandler != null) {
-            System.out.println("2");
+            mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+
+    private void handleReservationOnHold(WebServiceResponseReservationOnHold response) {
+
+        if (mWebServiceHandler != null) {
             mWebServiceHandler.onDataArrived(response, true);
         }
     }

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_reservation_on_hold"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.foi.air.zlatnarezervacija.ReservationOnHoldActivity"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detalji rezervacije"
+            android:textStyle="bold"
+            android:padding="2dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:padding="2dp"
+            android:background="@color/btnColor"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ime i prezime: "
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/StringForChange"
+                android:id="@+id/reservation_user"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datum: "
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/StringForChange"
+                android:id="@+id/reservation_date"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vrijeme: "
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/StringForChange"
+                android:id="@+id/reservation_time"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Broj osoba: "
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/StringForChange"
+                android:id="@+id/reservation_persons"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Broj slijedova jela: "
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/StringForChange"
+                android:id="@+id/reservation_meals"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Napomene: "
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/StringForChange"
+                android:id="@+id/reservation_remark"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Slobodni stolovi"
+            android:textStyle="bold"
+            android:padding="2dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:padding="2dp"
+            android:background="@color/btnColor"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:id="@+id/checkbox_group"></LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Akcije"
+            android:textStyle="bold"
+            android:padding="2dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:padding="2dp"
+            android:background="@color/btnColor"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:id="@+id/textinputlayout_time"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_time_reservation_on_hold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:clickable="true"
+                android:inputType="none"
+                android:focusableInTouchMode="false"
+                android:textIsSelectable="false"
+                android:longClickable="false"
+                android:hint="Vrijeme završetka rezervacije"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Potvrdi"
+                android:background="@color/btnColor"
+                android:textColor="@color/btnColorText"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_potvrdi_rezervaciju"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Odbij"
+                android:background="@color/btnColor"
+                android:textColor="@color/btnColorText"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_odbij_rezervaciju"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

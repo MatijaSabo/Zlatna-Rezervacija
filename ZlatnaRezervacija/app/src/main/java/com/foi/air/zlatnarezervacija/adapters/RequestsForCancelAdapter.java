@@ -1,14 +1,15 @@
 package com.foi.air.zlatnarezervacija.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.foi.air.zlatnarezervacija.R;
-import com.foi.webservice.responses.ReservationTableItemDetails;
+import com.foi.air.zlatnarezervacija.RequestForCancelActivity;
 import com.foi.webservice.responses.ReservationsOnHold;
 
 import java.util.ArrayList;
@@ -19,9 +20,11 @@ import java.util.ArrayList;
 
 public class RequestsForCancelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<ReservationsOnHold> items;
+    Context context;
 
-    public RequestsForCancelAdapter(ArrayList<ReservationsOnHold> Items){
+    public RequestsForCancelAdapter(ArrayList<ReservationsOnHold> Items, Context context){
         this.items = Items;
+        this.context = context;
     }
 
     @Override
@@ -36,22 +39,12 @@ public class RequestsForCancelAdapter extends RecyclerView.Adapter<RecyclerView.
         ReservationsOnHold item = items.get(position);
 
         String user = item.getUser_first_name() + " " + item.getUser_last_name();
-        String tables = "";
-
-        for (ReservationTableItemDetails i : item.getTables()){
-            tables = tables + i.getLabel()+ ", ";
-        }
 
         ((RequestForCancelViewHolder) holder).itemId.setText(item.getId());
         ((RequestForCancelViewHolder) holder).itemUser.setText(user);
         ((RequestForCancelViewHolder) holder).itemDate.setText(item.getDate());
         ((RequestForCancelViewHolder) holder).itemTimeArrival.setText(item.getTime_arrival());
         ((RequestForCancelViewHolder) holder).itemTimeCheckout.setText(item.getTime_checkout());
-        ((RequestForCancelViewHolder) holder).itemPersons.setText(item.getpersons());
-        ((RequestForCancelViewHolder) holder).itemMeals.setText(item.getMeals());
-        ((RequestForCancelViewHolder) holder).itemTables.setText(tables);
-        ((RequestForCancelViewHolder) holder).itemRemark.setText(item.getRemark());
-        ((RequestForCancelViewHolder) holder).itemDescription.setText(item.getDescription());
     }
 
     @Override
@@ -59,34 +52,29 @@ public class RequestsForCancelAdapter extends RecyclerView.Adapter<RecyclerView.
         return items.size();
     }
 
-    public class RequestForCancelViewHolder extends RecyclerView.ViewHolder{
+    public class RequestForCancelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView itemId;
         TextView itemUser;
         TextView itemDate;
         TextView itemTimeArrival;
         TextView itemTimeCheckout;
-        TextView itemPersons;
-        TextView itemMeals;
-        TextView itemTables;
-        TextView itemRemark;
-        TextView itemDescription;
-        Button itemButton;
 
         public RequestForCancelViewHolder(View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(this);
             itemId = (TextView) itemView.findViewById(R.id.request_for_cancel_reservation_id);
             itemUser = (TextView) itemView.findViewById(R.id.request_for_cancel_user);
             itemDate = (TextView) itemView.findViewById(R.id.request_for_cancel_date);
             itemTimeArrival = (TextView) itemView.findViewById(R.id.request_for_cancel_time_arrival);
             itemTimeCheckout = (TextView) itemView.findViewById(R.id.request_for_cancel_time_checkout);
-            itemPersons = (TextView) itemView.findViewById(R.id.request_for_cancel_persons);
-            itemMeals = (TextView) itemView.findViewById(R.id.request_for_cancel_meals);
-            itemTables = (TextView) itemView.findViewById(R.id.request_for_cancel_tables);
-            itemRemark = (TextView) itemView.findViewById(R.id.request_for_cancel_remark);
-            itemDescription = (TextView) itemView.findViewById(R.id.request_for_cancel_description);
-            itemButton = (Button) itemView.findViewById(R.id.request_for_cancel_button);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context, RequestForCancelActivity.class);
+            intent.putExtra("reservation_id", itemId.getText());
+            context.startActivity(intent);
         }
     }
 }

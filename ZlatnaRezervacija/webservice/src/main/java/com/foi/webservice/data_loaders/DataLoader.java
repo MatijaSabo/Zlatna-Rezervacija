@@ -39,6 +39,10 @@ public abstract class DataLoader {
         this.mDataLoadedListner = dataLoadedListener;
     }
 
+    public void loadReservationOnHold(DataLoadedListener dataLoadedListener, String reservation){
+        this.mDataLoadedListner = dataLoadedListener;
+    }
+
     public boolean dataLoaded(){
         if(result == null){
             return false;

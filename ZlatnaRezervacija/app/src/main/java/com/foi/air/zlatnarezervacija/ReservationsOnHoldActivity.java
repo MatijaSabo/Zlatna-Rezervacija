@@ -67,11 +67,11 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
 
         recyclerView1 = (RecyclerView) findViewById(R.id.restaurant_reservations_on_hold);
         recyclerView1.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView1.setAdapter(new ReservationsOnHoldAdapter(group1));
+        recyclerView1.setAdapter(new ReservationsOnHoldAdapter(group1, this));
 
         recyclerView2 = (RecyclerView) findViewById(R.id.restaurant_reservations_request_for_cancel);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView2.setAdapter(new RequestsForCancelAdapter(group2));
+        recyclerView2.setAdapter(new RequestsForCancelAdapter(group2, this));
 
         progress.dismiss();
     }
