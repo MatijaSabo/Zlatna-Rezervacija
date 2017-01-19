@@ -59,6 +59,8 @@ public class AdminMenuActivity extends AppCompatActivity {
                 startActivity(intent);
 
             } else if (item.getItemId() == R.id.menu_admin_option2) {
+                Intent intent = new Intent(getApplicationContext(), RestaurantReservationActivity.class);
+                startActivity(intent);
 
             } else if (item.getItemId() == R.id.menu_admin_option3) {
                 Intent intent = new Intent(getApplicationContext(), ReservationsOnHoldActivity.class);

@@ -35,8 +35,9 @@
         <activity
             android:name=".ReservationOnHoldActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"/>
-        <activity android:name=".RequestForCancelActivity"></activity>
+            android:label="@string/app_name" />
+        <activity android:name=".RequestForCancelActivity" />
+        <activity android:name=".RestaurantReservationActivity"></activity>
     </application>
 
 </manifest>
