@@ -149,9 +149,28 @@
                 android:text="@string/StringForChange"
                 android:id="@+id/reservation_remark"
                 android:padding="5dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:id="@+id/textinputlayout_time"
+            app:errorTextAppearance="@style/error_appearance">
+            <EditText android:id="@+id/input_time_reservation_on_hold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:clickable="true"
+                android:inputType="none"
+                android:focusableInTouchMode="false"
+                android:textIsSelectable="false"
+                android:longClickable="false"
+                android:hint="Vrijeme završetka rezervacije"
+                android:textColor="@color/btnColor" />
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -172,59 +191,31 @@
             android:orientation="vertical"
             android:id="@+id/checkbox_group"></LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Akcije"
-            android:textStyle="bold"
-            android:padding="2dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:padding="2dp"
-            android:background="@color/btnColor"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:id="@+id/textinputlayout_time"
-            app:errorTextAppearance="@style/error_appearance">
-            <EditText android:id="@+id/input_time_reservation_on_hold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:clickable="true"
-                android:inputType="none"
-                android:focusableInTouchMode="false"
-                android:textIsSelectable="false"
-                android:longClickable="false"
-                android:hint="Vrijeme završetka rezervacije"
-                android:textColor="@color/btnColor" />
-        </android.support.design.widget.TextInputLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Potvrdi"
                 android:background="@color/btnColor"
                 android:textColor="@color/btnColorText"
                 android:layout_margin="5dp"
-                android:id="@+id/btn_potvrdi_rezervaciju"/>
+                android:id="@+id/btn_potvrdi_rezervaciju"
+                android:layout_weight="1" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Odbij"
                 android:background="@color/btnColor"
                 android:textColor="@color/btnColorText"
                 android:layout_margin="5dp"
-                android:id="@+id/btn_odbij_rezervaciju"/>
+                android:id="@+id/btn_odbij_rezervaciju"
+                android:layout_weight="1"/>
 
         </LinearLayout>
     </LinearLayout>
