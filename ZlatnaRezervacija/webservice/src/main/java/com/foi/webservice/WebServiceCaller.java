@@ -241,6 +241,30 @@ public class WebServiceCaller extends AppCompatActivity {
         });
     }
 
+    public void getRestaurantReservations(final String restaurant) {
+
+        WebService serviceCaller = retrofit.create(WebService.class);
+        retrofit.Call<WebServiceReservationResponse> call = serviceCaller.getRestaurantReservations(restaurant);
+        call.enqueue(new Callback<WebServiceReservationResponse>() {
+            @Override
+            public void onResponse(Response<WebServiceReservationResponse> response, Retrofit retrofit) {
+                try {
+                    if (response.isSuccess()) {
+                        handleRestaurantReservation((WebServiceReservationResponse) response.body());
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
 
     private void handleCreateReservationResponse(WebServiceResponseRegistration response) {
         if(mWebServiceHandler != null){
@@ -293,6 +317,13 @@ public class WebServiceCaller extends AppCompatActivity {
     }
 
     private void handleReservationOnHold(WebServiceResponseReservationOnHold response) {
+
+        if (mWebServiceHandler != null) {
+            mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+
+    private void handleRestaurantReservation(WebServiceReservationResponse response) {
 
         if (mWebServiceHandler != null) {
             mWebServiceHandler.onDataArrived(response, true);

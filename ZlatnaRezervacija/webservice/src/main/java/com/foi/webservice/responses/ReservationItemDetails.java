@@ -15,6 +15,8 @@ public class ReservationItemDetails {
     public String date;
     public String time_arrival;
     public String time_checkout;
+    public String user_first_name;
+    public String user_last_name;
     public ReservationTableItemDetails[] tables;
 
     public String getId() {
@@ -105,5 +107,21 @@ public class ReservationItemDetails {
 
     public void setTables(ReservationTableItemDetails[] tables) {
         this.tables = tables;
+    }
+
+    public String getUser_first_name() {
+        return user_first_name;
+    }
+
+    public String getUser_last_name() {
+        return user_last_name;
+    }
+
+    public void setUser_first_name(String user_first_name) {
+        this.user_first_name = user_first_name;
+    }
+
+    public void setUser_last_name(String user_last_name) {
+        this.user_last_name = user_last_name;
     }
 }

@@ -52,4 +52,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("reservation_on_hold.php")
     Call<WebServiceResponseReservationOnHold> getReservationOnHold(@Field("reservation") String reservation);
+
+    @FormUrlEncoded
+    @POST("reservations_restaurant.php")
+    Call<WebServiceReservationResponse> getRestaurantReservations(@Field("restaurant") String restaurant);
 }
