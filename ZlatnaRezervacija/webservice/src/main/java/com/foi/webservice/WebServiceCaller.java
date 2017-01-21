@@ -3,6 +3,7 @@ package com.foi.webservice;
 import android.support.v7.app.AppCompatActivity;
 
 import com.foi.webservice.responses.WebServiceMenuResponse;
+import com.foi.webservice.responses.WebServiceRequestForCancelDetails;
 import com.foi.webservice.responses.WebServiceReservationCancelResponse;
 import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
@@ -265,6 +266,30 @@ public class WebServiceCaller extends AppCompatActivity {
         });
     }
 
+    public void getRequestForCancelDetails(final String reservation) {
+
+        WebService serviceCaller = retrofit.create(WebService.class);
+        retrofit.Call<WebServiceRequestForCancelDetails> call = serviceCaller.getRequestForCancelData(reservation);
+        call.enqueue(new Callback<WebServiceRequestForCancelDetails>() {
+            @Override
+            public void onResponse(Response<WebServiceRequestForCancelDetails> response, Retrofit retrofit) {
+                try {
+                    if (response.isSuccess()) {
+                        handleRequestForCancelDetails((WebServiceRequestForCancelDetails) response.body());
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
 
     private void handleCreateReservationResponse(WebServiceResponseRegistration response) {
         if(mWebServiceHandler != null){
@@ -324,6 +349,13 @@ public class WebServiceCaller extends AppCompatActivity {
     }
 
     private void handleRestaurantReservation(WebServiceReservationResponse response) {
+
+        if (mWebServiceHandler != null) {
+            mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+
+    private void handleRequestForCancelDetails(WebServiceRequestForCancelDetails response) {
 
         if (mWebServiceHandler != null) {
             mWebServiceHandler.onDataArrived(response, true);

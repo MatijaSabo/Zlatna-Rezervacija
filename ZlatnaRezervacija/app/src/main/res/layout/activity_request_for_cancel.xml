@@ -42,7 +42,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_user"
-                android:padding="5dp"/>
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
 
         </LinearLayout>
 
@@ -63,7 +65,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_date"
-                android:padding="5dp"/>
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
 
         </LinearLayout>
 
@@ -84,7 +88,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_time_arrival"
-                android:padding="5dp"/>
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
 
         </LinearLayout>
 
@@ -105,7 +111,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_time_checkout"
-                android:padding="5dp"/>
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
 
         </LinearLayout>
 
@@ -126,7 +134,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_persons"
-                android:padding="5dp"/>
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
 
         </LinearLayout>
 
@@ -147,7 +157,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_meals"
-                android:padding="5dp"/>
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
 
         </LinearLayout>
 
@@ -168,7 +180,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_remark"
-                android:padding="5dp"/>
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
 
         </LinearLayout>
 
@@ -189,7 +203,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/StringForChange"
                 android:id="@+id/activity_request_for_cancel_description"
-                android:padding="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:layout_marginBottom="5dp"/>
 
         </LinearLayout>

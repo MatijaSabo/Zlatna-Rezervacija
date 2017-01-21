@@ -1,6 +1,7 @@
 package com.foi.webservice;
 
 import com.foi.webservice.responses.WebServiceMenuResponse;
+import com.foi.webservice.responses.WebServiceRequestForCancelDetails;
 import com.foi.webservice.responses.WebServiceReservationCancelResponse;
 import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
@@ -56,4 +57,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("reservations_restaurant.php")
     Call<WebServiceReservationResponse> getRestaurantReservations(@Field("restaurant") String restaurant);
+
+    @FormUrlEncoded
+    @POST("request_for_cancel_details.php")
+    Call<WebServiceRequestForCancelDetails> getRequestForCancelData(@Field("reservation") String reservation);
 }
