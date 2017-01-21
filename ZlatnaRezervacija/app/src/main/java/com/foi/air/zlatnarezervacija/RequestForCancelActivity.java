@@ -1,11 +1,19 @@
 package com.foi.air.zlatnarezervacija;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +21,9 @@ import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
 import com.foi.webservice.data_loaders.WsRequestForCancelDetails;
 import com.foi.webservice.responses.WebServiceRequestForCancelDetails;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RequestForCancelActivity extends AppCompatActivity implements DataLoadedListener {
 
@@ -42,6 +53,8 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
         odbij = (Button) findViewById(R.id.btn_odbij_zahtjev_za_otkazivanje);
         otkazi = (Button) findViewById(R.id.btn_potvrdi_zahtjev_za_otkazivanje);
+
+        ButterKnife.bind(this);
 
         getReservationData();
     }
@@ -82,5 +95,50 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         description.setText(data.getDescription());
 
         progress.dismiss();
+    }
+
+    @OnClick(R.id.btn_odbij_zahtjev_za_otkazivanje)
+    public void RefuseRequestForCancel(){
+        View alert_view = getLayoutInflater().inflate(R.layout.cancel_resrvation_alert, null);
+        EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_request_for_cancel);
+
+        AlertDialog.Builder refuse_request_for_cancel_alert = new AlertDialog.Builder(RequestForCancelActivity.this);
+        refuse_request_for_cancel_alert.setTitle("Odbijanje rezervacije");
+        refuse_request_for_cancel_alert.setCancelable(false);
+        refuse_request_for_cancel_alert.setView(alert_view);
+        refuse_request_for_cancel_alert.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }) .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        final AlertDialog builder = refuse_request_for_cancel_alert.create();
+        builder.show();
+
+        ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+        alert_edit_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(editable)) {
+                    ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else if(editable.length() > 300){
+                    ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+        });
     }
 }

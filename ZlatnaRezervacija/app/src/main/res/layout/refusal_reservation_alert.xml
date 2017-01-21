@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:paddingTop="10dp"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:focusable="true"
-    android:focusableInTouchMode="true">w
-    
-    <RadioGroup
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/RadioGroup">
-    </RadioGroup>
+        android:padding="5dp"
+        android:textSize="16dp"
+        android:text="Molimo vas da upišete razlog odbijanja rezervacije" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/textinputlayout_reservation"
+        android:id="@+id/textinputlayout_reservation_refuse"
         app:counterEnabled="true"
         app:counterMaxLength="300"
         app:counterOverflowTextAppearance="@style/error_appearance"
         app:errorTextAppearance="@style/error_appearance">
-        <EditText android:id="@+id/reason_for_cancel_of_reservation"
+        <EditText android:id="@+id/reason_for_refuse_reservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:inputType="textMultiLine"
-            android:hint="@string/reason_for_cancel" />
+            android:hint="@string/razlog_odbijanja" />
     </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>

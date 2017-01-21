@@ -127,4 +127,5 @@
     <string name="RestaurantWorking3">Pet - Sub: 12:00 - 23:00</string>
     <string name="RestaurantWorking4">Ned: 12:00 - 20:00</string>
     <string name="RestaurantReservationsTitle">Rezervacije restorana</string>
+    <string name="razlog_odbijanja">Razlog odbijanja</string>
 </resources>
