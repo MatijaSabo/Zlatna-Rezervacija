@@ -290,6 +290,29 @@ public class WebServiceCaller extends AppCompatActivity {
         });
     }
 
+    public void getReservationCancelResponse(final String reservation, final String status, final String description) {
+
+        WebService serviceCaller = retrofit.create(WebService.class);
+        retrofit.Call<WebServiceReservationCancelResponse> call = serviceCaller.getReservationCancelResponse(reservation, status, description);
+        call.enqueue(new Callback<WebServiceReservationCancelResponse>() {
+            @Override
+            public void onResponse(Response<WebServiceReservationCancelResponse> response, Retrofit retrofit) {
+                try {
+                    if (response.isSuccess()) {
+                        handleReservationCancelResponse((WebServiceReservationCancelResponse) response.body());
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
 
     private void handleCreateReservationResponse(WebServiceResponseRegistration response) {
         if(mWebServiceHandler != null){
@@ -356,6 +379,13 @@ public class WebServiceCaller extends AppCompatActivity {
     }
 
     private void handleRequestForCancelDetails(WebServiceRequestForCancelDetails response) {
+
+        if (mWebServiceHandler != null) {
+            mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+
+    private void handleReservationCancelResponse(WebServiceReservationCancelResponse response) {
 
         if (mWebServiceHandler != null) {
             mWebServiceHandler.onDataArrived(response, true);

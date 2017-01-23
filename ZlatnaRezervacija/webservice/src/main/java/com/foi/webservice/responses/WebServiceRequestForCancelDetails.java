@@ -15,6 +15,7 @@ public class WebServiceRequestForCancelDetails {
     public String description;
     public String user_first_name;
     public String user_last_name;
+    public String user_id;
 
     public String getId() {
         return id;
@@ -90,5 +91,12 @@ public class WebServiceRequestForCancelDetails {
     }
     public void setUser_last_name(String user_last_name) {
         this.user_last_name = user_last_name;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+    public void setUser_id(String user_id) {
+        this.id = user_id;
     }
 }

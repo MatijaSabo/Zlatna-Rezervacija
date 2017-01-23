@@ -20,7 +20,9 @@ import android.widget.Toast;
 import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
 import com.foi.webservice.data_loaders.WsRequestForCancelDetails;
+import com.foi.webservice.data_loaders.WsRequestForCancelReply;
 import com.foi.webservice.responses.WebServiceRequestForCancelDetails;
+import com.foi.webservice.responses.WebServiceReservationCancelResponse;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,6 +34,8 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
     TextView user, date, time_arrival, time_checkout, persons, meals, remark, description;
     Button odbij, otkazi;
+
+    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,16 +87,25 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
     @Override
     public void onDataLoaded(Object result) {
-        WebServiceRequestForCancelDetails data = (WebServiceRequestForCancelDetails) result;
+        if(flag){
+            flag = false;
+            WebServiceReservationCancelResponse data = (WebServiceReservationCancelResponse) result;
 
-        user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
-        date.setText(data.getDate());
-        time_arrival.setText(data.getTime_arrival());
-        time_checkout.setText(data.getTime_checkout());
-        persons.setText(data.getPersons());
-        meals.setText(data.getMeals());
-        remark.setText(data.getRemark());
-        description.setText(data.getDescription());
+            //Slanje obavijesti korisniku
+            Toast.makeText(this, data.getStatus().toString(), Toast.LENGTH_LONG).show();
+
+        } else {
+            WebServiceRequestForCancelDetails data = (WebServiceRequestForCancelDetails) result;
+
+            user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
+            date.setText(data.getDate());
+            time_arrival.setText(data.getTime_arrival());
+            time_checkout.setText(data.getTime_checkout());
+            persons.setText(data.getPersons());
+            meals.setText(data.getMeals());
+            remark.setText(data.getRemark());
+            description.setText(data.getDescription());
+        }
 
         progress.dismiss();
     }
@@ -100,7 +113,7 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
     @OnClick(R.id.btn_odbij_zahtjev_za_otkazivanje)
     public void RefuseRequestForCancel(){
         View alert_view = getLayoutInflater().inflate(R.layout.cancel_resrvation_alert, null);
-        EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_request_for_cancel);
+        final EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_request_for_cancel);
 
         AlertDialog.Builder refuse_request_for_cancel_alert = new AlertDialog.Builder(RequestForCancelActivity.this);
         refuse_request_for_cancel_alert.setTitle("Odbijanje rezervacije");
@@ -109,6 +122,7 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         refuse_request_for_cancel_alert.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                reply_to_request(alert_edit_text.getText().toString(), 0);
                 dialogInterface.dismiss();
             }
         }) .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
@@ -140,5 +154,30 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
                 }
             }
         });
+    }
+
+    @OnClick(R.id.btn_potvrdi_zahtjev_za_otkazivanje)
+    public void Potvrdi_zahtjev(){
+        reply_to_request("-", 1);
+    }
+
+    private void reply_to_request(String s, int i) {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) {
+            progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
+            DataLoader dataLoader1;
+            dataLoader1 = new WsRequestForCancelReply();
+
+            flag = true;
+
+            if(i == 1){
+                dataLoader1.loadReservationCancelResponse(this, reservation_intent.toString(), String.valueOf(i), "-");
+            } else{
+                dataLoader1.loadReservationCancelResponse(this, reservation_intent.toString(), String.valueOf(i), s);
+            }
+
+        } else {
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
+        }
     }
 }
