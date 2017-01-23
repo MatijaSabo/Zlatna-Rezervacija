@@ -65,4 +65,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("request_for_cancel_reply.php")
     Call<WebServiceReservationCancelResponse> getReservationCancelResponse(@Field("reservation") String reservation, @Field("status") String status, @Field("description") String description);
+
+    @FormUrlEncoded
+    @POST("reply_to_reservation.php")
+    Call<WebServiceResponseSettings> getReplyToReservationResponse(@Field("reservation") String reservation, @Field("status") String status, @Field("time") String time, @Field("tables") String tables, @Field("description") String description);
 }

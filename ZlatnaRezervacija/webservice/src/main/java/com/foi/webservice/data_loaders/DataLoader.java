@@ -55,6 +55,10 @@ public abstract class DataLoader {
         this.mDataLoadedListner = dataLoadedListener;
     }
 
+    public void loadReplyToResrvationResponse(DataLoadedListener dataLoadedListener, String reservation, String status, String time, String tables, String description){
+        this.mDataLoadedListner = dataLoadedListener;
+    }
+
     public boolean dataLoaded(){
         if(result == null){
             return false;

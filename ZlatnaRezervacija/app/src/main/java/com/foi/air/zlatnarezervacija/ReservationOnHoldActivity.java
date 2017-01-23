@@ -26,9 +26,11 @@ import android.widget.Toast;
 
 import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
+import com.foi.webservice.data_loaders.WsReplyToReservation;
 import com.foi.webservice.data_loaders.WsReservationOnHold;
 import com.foi.webservice.responses.FreeTables;
 import com.foi.webservice.responses.WebServiceResponseReservationOnHold;
+import com.foi.webservice.responses.WebServiceResponseSettings;
 
 import java.util.Calendar;
 
@@ -51,6 +53,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     Button potvrdi, odbij;
 
     Boolean flag;
+    Boolean flag2 = false;
     WebServiceResponseReservationOnHold data;
 
     @Override
@@ -104,43 +107,53 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
     @Override
     public void onDataLoaded(Object result) {
-        data = (WebServiceResponseReservationOnHold) result;
 
-        user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
-        date.setText(data.getDate());
-        time.setText(data.getTime_arrival());
-        persons.setText(data.getPersons());
-        meals.setText(data.getMeals());
-        remark.setText(data.getRemark());
+        if(flag2){
+            flag2 = false;
+            WebServiceResponseSettings data = (WebServiceResponseSettings) result;
 
-        odbij.setEnabled(true);
-        odbij.setBackgroundColor(getResources().getColor(R.color.btnColor));
+            //Slanje obavijesti korisniku
+            Toast.makeText(this, data.getStatus().toString(), Toast.LENGTH_LONG).show();
+            
+        } else {
+            data = (WebServiceResponseReservationOnHold) result;
 
-        String label;
-        flag = false;
+            user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
+            date.setText(data.getDate());
+            time.setText(data.getTime_arrival());
+            persons.setText(data.getPersons());
+            meals.setText(data.getMeals());
+            remark.setText(data.getRemark());
 
-        for (FreeTables t : data.getTables()){
+            odbij.setEnabled(true);
+            odbij.setBackgroundColor(getResources().getColor(R.color.btnColor));
 
-            if(!(t.getFree_from().contains("-") && t.getFree_from().contains("-"))){
-                label = t.getLabel() + " (" + t.getNumber_of_seats() + " mjesta) - Vrijeme : " + t.getFree_from() + " - " + t.getFree_to();
+            String label;
+            flag = false;
 
-                checkBox = new CheckBox(this);
-                checkBox.setText(label);
-                checkBox.setId(Integer.parseInt(t.getId()));
-                checkBox.setTextColor(getResources().getColor(R.color.btnColor));
+            for (FreeTables t : data.getTables()){
 
-                linearLayout.addView(checkBox);
-                flag = true;
+                if(!(t.getFree_from().contains("-") && t.getFree_from().contains("-"))){
+                    label = t.getLabel() + " (" + t.getNumber_of_seats() + " mjesta) - Vrijeme : " + t.getFree_from() + " - " + t.getFree_to();
+
+                    checkBox = new CheckBox(this);
+                    checkBox.setText(label);
+                    checkBox.setId(Integer.parseInt(t.getId()));
+                    checkBox.setTextColor(getResources().getColor(R.color.btnColor));
+
+                    linearLayout.addView(checkBox);
+                    flag = true;
+                }
             }
-        }
 
-        if(!flag){
-            TextView text = new TextView(this);
-            text.setText("Nema slobodnih stolova");
-            linearLayout.addView(text);
-        } else{
-            potvrdi.setEnabled(true);
-            potvrdi.setBackgroundColor(getResources().getColor(R.color.btnColor));
+            if(!flag){
+                TextView text = new TextView(this);
+                text.setText("Nema slobodnih stolova");
+                linearLayout.addView(text);
+            } else{
+                potvrdi.setEnabled(true);
+                potvrdi.setBackgroundColor(getResources().getColor(R.color.btnColor));
+            }
         }
         
         progress.dismiss();
@@ -241,7 +254,23 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     }
 
     private void replay_to_reservation(int i, String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) {
+            progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
+            DataLoader dataLoader1;
+            dataLoader1 = new WsReplyToReservation();
+
+            flag2 = true;
+
+            if(i == 1){
+                dataLoader1.loadReplyToResrvationResponse(this, reservation_intent.toString(), String.valueOf(i), vrijeme_input.getText().toString(), text, "-");
+            } else {
+                dataLoader1.loadReplyToResrvationResponse(this, reservation_intent.toString(), String.valueOf(i), "-", "-", text);
+            }
+
+        } else {
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @OnClick(R.id.input_time_reservation_on_hold)
