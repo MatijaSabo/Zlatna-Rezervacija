@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,10 +46,12 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     private Integer system_minute, sysetem_hour;
 
     EditText vrijeme_input;
+    TextInputLayout vrijeme_label;
     TextView user, date, time, persons, meals, remark;
     Button potvrdi, odbij;
 
     Boolean flag;
+    WebServiceResponseReservationOnHold data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         system_minute = calendar.get(Calendar.MINUTE);
 
         vrijeme_input = (EditText) findViewById(R.id.input_time_reservation_on_hold);
+        vrijeme_label = (TextInputLayout) findViewById(R.id.textinputlayout_time);
 
         ButterKnife.bind(this);
 
@@ -100,7 +104,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
     @Override
     public void onDataLoaded(Object result) {
-        WebServiceResponseReservationOnHold data = (WebServiceResponseReservationOnHold) result;
+        data = (WebServiceResponseReservationOnHold) result;
 
         user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
         date.setText(data.getDate());
@@ -155,7 +159,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     @OnClick(R.id.btn_odbij_rezervaciju)
     public void RefuseResrvation(){
         View alert_view = getLayoutInflater().inflate(R.layout.refusal_reservation_alert, null);
-        EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_reservation);
+        final EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_reservation);
 
         AlertDialog.Builder refuse_resrvation_alert = new AlertDialog.Builder(ReservationOnHoldActivity.this);
         refuse_resrvation_alert.setTitle("Odbijanje rezervacije");
@@ -164,6 +168,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         refuse_resrvation_alert.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                replay_to_reservation(0, alert_edit_text.getText().toString());
                 dialogInterface.dismiss();
             }
         }) .setNegativeButton(R.string.Alert_cancel_button, new DialogInterface.OnClickListener() {
@@ -197,6 +202,48 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         });
     }
 
+    @OnClick(R.id.btn_potvrdi_rezervaciju)
+    public void Potvrdi_reservaciju(){
+        CheckBox ch;
+        Integer brojac = 0;
+        String list = "";
+
+        for (FreeTables table : data.getTables()) {
+            ch = null;
+            if(!table.getFree_from().contains("-") && !table.getFree_to().contains("-")){
+                ch = (CheckBox) linearLayout.findViewById(Integer.parseInt(table.getId()));
+
+                if(ch.isChecked()){
+                    brojac++;
+
+                    if(list.length() == 0){
+                        list = list + table.getId();
+                    } else{
+                        list = list + "%" + table.getId();
+                    }
+                }
+            }
+        }
+
+        if(list.length() == 0){
+            Toast.makeText(this, "Nije odabran niti jedan stol. Molimo Vas da odaberete stol za rezervaciju!", Toast.LENGTH_LONG).show();
+
+            if(vrijeme_input.getText().length() < 1){
+                vrijeme_label.setErrorEnabled(true);
+                vrijeme_label.setError("Unestie vrijeme kraja!");
+            }
+        } else if(vrijeme_input.getText().length() < 1) {
+            vrijeme_label.setErrorEnabled(true);
+            vrijeme_label.setError("Unestie vrijeme kraja!");
+        } else {
+            replay_to_reservation(1, list);
+        }
+    }
+
+    private void replay_to_reservation(int i, String text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    }
+
     @OnClick(R.id.input_time_reservation_on_hold)
     public void TimePicker(){
         showDialog(999);
@@ -222,6 +269,8 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     private void showTime(int sati, int minute) {
         vrijeme_input.setTextColor(getResources().getColor(R.color.btnColor));
         vrijeme_input.setText(new StringBuilder().append(sati).append(" : ").append(minute).append(" : 00"));
+
+        vrijeme_label.setErrorEnabled(false);
     }
 
     @Override
