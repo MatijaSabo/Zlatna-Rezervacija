@@ -9,7 +9,7 @@ public abstract class DataLoader {
 
     protected DataLoadedListener mDataLoadedListner;
 
-    public void loadData(DataLoadedListener dataLoadedListener, String email, Integer pass){
+    public void loadData(DataLoadedListener dataLoadedListener, String email, Integer pass, String token){
         this.mDataLoadedListner = dataLoadedListener;
     }
 

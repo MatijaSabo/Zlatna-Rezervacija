@@ -83,9 +83,9 @@ public class WebServiceCaller extends AppCompatActivity {
         });
 
     }
-    public void getAll(final String method, final int pass){
+    public void getAll(final String method, final int pass, final String token){
         WebService  webServiceRezervacije=retrofit.create(WebService.class);
-        retrofit.Call<WebServiceResponse> call=webServiceRezervacije.getUserData(method, pass);
+        retrofit.Call<WebServiceResponse> call=webServiceRezervacije.getUserData(method, pass,token);
         call.enqueue(new Callback<WebServiceResponse>() {
             @Override
             public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {

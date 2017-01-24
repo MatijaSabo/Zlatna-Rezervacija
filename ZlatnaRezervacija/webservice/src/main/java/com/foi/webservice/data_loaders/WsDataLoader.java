@@ -11,12 +11,12 @@ import com.foi.webservice.responses.WebServiceResponse;
 public class WsDataLoader extends DataLoader {
 
     @Override
-    public void loadData(DataLoadedListener dataLoadedListener, String email, Integer pass) {
-        super.loadData(dataLoadedListener, email, pass);
+    public void loadData(DataLoadedListener dataLoadedListener, String email, Integer pass, String token) {
+        super.loadData(dataLoadedListener, email, pass,token);
 
         WebServiceCaller webServiceCaller = new WebServiceCaller(responseHandler);
 
-        webServiceCaller.getAll(email, pass);
+        webServiceCaller.getAll(email, pass,token);
     }
 
     WebServiceHandler responseHandler = new WebServiceHandler() {

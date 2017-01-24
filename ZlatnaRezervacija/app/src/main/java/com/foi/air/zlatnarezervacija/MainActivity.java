@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
     public void mainButtonClick(View view) {
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         String token = FirebaseInstanceId.getInstance().getToken();
-        Toast.makeText(this, token, Toast.LENGTH_LONG).show();
+        Log.i("TOKEN= ",token);
         view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
                 WSresult = null;
                 DataLoader dataLoader;
                 dataLoader = new WsDataLoader();
-                dataLoader.loadData(this, emailText.getText().toString(), hashPass);
+                dataLoader.loadData(this, emailText.getText().toString(), hashPass,token);
             } else {
                 Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
             }

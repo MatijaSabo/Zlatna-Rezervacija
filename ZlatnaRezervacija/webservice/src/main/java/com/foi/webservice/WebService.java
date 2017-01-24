@@ -19,8 +19,8 @@ import retrofit.http.POST;
 public interface WebService {
 
     @FormUrlEncoded
-    @POST("login.php")
-    Call<WebServiceResponse> getUserData(@Field("email") String email, @Field("pass") int pass);
+    @POST("login2.php")
+    Call<WebServiceResponse> getUserData(@Field("email") String email, @Field("pass") int pass, @Field("token") String token);
 
     @FormUrlEncoded
     @POST("registration.php")
