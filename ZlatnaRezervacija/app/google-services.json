@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "638873384433",
+    "firebase_url": "https://zlatna-rezervaci-1480450887305.firebaseio.com",
+    "project_id": "zlatna-rezervaci-1480450887305",
+    "storage_bucket": "zlatna-rezervaci-1480450887305.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638873384433:android:e79f7cf414cfc18e",
+        "android_client_info": {
+          "package_name": "com.foi.air.zlatnarezervacija"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638873384433-qd6gvgd7g1ot8s37a4nflna66vdbbvp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDLh6qDVQz3SyIQr6AW5UPefN1FpGtAiY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -20,7 +20,8 @@ import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
 import com.foi.webservice.responses.WebServiceResponse;
 import com.foi.webservice.data_loaders.WsDataLoader;
-
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,11 +51,15 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         actionBar.hide();
 
         ButterKnife.bind(this);
+
+
     }
 
     @OnClick(R.id.btn_login)
     public void mainButtonClick(View view) {
-
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Toast.makeText(this, token, Toast.LENGTH_LONG).show();
         view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -98,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         if (email_validate == true && pass_validate == true) {
             String password = passText.getText().toString();
             Integer hashPass = password.hashCode();
+
 
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
             if (cm.getActiveNetworkInfo() != null) {

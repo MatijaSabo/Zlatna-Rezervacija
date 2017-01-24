@@ -35,6 +35,11 @@ dependencies {
     compile project (':webservice')
     compile project (':map')
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+
 
 
 }
+
+apply plugin: 'com.google.gms.google-services'
