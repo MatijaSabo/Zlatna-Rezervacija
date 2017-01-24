@@ -1,4 +1,4 @@
-package com.foi.air.zlatnarezervacija;
+package com.foi.air.zlatnarezervacija.firebase;
 
 import android.widget.Toast;
 

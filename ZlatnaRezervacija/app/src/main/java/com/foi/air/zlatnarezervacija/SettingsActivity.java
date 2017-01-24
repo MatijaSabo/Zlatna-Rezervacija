@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
@@ -42,10 +43,12 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
             if(type.contains("1")){
+
                 RadioButton opcija1 = (RadioButton)findViewById(R.id.option1);
                 opcija1.setChecked(true);
             }
             else if (type.contains("2")) {
+
                 RadioButton opcija2 = (RadioButton)findViewById(R.id.option2);
                 opcija2.setChecked(true);
             }
@@ -66,8 +69,10 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
             case android.R.id.home:
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
+
                 editor.putString("obavijest", type);
                 editor.commit();
+
                 finish();
 
             default:
@@ -77,6 +82,13 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
 
     @Override
     public void onBackPressed() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("obavijest", type);
+
+        editor.commit();
+
         finish();
     }
 

@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +56,13 @@ public class MenuActivity extends AppCompatActivity {
         name.setText(name_intent);
         email.setText(email_intent);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("opcija", notifications_intent);
+        editor.commit();
+        String tip = sharedPreferences.getString("opcija", "");
+        Log.e("HAHA = ",tip);
+
 
     }
 
@@ -68,6 +76,7 @@ public class MenuActivity extends AppCompatActivity {
         }
         else if(tip!=notifications_intent){
             notifications_intent=tip;
+
             sharedPreferences.edit().clear().commit();
         }
     }
@@ -95,7 +104,7 @@ public class MenuActivity extends AppCompatActivity {
 
             } else if (item.getItemId() == R.id.menu_option4) {
 
-               Map();
+                startMap();
 
             } else if (item.getItemId() == R.id.menu_option5) {
                 Intent intent = new Intent(getApplicationContext(), RestaurantDetailsActivity.class);
@@ -170,10 +179,11 @@ public class MenuActivity extends AppCompatActivity {
             builder.create().show();
         }
     }
-    public void Map(){
+    public void startMap(){
+
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if(cm.getActiveNetworkInfo() != null){
-            Intent intent = new Intent(getApplicationContext(), MapFragmentActivity.class);
+            Intent intent = new Intent(MenuActivity.this, MapFragmentActivity.class);
             startActivity(intent);
         }
         else{
