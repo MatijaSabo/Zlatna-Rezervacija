@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.foi.air.zlatnarezervacija.MainActivity;
 import com.foi.air.zlatnarezervacija.R;
+import com.foi.air.zlatnarezervacija.notification.NotificationInterface;
 import com.foi.air.zlatnarezervacija.notification.PushNotification;
 import com.foi.air.zlatnarezervacija.notification.VibrateNotification;
 import com.google.firebase.messaging.RemoteMessage;
@@ -22,22 +23,21 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
+
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Context ctx = getApplicationContext();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-
-        String tip = prefs.getString("opcija", "");
-        Log.e("OVO JEEEEEEEEEE =",tip);
+        NotificationInterface notificationInterface;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+         String tip = prefs.getString("opcija", "");
         if(tip.equals("1")){
-            Log.e("OVO JE =",tip);
-            VibrateNotification vibrateNotification = new VibrateNotification(getApplicationContext());
-            vibrateNotification.showNotification(tip);
+                notificationInterface = new VibrateNotification(getApplicationContext());
         } else   {
-            Log.e("OVO JE =",tip);
-            PushNotification pushNotification = new PushNotification(getApplicationContext());
-            pushNotification.showNotification(remoteMessage.getData().get("message"));
+                notificationInterface = new PushNotification(getApplicationContext());
         }
+        notificationInterface.showNotification(remoteMessage.getData().get("message"));
+
+
     }
 
 
