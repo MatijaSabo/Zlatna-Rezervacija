@@ -61,7 +61,7 @@ public class MenuActivity extends AppCompatActivity {
         editor.putString("opcija", notifications_intent);
         editor.commit();
         String tip = sharedPreferences.getString("opcija", "");
-        Log.e("HAHA = ",tip);
+
 
 
     }
@@ -72,12 +72,9 @@ public class MenuActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String tip = sharedPreferences.getString("obavijest", "");
         if(tip.isEmpty()){
-            sharedPreferences.edit().clear().commit();
         }
         else if(tip!=notifications_intent){
             notifications_intent=tip;
-
-            sharedPreferences.edit().clear().commit();
         }
     }
 

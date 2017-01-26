@@ -103,7 +103,12 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
                         DataLoader dataLoader;
                         dataLoader = new WsDataSettingsLoader();
                         dataLoader.loadDataSettings(this,user,type);
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
 
+                        editor.putString("opcija", type);
+
+                        editor.commit();
                         break;}
                 case R.id.option2:
                     if (checked){
@@ -112,7 +117,12 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
                         DataLoader dataLoader;
                         dataLoader = new WsDataSettingsLoader();
                         dataLoader.loadDataSettings(this,user,type);
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
 
+                        editor.putString("opcija", type);
+
+                        editor.commit();
                         break;}
             }
 
