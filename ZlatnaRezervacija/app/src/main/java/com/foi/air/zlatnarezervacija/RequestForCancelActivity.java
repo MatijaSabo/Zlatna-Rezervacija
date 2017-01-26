@@ -2,7 +2,9 @@ package com.foi.air.zlatnarezervacija;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -93,6 +95,15 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
             //Slanje obavijesti korisniku
             Toast.makeText(this, data.getStatus().toString(), Toast.LENGTH_LONG).show();
+
+
+            //Nakon kaj pošalješ obavijest postavi ove 4 linije prije gašenja aktivnosti
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("back", "1");
+            editor.commit();
+
+            finish();
 
         } else {
             WebServiceRequestForCancelDetails data = (WebServiceRequestForCancelDetails) result;

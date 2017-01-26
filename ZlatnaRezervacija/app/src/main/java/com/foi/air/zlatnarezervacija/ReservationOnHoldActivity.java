@@ -4,9 +4,11 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -114,7 +116,15 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
             //Slanje obavijesti korisniku
             Toast.makeText(this, data.getStatus().toString(), Toast.LENGTH_LONG).show();
-            
+
+            //Nakon kaj pošalješ obavijest postavi ove 4 linije prije gašenja aktivnosti
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("back", "1");
+            editor.commit();
+
+            finish();
+
         } else {
             data = (WebServiceResponseReservationOnHold) result;
 

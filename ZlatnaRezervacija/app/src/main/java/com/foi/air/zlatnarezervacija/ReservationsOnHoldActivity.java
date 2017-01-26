@@ -1,7 +1,9 @@
 package com.foi.air.zlatnarezervacija;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +31,9 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
     ArrayList<ReservationsOnHold> group1 = new ArrayList<ReservationsOnHold>();
     ArrayList<ReservationsOnHold> group2 = new ArrayList<ReservationsOnHold>();
 
+    ReservationsOnHoldAdapter adapter1;
+    RequestsForCancelAdapter adapter2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,9 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Rezervacije na čekanju");
 
+        //adapter1 = new ReservationsOnHoldAdapter(group1, this);
+        //adapter2 = new RequestsForCancelAdapter(group2, this);
+
         getReservationsOnHold();
     }
 
@@ -44,6 +52,10 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
+
+            //adapter1.clearData();
+            //adapter2.clearData();
+
             DataLoader dataLoader1;
             dataLoader1 = new WsReservationsOnHold();
             dataLoader1.loadReservationsOnHold((DataLoadedListener) this, "1");
@@ -84,5 +96,20 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(sharedPreferences.getString("back", "") == "1"){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("back", "2");
+            editor.commit();
+
+            finish();
+        }
+
+        super.onResume();
     }
 }
