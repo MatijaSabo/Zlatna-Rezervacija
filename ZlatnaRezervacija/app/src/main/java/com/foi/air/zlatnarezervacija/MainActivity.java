@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -174,6 +176,11 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
                 intent.putExtra("role_id", WSresult.getRole_id());
                 intent.putExtra("user_id", WSresult.getUser_id());
                 intent.putExtra("notifications", WSresult.getNotifications());
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("obavijest", WSresult.getNotifications());
+                editor.commit();
 
                 progress.dismiss();
 

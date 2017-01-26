@@ -38,7 +38,6 @@ public class MenuActivity extends AppCompatActivity {
         email_intent = getIntent().getStringExtra("email");
         notifications_intent = getIntent().getStringExtra("notifications");
 
-
         setContentView(R.layout.activity_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_menu);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -60,9 +59,6 @@ public class MenuActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("opcija", notifications_intent);
         editor.commit();
-        String tip = sharedPreferences.getString("opcija", "");
-
-
 
     }
 
@@ -71,9 +67,8 @@ public class MenuActivity extends AppCompatActivity {
         super.onResume();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String tip = sharedPreferences.getString("obavijest", "");
-        if(tip.isEmpty()){
-        }
-        else if(tip!=notifications_intent){
+
+        if(tip!=notifications_intent){
             notifications_intent=tip;
         }
     }
