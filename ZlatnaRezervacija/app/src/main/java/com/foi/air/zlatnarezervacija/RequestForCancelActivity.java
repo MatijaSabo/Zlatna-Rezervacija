@@ -21,16 +21,19 @@ import android.widget.Toast;
 
 import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
+import com.foi.webservice.data_loaders.WsNotificationLoader;
 import com.foi.webservice.data_loaders.WsRequestForCancelDetails;
 import com.foi.webservice.data_loaders.WsRequestForCancelReply;
 import com.foi.webservice.responses.WebServiceRequestForCancelDetails;
 import com.foi.webservice.responses.WebServiceReservationCancelResponse;
+import com.foi.webservice.responses.WebServiceResponseNotification;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RequestForCancelActivity extends AppCompatActivity implements DataLoadedListener {
 
+    WebServiceResponseNotification WSresult;
     private String reservation_intent;
     ProgressDialog progress;
 
@@ -38,6 +41,8 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
     Button odbij, otkazi;
 
     Boolean flag = false;
+    Boolean flag2 = false;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +98,29 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
             flag = false;
             WebServiceReservationCancelResponse data = (WebServiceReservationCancelResponse) result;
 
-            //Slanje obavijesti korisniku
-            Toast.makeText(this, data.getStatus().toString(), Toast.LENGTH_LONG).show();
+            if(data.getStatus().contains("0") || data.getStatus().contains("3")){
+                Toast.makeText(this, "Odgovor na zahtjev nije izvršen, pokušajte ponovo...", Toast.LENGTH_LONG).show();
+            } else if(data.getStatus().contains("1")) {
+                notifyUser(user_id, "Vaša rezervacija je uspješno otkazana!");
+            } else{
+                notifyUser(user_id, "Vaša rezervacija nije otkazana!");
+            }
 
+            progress.dismiss();
 
-            //Nakon kaj pošalješ obavijest postavi ove 4 linije prije gašenja aktivnosti
+        } else if(flag2){
+
+            WSresult = (WebServiceResponseNotification) result;
+            flag2 = false;
+
+            if(WSresult.getSuccess().contains("1")){
+                Toast.makeText(this, "Korisnik je uspješno obavješten!", Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(this, "Korisnik nije obaviješten!", Toast.LENGTH_SHORT).show();
+            }
+
+            progress.dismiss();
+
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("back", "1");
@@ -116,9 +139,25 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
             meals.setText(data.getMeals());
             remark.setText(data.getRemark());
             description.setText(data.getDescription());
-        }
+            user_id = data.getUser_id();
 
-        progress.dismiss();
+            progress.dismiss();
+        }
+    }
+
+    private void notifyUser(String user_id, String message) {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) {
+            progress = ProgressDialog.show(this, "Šaljem obavijest", getString(R.string.PleaseWait));
+            DataLoader dataLoader1;
+            dataLoader1 = new WsNotificationLoader();
+
+            flag2 = true;
+            dataLoader1.loadNotification(this, user_id, message);
+
+        } else {
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @OnClick(R.id.btn_odbij_zahtjev_za_otkazivanje)

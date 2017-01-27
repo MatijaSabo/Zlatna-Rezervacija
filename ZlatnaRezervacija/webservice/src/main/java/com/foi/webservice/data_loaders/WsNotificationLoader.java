@@ -11,8 +11,8 @@ import com.foi.webservice.responses.WebServiceResponseNotification;
 public class WsNotificationLoader extends DataLoader {
 
     @Override
-    public void loadNotification(DataLoadedListener dataLoadedListener, int user, String message) {
-        super.loadNotification(dataLoadedListener,user,message);
+    public void loadNotification(DataLoadedListener dataLoadedListener, String user, String message) {
+        super.loadNotification(dataLoadedListener, user, message);
         WebServiceCaller webServiceCaller = new WebServiceCaller(responseHandler);
 
         webServiceCaller.sendNotification(user,message);

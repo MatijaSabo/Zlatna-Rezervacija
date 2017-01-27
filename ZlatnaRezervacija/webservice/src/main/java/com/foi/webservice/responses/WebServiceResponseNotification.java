@@ -5,13 +5,16 @@ package com.foi.webservice.responses;
  */
 
 public class WebServiceResponseNotification {
-    public String status;
+    public String success;
+    public String failure;
 
-    public String getStatus() {
-        return status;
+    public String getSuccess() {
+        return success;
+    }
+    public void setSuccess(String success) {
+        this.success = success;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public String getFailure() { return failure; }
+    public void setFailure(String failure) { this.failure = failure; }
 }

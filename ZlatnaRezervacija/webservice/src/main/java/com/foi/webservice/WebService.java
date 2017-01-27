@@ -73,5 +73,5 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("send_notification.php")
-    Call<WebServiceResponseNotification> sendNotification(@Field("user") int user, @Field("message") String message);
+    Call<WebServiceResponseNotification> sendNotification(@Field("user") String user, @Field("message") String message);
 }

@@ -59,7 +59,7 @@ public abstract class DataLoader {
         this.mDataLoadedListner = dataLoadedListener;
     }
 
-    public void loadNotification(DataLoadedListener dataLoadedListener, int user, String message){
+    public void loadNotification(DataLoadedListener dataLoadedListener, String user, String message){
         this.mDataLoadedListner = dataLoadedListener;
     }
 

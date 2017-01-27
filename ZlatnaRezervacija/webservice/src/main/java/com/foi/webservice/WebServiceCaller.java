@@ -85,9 +85,9 @@ public class WebServiceCaller extends AppCompatActivity {
 
     }
 
-    public void sendNotification(final int user,final String message ) {
+    public void sendNotification(final String user, final String message ) {
         WebService serviceCaller = retrofit.create(WebService.class);
-        retrofit.Call<WebServiceResponseNotification> call = serviceCaller.sendNotification(user,message);
+        retrofit.Call<WebServiceResponseNotification> call = serviceCaller.sendNotification(user, message);
         call.enqueue(new Callback<WebServiceResponseNotification>() {
             @Override
             public void onResponse(Response<WebServiceResponseNotification> response, Retrofit retrofit) {
@@ -103,7 +103,6 @@ public class WebServiceCaller extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-
 
             }
         });
