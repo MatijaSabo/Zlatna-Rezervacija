@@ -23,20 +23,17 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
-
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         NotificationInterface notificationInterface;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-         String tip = prefs.getString("opcija", "");
+        String tip = prefs.getString("opcija", "");
         if(tip.equals("1")){
                 notificationInterface = new VibrateNotification(getApplicationContext());
         } else   {
                 notificationInterface = new PushNotification(getApplicationContext());
         }
         notificationInterface.showNotification(remoteMessage.getData().get("message"));
-
 
     }
 

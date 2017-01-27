@@ -28,9 +28,13 @@ import android.widget.Toast;
 
 import com.foi.webservice.data_loaders.DataLoadedListener;
 import com.foi.webservice.data_loaders.DataLoader;
+
+import com.foi.webservice.data_loaders.WsNotificationLoader;
 import com.foi.webservice.data_loaders.WsReplyToReservation;
 import com.foi.webservice.data_loaders.WsReservationOnHold;
 import com.foi.webservice.responses.FreeTables;
+import com.foi.webservice.responses.WebServiceResponseNotification;
+
 import com.foi.webservice.responses.WebServiceResponseReservationOnHold;
 import com.foi.webservice.responses.WebServiceResponseSettings;
 
@@ -40,7 +44,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ReservationOnHoldActivity extends AppCompatActivity implements DataLoadedListener {
-
+    WebServiceResponseNotification WSresult;
     private String reservation_intent;
     LinearLayout linearLayout;
     CheckBox checkBox;
@@ -53,7 +57,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     TextInputLayout vrijeme_label;
     TextView user, date, time, persons, meals, remark;
     Button potvrdi, odbij;
-
+    int user_id;
     Boolean flag;
     Boolean flag2 = false;
     WebServiceResponseReservationOnHold data;
@@ -69,6 +73,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
         linearLayout = (LinearLayout) findViewById(R.id.checkbox_group);
         user = (TextView) findViewById(R.id.reservation_user);
+        user_id = Integer.valueOf(user.getText().toString());
         date = (TextView) findViewById(R.id.reservation_date);
         time = (TextView) findViewById(R.id.reservation_time);
         persons = (TextView) findViewById(R.id.reservation_persons);
@@ -114,18 +119,37 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             flag2 = false;
             WebServiceResponseSettings data = (WebServiceResponseSettings) result;
 
+            WSresult = (WebServiceResponseNotification) result;
+            if(WSresult.getStatus().contains("1")){
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("back", "1");
+                editor.commit();
+                finish();
+            }
+
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.FailedNotification)
+                        .setTitle(R.string.FailedTitleNotification)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+            finish();
+        }
             //Slanje obavijesti korisniku
-            Toast.makeText(this, data.getStatus().toString(), Toast.LENGTH_LONG).show();
+
 
             //Nakon kaj pošalješ obavijest postavi ove 4 linije prije gašenja aktivnosti
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("back", "1");
-            editor.commit();
 
-            finish();
 
-        } else {
+         else {
             data = (WebServiceResponseReservationOnHold) result;
 
             user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
@@ -223,6 +247,11 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
                 }
             }
         });
+        WSresult = null;
+        DataLoader dataLoader;
+        dataLoader = new WsNotificationLoader();
+        String message = "Poštovani, Vaša rezervacija je odbijena.";
+        dataLoader.loadNotification(this,user_id,message);
     }
 
     @OnClick(R.id.btn_potvrdi_rezervaciju)
@@ -261,6 +290,11 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         } else {
             replay_to_reservation(1, list);
         }
+        WSresult = null;
+        DataLoader dataLoader;
+        dataLoader = new WsNotificationLoader();
+        String message = "Poštovani, Vaša rezervacija je potvrđena.";
+        dataLoader.loadNotification(this,user_id,message);
     }
 
     private void replay_to_reservation(int i, String text) {
@@ -269,6 +303,8 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
             dataLoader1 = new WsReplyToReservation();
+
+
 
             flag2 = true;
 

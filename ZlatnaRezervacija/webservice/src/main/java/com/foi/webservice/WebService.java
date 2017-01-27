@@ -6,6 +6,7 @@ import com.foi.webservice.responses.WebServiceReservationCancelResponse;
 import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
+import com.foi.webservice.responses.WebServiceResponseNotification;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
 import com.foi.webservice.responses.WebServiceResponseReservationOnHold;
 import com.foi.webservice.responses.WebServiceResponseSettings;
@@ -69,4 +70,8 @@ public interface WebService {
     @FormUrlEncoded
     @POST("reply_to_reservation.php")
     Call<WebServiceResponseSettings> getReplyToReservationResponse(@Field("reservation") String reservation, @Field("status") String status, @Field("time") String time, @Field("tables") String tables, @Field("description") String description);
+
+    @FormUrlEncoded
+    @POST("send_notification.php")
+    Call<WebServiceResponseNotification> sendNotification(@Field("user") int user, @Field("message") String message);
 }

@@ -8,6 +8,7 @@ import com.foi.webservice.responses.WebServiceReservationCancelResponse;
 import com.foi.webservice.responses.WebServiceReservationOnHold;
 import com.foi.webservice.responses.WebServiceReservationResponse;
 import com.foi.webservice.responses.WebServiceResponse;
+import com.foi.webservice.responses.WebServiceResponseNotification;
 import com.foi.webservice.responses.WebServiceResponseRegistration;
 import com.foi.webservice.responses.WebServiceResponseReservationOnHold;
 import com.foi.webservice.responses.WebServiceResponseSettings;
@@ -83,6 +84,32 @@ public class WebServiceCaller extends AppCompatActivity {
         });
 
     }
+
+    public void sendNotification(final int user,final String message ) {
+        WebService serviceCaller = retrofit.create(WebService.class);
+        retrofit.Call<WebServiceResponseNotification> call = serviceCaller.sendNotification(user,message);
+        call.enqueue(new Callback<WebServiceResponseNotification>() {
+            @Override
+            public void onResponse(Response<WebServiceResponseNotification> response, Retrofit retrofit) {
+                try {
+                    if (response.isSuccess() ) {
+                        handleResponseNotification((WebServiceResponseNotification) response.body());
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+
+            }
+        });
+
+    }
+
     public void getAll(final String method, final int pass, final String token){
         WebService  webServiceRezervacije=retrofit.create(WebService.class);
         retrofit.Call<WebServiceResponse> call=webServiceRezervacije.getUserData(method, pass,token);
@@ -103,6 +130,8 @@ public class WebServiceCaller extends AppCompatActivity {
             }
         });
     }
+
+
 
     public void getMenuItems(final String category){
         WebService serviceCaller=retrofit.create(WebService.class);
@@ -417,6 +446,13 @@ public class WebServiceCaller extends AppCompatActivity {
     }
 
     private void handleReplyToReservationResponse(WebServiceResponseSettings response) {
+
+        if (mWebServiceHandler != null) {
+            mWebServiceHandler.onDataArrived(response, true);
+        }
+    }
+
+    private void handleResponseNotification(WebServiceResponseNotification response) {
 
         if (mWebServiceHandler != null) {
             mWebServiceHandler.onDataArrived(response, true);

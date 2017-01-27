@@ -128,4 +128,6 @@
     <string name="RestaurantWorking4">Ned: 12:00 - 20:00</string>
     <string name="RestaurantReservationsTitle">Rezervacije restorana</string>
     <string name="razlog_odbijanja">Razlog odbijanja</string>
+    <string name="FailedNotification">Slanje obavijesti nije uspjelo</string>
+    <string name="FailedTitleNotification">Neuspješno slanje obavijesti</string>
 </resources>

@@ -35,9 +35,9 @@ public class PushNotification  implements NotificationInterface {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                     .setAutoCancel(true)
-                    .setContentTitle("Obavijest u vezi Vaše rezervacije")
+                    .setContentTitle("Zlatna Rezervacija")
                     .setContentText(message)
-                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                    .setSmallIcon(R.drawable.zlatna_rezervacija)
                     .setContentIntent(pendingIntent);
 
             NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
