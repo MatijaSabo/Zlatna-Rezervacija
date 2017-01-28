@@ -129,5 +129,11 @@
     <string name="RestaurantReservationsTitle">Rezervacije restorana</string>
     <string name="razlog_odbijanja">Razlog odbijanja</string>
     <string name="FailedNotification">Slanje obavijesti nije uspjelo</string>
-    <string name="FailedTitleNotification">Neuspješno slanje obavijesti</string>
+    <string name="Location">Gdje se nalazimo?</string>
+    <string name="LocationText">Izletište Zlatne gorice osim što je smješteno na prekrasnom imanju okruženom vinogradima nudi kompletnu gastronomsku idilu zbog koje se svaki gost koji je jedanput iskusio čari Zlatnih gorica rado vraća na provjereno mjesto. Ljepota prirode, čisti zrak i prekrasan pog.led na Varaždin su jedan od razloga zašto gosti Zlatne gorice prepoznaju kao mjesto gdje njihovo vrijeme vrijedi puno više. Samo par minuta vožnje od Varaždina i već su se odmaknuli od ubrzane zbilje, gustog prometa i svakodnevnih briga.</string>
+    <string name="Environment">Gdje se nalazimo?</string>
+    <string name="EnvironmentText">U četiri salona, u kojima se osjećate kao da ste u nekom drugom vremenu, uživajte u zavičajnim jelima varaždinskog kraja. Uz domaći kuruzni kruh, meso na brajdama, puricu z mlincima, pohane žablje tacice i kajkakva dnevna iznenađenja sjetit ćete se kako su to nekad kuhale naše bake. Uz vilu je i sanjkalište, uz vinograd vinski put, obiteljski zabavni park, a podrum  otkriva sve ljepote uživanja u domaćem vinu. Pogledom na sve strane svijeta s terase pratite kako život oko vas juri, a vi ste vrijeme zaustavili u tradiciji i kvaliteti… VILA DONATA s 4 odvojena salona i staklenom panoramskom terasom ima mogućnost smještaja 120 gostiju, što nudi mogućnost istovremenog održavanja više različitih događaja (svečanosti, prezentacije).VRTNA TERASA: od 20. travnja do 15. rujna (ovisno o vremenskim prilikama) nudi mogućnost smještaja 130 gostiju ili organizaciju hladno-toplog buffeta do 250 gostiju!</string>
+    <string name="Offer">Što sve nudimo?</string>
+    <string name="OfferText">Svakodnevno za vas pripremamo bogatu ponudu jela, osim nadaleko poznatog ljubaznog osoblja. Kompletnu ponudu raznovrsnih jela i pića možete pronaći u aplikaciji pod opcijom cjenik.</string>
+
 </resources>
