@@ -31,9 +31,12 @@ import com.foi.webservice.responses.WebServiceResponseNotification;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.R.attr.data;
+
 public class RequestForCancelActivity extends AppCompatActivity implements DataLoadedListener {
 
     WebServiceResponseNotification WSresult;
+
     private String reservation_intent;
     ProgressDialog progress;
 
@@ -95,15 +98,18 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
     @Override
     public void onDataLoaded(Object result) {
         if(flag){
+
             flag = false;
+            String succesCancelNotifyUser = "Poštovani, zahtjev za odbijanjem rezervacije " + reservation_intent + " je prihvaćen.";
+            String unsuccesCancelNotifyUser = "Poštovani, zahtjev za odbijanjem rezervacije " + reservation_intent + " je odbijen.";
             WebServiceReservationCancelResponse data = (WebServiceReservationCancelResponse) result;
 
             if(data.getStatus().contains("0") || data.getStatus().contains("3")){
                 Toast.makeText(this, "Odgovor na zahtjev nije izvršen, pokušajte ponovo...", Toast.LENGTH_LONG).show();
             } else if(data.getStatus().contains("1")) {
-                notifyUser(user_id, "Vaša rezervacija je uspješno otkazana!");
+                notifyUser(user_id, succesCancelNotifyUser);
             } else{
-                notifyUser(user_id, "Vaša rezervacija nije otkazana!");
+                notifyUser(user_id, unsuccesCancelNotifyUser);
             }
 
             progress.dismiss();

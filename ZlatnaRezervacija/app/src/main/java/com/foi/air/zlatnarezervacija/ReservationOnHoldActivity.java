@@ -58,6 +58,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     TextView user, date, time, persons, meals, remark;
     Button potvrdi, odbij;
     String user_id;
+
     Boolean flag;
     Boolean flag2 = false;
     Boolean flag3 = false;
@@ -116,8 +117,9 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     public void onDataLoaded(Object result) {
 
         if(flag2){
-
-            flag2 = false;
+            String succesNotifyUser = "Poštovani" + data.getUser_first_name() + ", rezervacija " + reservation_intent + " je prihvaćena.";
+            String unsuccesNotifyUser = "Poštovani" + data.getUser_first_name() + ", rezervacija " + reservation_intent + " je odbijena.";
+                    flag2 = false;
             WebServiceResponseSettings data = (WebServiceResponseSettings) result;
 
             progress.dismiss();
@@ -125,9 +127,9 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             if(data.getStatus().contains("2") || data.getStatus().contains("4")){
                 Toast.makeText(this, "Odgovor na zahtjev nije izvršen, pokušajte ponovo...", Toast.LENGTH_LONG).show();
             } else if(data.getStatus().contains("1")) {
-                notifyUser(user_id, "Vaša rezervacija je potvrđena!");
+                notifyUser(user_id, succesNotifyUser);
             } else{
-                notifyUser(user_id, "Vaša rezervacije je odbijena!");
+                notifyUser(user_id, unsuccesNotifyUser);
             }
 
         } else if(flag3){
