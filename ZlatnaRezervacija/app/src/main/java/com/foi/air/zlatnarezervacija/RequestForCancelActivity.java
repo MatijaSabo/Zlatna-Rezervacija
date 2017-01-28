@@ -100,8 +100,8 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         if(flag){
 
             flag = false;
-            String succesCancelNotifyUser = "Poštovani, zahtjev za odbijanjem rezervacije " + reservation_intent + " je prihvaćen.";
-            String unsuccesCancelNotifyUser = "Poštovani, zahtjev za odbijanjem rezervacije " + reservation_intent + " je odbijen.";
+            String succesCancelNotifyUser = "Zahtjev za otkazivanjem rezervacije " + reservation_intent + " je prihvaćen.";
+            String unsuccesCancelNotifyUser = "Zahtjev za otkazivanjem rezervacije " + reservation_intent + " je odbijen.";
             WebServiceReservationCancelResponse data = (WebServiceReservationCancelResponse) result;
 
             if(data.getStatus().contains("0") || data.getStatus().contains("3")){

@@ -66,7 +66,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String tip = sharedPreferences.getString("obavijest", "");
+        String tip = sharedPreferences.getString("opcija", "");
 
         if(tip!=notifications_intent){
             notifications_intent=tip;

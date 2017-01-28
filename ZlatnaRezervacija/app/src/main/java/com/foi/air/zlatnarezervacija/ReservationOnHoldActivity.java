@@ -117,8 +117,8 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     public void onDataLoaded(Object result) {
 
         if(flag2){
-            String succesNotifyUser = "Poštovani" + data.getUser_first_name() + ", rezervacija " + reservation_intent + " je prihvaćena.";
-            String unsuccesNotifyUser = "Poštovani" + data.getUser_first_name() + ", rezervacija " + reservation_intent + " je odbijena.";
+            String succesNotifyUser = data.getUser_first_name() + ", rezervacija " + reservation_intent + " je prihvaćena.";
+            String unsuccesNotifyUser = data.getUser_first_name() + ", rezervacija " + reservation_intent + " je odbijena.";
                     flag2 = false;
             WebServiceResponseSettings data = (WebServiceResponseSettings) result;
 
