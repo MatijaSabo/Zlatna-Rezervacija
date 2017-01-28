@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -29,7 +30,6 @@ public class PushNotification  implements NotificationInterface {
 
     public PushNotification(Context context) {
         this.context = context;
-
     }
 
     @Override
@@ -37,27 +37,23 @@ public class PushNotification  implements NotificationInterface {
 
             Intent i = new Intent(context, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-          //  PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+          //PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                     .setPriority(Notification.PRIORITY_MAX)
                     .setAutoCancel(true)
                     .setContentTitle("Zlatna Rezervacija")
                     .setContentText(message)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                     .setSmallIcon(R.drawable.zlatna_rezervacija)
-                 //   .setContentIntent(pendingIntent)
-                    .setSound(alarmSound);
-
-
+                 // .setContentIntent(pendingIntent)
+                    .setSound(alarmSound)
+                    .setLights(Color.GREEN, 2000, 2000);
 
             NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
-
             int number = (int) ((new Date().getTime()/1000L)% Integer.MAX_VALUE);
             manager.notify(number,builder.build());
-
     }
-    }
+}
 
