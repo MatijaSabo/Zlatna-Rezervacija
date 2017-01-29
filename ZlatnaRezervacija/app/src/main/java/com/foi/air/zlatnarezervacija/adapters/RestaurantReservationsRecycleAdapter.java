@@ -19,10 +19,12 @@ import java.util.ArrayList;
 public class RestaurantReservationsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     ArrayList<ReservationItemDetails> items;
 
+    /* Spremanje podataka dobivenih preko parametara u odgovarajuće varijeble */
     public RestaurantReservationsRecycleAdapter(ArrayList<ReservationItemDetails> items) {
         this.items = items;
     }
 
+    /* Spajanje layout-a za jedan podatak sa RecyclerView-om */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_reservation_card, parent, false);
@@ -30,6 +32,7 @@ public class RestaurantReservationsRecycleAdapter extends RecyclerView.Adapter<R
         return item;
     }
 
+    /* Spajanje dobivenih podataka sa odgovarajučim elementima na layout-u */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         String tables="";
@@ -37,6 +40,7 @@ public class RestaurantReservationsRecycleAdapter extends RecyclerView.Adapter<R
         ReservationItemDetails item = items.get(position);
         String first_last_name=item.getUser_first_name() + " " + item.getUser_last_name();
 
+        /* Spremanje svih stolova u jedan string */
         for (ReservationTableItemDetails i : item.getTables()){
             tables=tables + i.getLabel()+ ", ";
         }
@@ -55,10 +59,9 @@ public class RestaurantReservationsRecycleAdapter extends RecyclerView.Adapter<R
         ((RestaurantReservationViewHolder) holder).itemDescription.setText(item.getDescription());
         ((RestaurantReservationViewHolder) holder).itemRemark.setText(item.getRemark());
         ((RestaurantReservationViewHolder) holder).itemFirstLastName.setText(first_last_name);
-
-
     }
 
+    /* Metoda koja vraća broj podataka u RecyclerView-u */
     @Override
     public int getItemCount() {
         return items.size();
@@ -79,6 +82,8 @@ public class RestaurantReservationsRecycleAdapter extends RecyclerView.Adapter<R
 
         public RestaurantReservationViewHolder(View itemView) {
             super(itemView);
+
+            /* Spajanje odgovarajučih varijabli sa elementima iz layout-a */
             itemId = (TextView) itemView.findViewById(R.id.restaurant_reservation_detail_id);
             itemFirstLastName = (TextView) itemView.findViewById(R.id.restaurant_reservation_user_first_last_name_text);
             itemDate = (TextView) itemView.findViewById(R.id.restaurant_reservation_detail_date_text);

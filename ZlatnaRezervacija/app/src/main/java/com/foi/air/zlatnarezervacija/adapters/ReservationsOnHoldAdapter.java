@@ -22,11 +22,13 @@ public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView
     ArrayList<ReservationsOnHold> items;
     Context context;
 
+    /* Spremanje podataka dobivenih preko parametara u odgovarajuće varijeble */
     public ReservationsOnHoldAdapter(ArrayList<ReservationsOnHold> Items, Context context){
         this.items = Items;
         this.context = context;
     }
 
+    /* Spajanje layout-a za jedan podatak sa RecyclerView-om */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservation_on_hold_card, parent, false);
@@ -34,6 +36,7 @@ public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView
         return item;
     }
 
+    /* Spajanje dobivenih podataka sa odgovarajučim elementima na layout-u */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ReservationsOnHold item = items.get(position);
@@ -46,6 +49,7 @@ public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView
         ((ReservationOnHoldViewHolder) holder).itemTime.setText(item.getTime_arrival());
     }
 
+    /* Metoda koja vraća broj podataka u RecyclerView-u */
     @Override
     public int getItemCount() {
         return items.size();
@@ -61,12 +65,15 @@ public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView
         public ReservationOnHoldViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+
+            /* Spajanje odgovarajučih varijabli sa elementima iz layout-a */
             itemId = (TextView) itemView.findViewById(R.id.reservation_on_hold_reservation_id);
             itemUser = (TextView) itemView.findViewById(R.id.reservation_on_hold_user);
             itemDate = (TextView) itemView.findViewById(R.id.reservation_on_hold_date);
             itemTime = (TextView) itemView.findViewById(R.id.reservation_on_hold_time);
         }
 
+        /* Događaj koji se poziva kada korisnik klikne na pojedini podatak */
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(context, ReservationOnHoldActivity.class);

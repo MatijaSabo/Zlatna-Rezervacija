@@ -23,6 +23,7 @@ public class ExpandableTextView extends TextView implements View.OnClickListener
         super(context);
         setOnClickListener(this);
     }
+
     public ExpandableTextView(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);

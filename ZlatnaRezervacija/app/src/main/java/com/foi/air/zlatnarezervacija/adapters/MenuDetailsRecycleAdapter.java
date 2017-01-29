@@ -18,10 +18,12 @@ import java.util.ArrayList;
 public class MenuDetailsRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<MenuItemDetails> items;
 
+    /* Spremanje podataka dobivenih preko parametara u odgovarajuće varijeble */
     public MenuDetailsRecycleAdapter(ArrayList<MenuItemDetails> Items){
         this.items = Items;
     }
 
+    /* Spajanje layout-a za jedan podatak sa RecyclerView-om */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_details_item, parent, false);
@@ -29,10 +31,12 @@ public class MenuDetailsRecycleAdapter extends RecyclerView.Adapter<RecyclerView
         return item;
     }
 
+    /* Spajanje dobivenih podataka sa odgovarajučim elementima na layout-u */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MenuItemDetails item = items.get(position);
 
+        /* Provjera dobivenih podataka */
         if(item.getDescription().isEmpty()){
             ((MenuDetailsViewHolder) holder).itemName.setText(item.getName());
             ((MenuDetailsViewHolder) holder).itemDescription.setText(R.string.NoDescription);
@@ -46,6 +50,7 @@ public class MenuDetailsRecycleAdapter extends RecyclerView.Adapter<RecyclerView
         }
     }
 
+    /* Metoda koja vraća broj podataka u RecyclerView-u */
     @Override
     public int getItemCount() {
         return items.size();
@@ -59,6 +64,8 @@ public class MenuDetailsRecycleAdapter extends RecyclerView.Adapter<RecyclerView
 
         public MenuDetailsViewHolder(View itemView) {
             super(itemView);
+
+            /* Spajanje odgovarajučih varijabli sa elementima iz layout-a */
             itemName = (TextView) itemView.findViewById(R.id.menu_detail_name);
             itemDescription = (TextView) itemView.findViewById(R.id.menu_detail_description);
             itemPrice = (TextView) itemView.findViewById(R.id.menu_detail_price);

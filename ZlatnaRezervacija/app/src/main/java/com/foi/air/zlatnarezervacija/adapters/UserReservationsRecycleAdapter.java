@@ -21,13 +21,16 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
 
     ArrayList<ReservationItemDetails> reservations;
 
+    /* Lista ikona koje označavaju status rezervacije */
     private Integer[] status_image_id = {R.mipmap.ic_hourglass_empty_black_18dp, R.mipmap.ic_done_black_18dp, R.mipmap.ic_block_black_18dp,
             R.mipmap.ic_report_problem_black_18dp, R.mipmap.ic_clear_black_18dp};
 
+    /* Spremanje podataka dobivenih preko parametara u odgovarajuće varijeble */
     public UserReservationsRecycleAdapter(ArrayList<ReservationItemDetails> reservations) {
         this.reservations = reservations;
     }
 
+    /* Spajanje layout-a za jedan podatak sa RecyclerView-om */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_reservations, parent, false);
@@ -35,12 +38,14 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
         return item;
     }
 
+    /* Spajanje dobivenih podataka sa odgovarajučim elementima na layout-u */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         String tables="";
 
         ReservationItemDetails item = reservations.get(position);
 
+        /* Spremanje svih stolova u jedan string */
         for (ReservationTableItemDetails i : item.getTables()){
             tables=tables + i.getLabel()+ ", ";
         }
@@ -60,11 +65,14 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
         ((MyReservationViewHolder) holder).status_image.setImageResource(status_image_id[item.getStatus()-1]);
     }
 
+    /* Metoda koja vraća broj podataka u RecyclerView-u */
     @Override
     public int getItemCount() {
         return reservations.size();
     }
 
+
+    /* Metoda koja briše sve podatke iz RecyclerView-a */
     public void clearData(){
         int size=getItemCount();
         if(size>0){
@@ -90,6 +98,8 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
 
         public MyReservationViewHolder(View itemView) {
             super(itemView);
+
+            /* Spajanje odgovarajučih varijabli sa elementima iz layout-a */
             reservationTime_Arrival = (TextView) itemView.findViewById(R.id.reservation_detail_time_arrival_text);
             reservationRemark = (TextView) itemView.findViewById(R.id.reservation_detail_remark_text);
             reservationDate = (TextView) itemView.findViewById(R.id.reservation_detail_date_text);

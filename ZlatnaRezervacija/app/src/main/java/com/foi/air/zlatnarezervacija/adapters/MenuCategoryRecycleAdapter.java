@@ -21,12 +21,14 @@ public class MenuCategoryRecycleAdapter extends RecyclerView.Adapter<RecyclerVie
     Integer[] category_image_id;
     Context context;
 
+    /* Spremanje podataka dobivenih preko parametara u odgovarajuće varijeble */
     public MenuCategoryRecycleAdapter(String[] category_name, Integer[] category_image_id, Context context){
         this.category_name = category_name;
         this.category_image_id = category_image_id;
         this.context = context;
     }
 
+    /* Spajanje layout-a za jedan podatak sa RecyclerView-om */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
@@ -34,6 +36,7 @@ public class MenuCategoryRecycleAdapter extends RecyclerView.Adapter<RecyclerVie
         return item;
     }
 
+    /* Spajanje dobivenih podataka sa odgovarajučim elementima na layout-u */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
@@ -41,6 +44,7 @@ public class MenuCategoryRecycleAdapter extends RecyclerView.Adapter<RecyclerVie
         ((MenuCategoryViewHolder) holder).category_image.setImageResource(category_image_id[position]);
     }
 
+    /* Metoda koja vraća broj podataka u RecyclerView-u */
     @Override
     public int getItemCount() {
         return category_name.length;
@@ -54,10 +58,13 @@ public class MenuCategoryRecycleAdapter extends RecyclerView.Adapter<RecyclerVie
         public MenuCategoryViewHolder(View view){
             super(view);
             view.setOnClickListener(this);
+
+            /* Spajanje odgovarajučih varijabli sa elementima iz layout-a */
             category_name = (TextView) view.findViewById(R.id.category_item_text);
             category_image = (ImageView) view.findViewById(R.id.category_item_icon);
         }
 
+        /* Događaj koji se poziva kada korisnik klikne na pojedini podatak */
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(context, MenuDetailsActivity.class);
