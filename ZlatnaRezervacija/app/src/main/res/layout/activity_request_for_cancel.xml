@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Detalji rezervacije"
+            android:text="@string/ReservationDetails"
             android:textStyle="bold"
             android:padding="2dp"/>
         <View
@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ime i prezime: "
+                android:text="@string/UserName"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -56,7 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Datum: "
+                android:text="@string/UserReservationsDate"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -79,7 +79,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vrijeme početka: "
+                android:text="@string/UserReservationsTimeStart"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vrijeme kraja: "
+                android:text="@string/UserReservationsTimeCheckout"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -125,7 +125,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Broj osoba: "
+                android:text="@string/UserReservationsPersons"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -148,7 +148,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Broj slijedova jela: "
+                android:text="@string/NumberOfMeals"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -171,7 +171,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Napomene: "
+                android:text="@string/UserReservationsRemark"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -194,7 +194,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opis: "
+                android:text="@string/UserReservationsDescription"
                 android:textStyle="bold"
                 android:padding="5dp"/>
 
@@ -219,7 +219,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Odobri"
+                android:text="@string/btn_odobri"
                 android:background="@color/btnColor"
                 android:textColor="@color/btnColorText"
                 android:layout_margin="5dp"
@@ -229,7 +229,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Odbij"
+                android:text="@string/btn_odbij"
                 android:background="@color/btnColor"
                 android:textColor="@color/btnColorText"
                 android:layout_margin="5dp"

@@ -83,7 +83,7 @@
                         android:textColor="#FFF"
                         android:padding="5dp"
                         android:textSize="15sp"
-                        android:text="Ugodan ambijent"/>
+                        android:text="@string/atmosphere"/>
                     <com.foi.air.zlatnarezervacija.TextView.ExpandableTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

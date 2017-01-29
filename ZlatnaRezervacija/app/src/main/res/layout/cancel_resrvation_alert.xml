@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="16dp"
-        android:text="Molimo vas da upišete razlog odbijanja zahtjeva za otkazivanjem rezervacije" />
+        android:text="@string/ReasonForRefuseRequestForCancel" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

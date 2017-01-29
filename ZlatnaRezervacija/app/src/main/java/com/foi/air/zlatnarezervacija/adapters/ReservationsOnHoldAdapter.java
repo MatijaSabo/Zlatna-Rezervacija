@@ -51,16 +51,6 @@ public class ReservationsOnHoldAdapter extends RecyclerView.Adapter<RecyclerView
         return items.size();
     }
 
-    public void clearData(){
-        int size=getItemCount();
-        if(size>0){
-            for(int i=0;i<size;i++){
-                this.items.remove(0);
-            }
-            this.notifyItemRangeRemoved(0, size);
-        }
-    }
-
     public class ReservationOnHoldViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView itemId;

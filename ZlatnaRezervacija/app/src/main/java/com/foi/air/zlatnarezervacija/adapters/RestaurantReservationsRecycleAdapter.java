@@ -63,6 +63,7 @@ public class RestaurantReservationsRecycleAdapter extends RecyclerView.Adapter<R
     public int getItemCount() {
         return items.size();
     }
+
     public class RestaurantReservationViewHolder extends RecyclerView.ViewHolder{
 
         TextView itemId;

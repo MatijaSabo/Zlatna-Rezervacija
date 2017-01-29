@@ -28,14 +28,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         NotificationInterface notificationInterface;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String tip = prefs.getString("opcija", "");
+
         if(tip.equals("1")){
                 notificationInterface = new VibrateNotification(getApplicationContext());
         } else   {
                 notificationInterface = new PushNotification(getApplicationContext());
         }
+
         notificationInterface.showNotification(remoteMessage.getData().get("message"));
-
     }
-
-
 }

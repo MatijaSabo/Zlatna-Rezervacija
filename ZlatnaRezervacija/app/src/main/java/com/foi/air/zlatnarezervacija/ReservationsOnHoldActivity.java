@@ -31,19 +31,13 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
     ArrayList<ReservationsOnHold> group1 = new ArrayList<ReservationsOnHold>();
     ArrayList<ReservationsOnHold> group2 = new ArrayList<ReservationsOnHold>();
 
-    ReservationsOnHoldAdapter adapter1;
-    RequestsForCancelAdapter adapter2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservations_on_hold);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Rezervacije na čekanju");
-
-        //adapter1 = new ReservationsOnHoldAdapter(group1, this);
-        //adapter2 = new RequestsForCancelAdapter(group2, this);
+        getSupportActionBar().setTitle(R.string.ReservationsOnHoldActivityTitle);
 
         getReservationsOnHold();
     }
@@ -52,10 +46,6 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
-
-            //adapter1.clearData();
-            //adapter2.clearData();
-
             DataLoader dataLoader1;
             dataLoader1 = new WsReservationsOnHold();
             dataLoader1.loadReservationsOnHold((DataLoadedListener) this, "1");

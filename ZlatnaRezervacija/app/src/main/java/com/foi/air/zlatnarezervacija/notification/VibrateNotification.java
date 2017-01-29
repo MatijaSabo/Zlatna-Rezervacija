@@ -20,7 +20,6 @@ public class VibrateNotification implements NotificationInterface {
     public void showNotification(String message) {
         Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
-
     }
 
 }

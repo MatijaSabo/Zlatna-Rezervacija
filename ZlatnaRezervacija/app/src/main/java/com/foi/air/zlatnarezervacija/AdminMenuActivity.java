@@ -135,6 +135,7 @@ public class AdminMenuActivity extends AppCompatActivity {
             builder.create().show();
         }
     }
+
     public void Map(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if(cm.getActiveNetworkInfo() != null){

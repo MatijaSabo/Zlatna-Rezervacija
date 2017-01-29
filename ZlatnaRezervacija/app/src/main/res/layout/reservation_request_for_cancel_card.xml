@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Broj rezervacije: "
+                android:text="@string/ReservationNumber"
                 android:textSize="18dp"
                 android:textStyle="bold"/>
 
@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ime i prezime: "
+                android:text="@string/UserName"
                 android:textStyle="bold"/>
 
             <TextView
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Datum: "
+                android:text="@string/UserReservationsDate"
                 android:textStyle="bold"/>
 
             <TextView
@@ -81,7 +81,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vrijeme dolaska: "
+                android:text="@string/UserReservationsTimeStart"
                 android:textStyle="bold"/>
 
             <TextView
@@ -100,7 +100,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vrijeme kraja: "
+                android:text="@string/UserReservationsTimeCheckout"
                 android:textStyle="bold"/>
 
             <TextView

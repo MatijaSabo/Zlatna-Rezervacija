@@ -35,18 +35,13 @@ public class PushNotification  implements NotificationInterface {
     @Override
     public void showNotification(String message) {
 
-            Intent i = new Intent(context, MainActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-          //PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-
             Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                     .setPriority(Notification.PRIORITY_MAX)
                     .setAutoCancel(true)
-                    .setContentTitle("Zlatna Rezervacija")
+                    .setContentTitle(context.getString(R.string.app_name))
                     .setContentText(message)
                     .setSmallIcon(R.drawable.zlatna_rezervacija)
-                 // .setContentIntent(pendingIntent)
                     .setSound(alarmSound)
                     .setLights(Color.GREEN, 2000, 2000);
 

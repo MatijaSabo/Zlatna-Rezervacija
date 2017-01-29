@@ -71,7 +71,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
         reservation_intent = getIntent().getStringExtra("reservation_id");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Rezervacija " + reservation_intent);
+        getSupportActionBar().setTitle(getString(R.string.AdminReservationTitle) + reservation_intent);
 
         linearLayout = (LinearLayout) findViewById(R.id.checkbox_group);
         user = (TextView) findViewById(R.id.reservation_user);
@@ -117,15 +117,15 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     public void onDataLoaded(Object result) {
 
         if(flag2){
-            String succesNotifyUser = data.getUser_first_name() + ", rezervacija " + reservation_intent + " je prihvaćena.";
-            String unsuccesNotifyUser = data.getUser_first_name() + ", rezervacija " + reservation_intent + " je odbijena.";
+            String succesNotifyUser = data.getUser_first_name() + getString(R.string.NotificationMessageFirstpart) + reservation_intent + getString(R.string.NotificationMessageSecondPartSuccess);
+            String unsuccesNotifyUser = data.getUser_first_name() + getString(R.string.NotificationMessageFirstpart) + reservation_intent + getString(R.string.NotificationMessageSecondPartCancel);
                     flag2 = false;
             WebServiceResponseSettings data = (WebServiceResponseSettings) result;
 
             progress.dismiss();
 
             if(data.getStatus().contains("2") || data.getStatus().contains("4")){
-                Toast.makeText(this, "Odgovor na zahtjev nije izvršen, pokušajte ponovo...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.RequestForCancelDatabaseFail), Toast.LENGTH_LONG).show();
             } else if(data.getStatus().contains("1")) {
                 notifyUser(user_id, succesNotifyUser);
             } else{
@@ -138,9 +138,9 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             flag3 = false;
 
             if(WSresult.getSuccess().contains("1")){
-                Toast.makeText(this, "Korisnik je uspješno obavješten!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.NotificationSuccessMessage), Toast.LENGTH_SHORT).show();
             } else{
-                Toast.makeText(this, "Korisnik nije obaviješten!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.NotificationFailMessage), Toast.LENGTH_SHORT).show();
             }
 
             progress.dismiss();
@@ -186,7 +186,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
             if(!flag){
                 TextView text = new TextView(this);
-                text.setText("Nema slobodnih stolova");
+                text.setText(R.string.NoFreeTables);
                 linearLayout.addView(text);
             } else{
                 potvrdi.setEnabled(true);
@@ -200,7 +200,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     private void notifyUser(String user_id, String message) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
-            progress = ProgressDialog.show(this, "Šaljem obavijest", getString(R.string.PleaseWait));
+            progress = ProgressDialog.show(this, getString(R.string.SendingNotificationMessage), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
             dataLoader1 = new WsNotificationLoader();
 
@@ -228,7 +228,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         final EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_reservation);
 
         AlertDialog.Builder refuse_resrvation_alert = new AlertDialog.Builder(ReservationOnHoldActivity.this);
-        refuse_resrvation_alert.setTitle("Odbijanje rezervacije");
+        refuse_resrvation_alert.setTitle(R.string.RefuseReservationAlertTitle);
         refuse_resrvation_alert.setCancelable(false);
         refuse_resrvation_alert.setView(alert_view);
         refuse_resrvation_alert.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {
@@ -292,15 +292,15 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         }
 
         if(list.length() == 0){
-            Toast.makeText(this, "Nije odabran niti jedan stol. Molimo Vas da odaberete stol za rezervaciju!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.InsertTableError, Toast.LENGTH_LONG).show();
 
             if(vrijeme_input.getText().length() < 1){
                 vrijeme_label.setErrorEnabled(true);
-                vrijeme_label.setError("Unestie vrijeme kraja!");
+                vrijeme_label.setError(getString(R.string.InsertEndTimeError));
             }
         } else if(vrijeme_input.getText().length() < 1) {
             vrijeme_label.setErrorEnabled(true);
-            vrijeme_label.setError("Unestie vrijeme kraja!");
+            vrijeme_label.setError(getString(R.string.InsertEndTimeError));
         } else {
             replay_to_reservation(1, list);
         }

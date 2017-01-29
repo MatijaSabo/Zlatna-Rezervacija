@@ -54,7 +54,7 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
         reservation_intent = getIntent().getStringExtra("reservation_id");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Rezervacija " + reservation_intent);
+        getSupportActionBar().setTitle(getString(R.string.AdminReservationTitle) + reservation_intent);
 
         user = (TextView) findViewById(R.id.activity_request_for_cancel_user);
         date = (TextView) findViewById(R.id.activity_request_for_cancel_date);
@@ -100,12 +100,12 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         if(flag){
 
             flag = false;
-            String succesCancelNotifyUser = "Zahtjev za otkazivanjem rezervacije " + reservation_intent + " je prihvaćen.";
-            String unsuccesCancelNotifyUser = "Zahtjev za otkazivanjem rezervacije " + reservation_intent + " je odbijen.";
+            String succesCancelNotifyUser = getString(R.string.RequestForCancelNotificationFirstPart) + reservation_intent + getString(R.string.RequestForCancelNotificationSecondPartSuccess);
+            String unsuccesCancelNotifyUser = getString(R.string.RequestForCancelNotificationFirstPart) + reservation_intent + getString(R.string.RequestForCancelNotificationSecondPartCancel);
             WebServiceReservationCancelResponse data = (WebServiceReservationCancelResponse) result;
 
             if(data.getStatus().contains("0") || data.getStatus().contains("3")){
-                Toast.makeText(this, "Odgovor na zahtjev nije izvršen, pokušajte ponovo...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.RequestForCancelDatabaseFail, Toast.LENGTH_LONG).show();
             } else if(data.getStatus().contains("1")) {
                 notifyUser(user_id, succesCancelNotifyUser);
             } else{
@@ -120,9 +120,9 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
             flag2 = false;
 
             if(WSresult.getSuccess().contains("1")){
-                Toast.makeText(this, "Korisnik je uspješno obavješten!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.NotificationSuccessMessage, Toast.LENGTH_SHORT).show();
             } else{
-                Toast.makeText(this, "Korisnik nije obaviješten!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.NotificationFailMessage, Toast.LENGTH_SHORT).show();
             }
 
             progress.dismiss();
@@ -154,7 +154,7 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
     private void notifyUser(String user_id, String message) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
-            progress = ProgressDialog.show(this, "Šaljem obavijest", getString(R.string.PleaseWait));
+            progress = ProgressDialog.show(this, getString(R.string.SendingNotificationMessage), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
             dataLoader1 = new WsNotificationLoader();
 
@@ -172,7 +172,7 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         final EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_request_for_cancel);
 
         AlertDialog.Builder refuse_request_for_cancel_alert = new AlertDialog.Builder(RequestForCancelActivity.this);
-        refuse_request_for_cancel_alert.setTitle("Odbijanje rezervacije");
+        refuse_request_for_cancel_alert.setTitle(R.string.RefuseRequestForCancelAlertTitle);
         refuse_request_for_cancel_alert.setCancelable(false);
         refuse_request_for_cancel_alert.setView(alert_view);
         refuse_request_for_cancel_alert.setPositiveButton(R.string.Alert_positive_button, new DialogInterface.OnClickListener() {

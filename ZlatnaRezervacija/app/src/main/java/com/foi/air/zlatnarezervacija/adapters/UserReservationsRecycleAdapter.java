@@ -74,6 +74,7 @@ public class UserReservationsRecycleAdapter extends RecyclerView.Adapter<Recycle
             this.notifyItemRangeRemoved(0, size);
         }
     }
+
     public class MyReservationViewHolder extends RecyclerView.ViewHolder{
 
         TextView reservationDate;
