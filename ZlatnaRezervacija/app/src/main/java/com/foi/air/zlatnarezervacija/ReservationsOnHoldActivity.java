@@ -36,14 +36,18 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservations_on_hold);
 
+        /* Prikazivanje back buttona i promjena teksta u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.ReservationsOnHoldActivityTitle);
 
         getReservationsOnHold();
     }
 
+    /* Metoda koja dohvaća sve rezervacije na čekanju i zahtjeve za otkazivanje rezervacije */
     private void getReservationsOnHold() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
@@ -54,11 +58,13 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
         }
     }
 
+    /* Metoda koja dohvaća podatke sa WebServisa */
     @Override
     public void onDataLoaded(Object result) {
         WebServiceReservationOnHold DataArrived = (WebServiceReservationOnHold) result;
         ReservationsOnHold[] reservations = (ReservationsOnHold[]) DataArrived.getReservations();
 
+        /* Dobivene rezervacije se prema statusu smještaju u odgovarajuću ArrayList-u */
         for (ReservationsOnHold r : reservations) {
             if(r.status.contains("1")){
                 group1.add(r);
@@ -67,6 +73,7 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
             }
         }
 
+        /* Prikazivanje rezervacija u odgovrajućim RecyclerView-ima */
         recyclerView1 = (RecyclerView) findViewById(R.id.restaurant_reservations_on_hold);
         recyclerView1.setLayoutManager(new LinearLayoutManager(this));
         recyclerView1.setAdapter(new ReservationsOnHoldAdapter(group1, this));
@@ -92,6 +99,8 @@ public class ReservationsOnHoldActivity extends AppCompatActivity implements Dat
     protected void onResume() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        /* Ukoliko je korisnik potvrdio ili odbio rezervaciju na čekanju ili
+        * odbio ili potvrdio zathtjev za otkazivanje rezervacije korisnika se preusmjerava na menu apliakcije */
         if(sharedPreferences.getString("back", "") == "1"){
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("back", "2");

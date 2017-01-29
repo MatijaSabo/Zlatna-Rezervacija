@@ -50,25 +50,29 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* Sakrivanje toolbara */
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
         ButterKnife.bind(this);
-
-
     }
 
     @OnClick(R.id.btn_login)
     public void mainButtonClick(View view) {
+
+        /* Dobivanje tokena sa Firebasea */
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         String token = FirebaseInstanceId.getInstance().getToken();
         Log.i("TOKEN= ",token);
+
+        /* Zatvaranje virtualne tipkovnice te birsanje fokusa sa elemnta koji ima fokus */
         view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
+        /* Validacija korisničkog unosa */
         boolean email_validate = true;
         boolean pass_validate = true;
         tilEmail = (TextInputLayout) findViewById(R.id.emailtextlayout);
@@ -103,11 +107,12 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             pass_validate = true;
         }
 
+        /* Ukoliko je validacija prošla šalju se podaci na WebServis */
         if (email_validate == true && pass_validate == true) {
             String password = passText.getText().toString();
             Integer hashPass = password.hashCode();
 
-
+            /* Provjera internet konekcije */
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
             if (cm.getActiveNetworkInfo() != null) {
 
@@ -123,13 +128,14 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         }
     }
 
-
+    /* Otvaranje aktivnosti registracije */
     @OnClick(R.id.link_registration)
     public void Click(View view) {
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
         startActivity(intent);
     }
 
+    /* Alert dialog u kojemu se pita korisika da li želi zatvoriti aplikaciju */
     @Override
     public void onBackPressed() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -154,11 +160,15 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         builder.create().show();
     }
 
+    /* Dobivanje podataka sa WebServisa */
     @Override
     public void onDataLoaded(Object result) {
         WSresult = (WebServiceResponse) result;
 
         if (WSresult.getStatus().endsWith("1")) {
+
+            /* Prema dobivenom odgovoru sa WebServisa otvara se odgovarajuća aktivnost te se šalju podaci
+            * preko intenta */
             if (WSresult.getRole_id().endsWith("1")) {
                 Intent intent = new Intent(getApplicationContext(), AdminMenuActivity.class);
                 intent.putExtra("name", WSresult.getName());
@@ -194,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
     @Override
     protected void onResume() {
+        /* Brisanje poruka greške kada se korisnik vraća na aktivnost */
         if((tilEmail != null) && (tilPass != null)){
             if(tilEmail.isErrorEnabled() == true){
 
@@ -205,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
             }
         }
 
+        /* Brisanje podataka lozinke i brisanje fokusa sa elemenata kada se korisnik vraća na aktivnost */
         passText.setText("");
         passText.clearFocus();
         emailText.clearFocus();

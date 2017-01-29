@@ -12,12 +12,14 @@ public class MenuCategoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
+    /* Nazivi kategorija cjenika */
     private String[] kategorije = {"Hladna predjela", "Juhe", "Tjestenine i rižota",
             "Mesna jela", "Specijaliteti Zlatnih gorica", "Jela od riba",
             "Vegetarijanska jela", "Prilozi", "Salate",
             "Slatka jela", "Kava i topli napici", "Bezalkoholna pića",
             "Piva", "Žestoka alkoholna pića", "Miješana vina"};
 
+    /* Ikone koje odgovraju kategorijama cjenika */
     private Integer[] slike = {R.mipmap.restaurant_menu, R.mipmap.restaurant_menu, R.mipmap.restaurant_menu,
             R.mipmap.restaurant_menu, R.mipmap.restaurant_menu, R.mipmap.restaurant_menu,
             R.mipmap.restaurant_menu, R.mipmap.restaurant_menu, R.mipmap.restaurant_menu,
@@ -29,9 +31,11 @@ public class MenuCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_category);
 
+        /* Prikazivanje back buttona, te promjena teksta u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.menu_category);
 
+        /* Spajanje podataka na RecyclerView */
         recyclerView = (RecyclerView) findViewById(R.id.menu_category_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MenuCategoryRecycleAdapter(kategorije, slike, this));

@@ -32,6 +32,8 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* Dohvačenje podataka koje šaljemo preko intentra */
         role_intent = getIntent().getStringExtra("role_id");
         user_intent = getIntent().getStringExtra("user_id");
         name_intent = getIntent().getStringExtra("name");
@@ -39,6 +41,8 @@ public class MenuActivity extends AppCompatActivity {
         notifications_intent = getIntent().getStringExtra("notifications");
 
         setContentView(R.layout.activity_menu);
+
+        /* Spajanje hamburger icon-a u toolbaru sa menoum kako bi otvarao i zatvarao menu */
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_menu);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
@@ -49,12 +53,14 @@ public class MenuActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /* Promjena teksta u headeru menua */
         View menuHeader = navigationView.getHeaderView(0);
         TextView name = (TextView) menuHeader.findViewById(R.id.user_name);
         TextView email = (TextView) menuHeader.findViewById(R.id.user_email);
         name.setText(name_intent);
         email.setText(email_intent);
 
+        /* Spremanje u varijable u SharedPreferences kako bi se znalo na koji način korisnik prima obavijest */
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("opcija", notifications_intent);
@@ -65,6 +71,8 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        /* Provjera je li korisnik promijenio način primanja obavijesti */
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String tip = sharedPreferences.getString("opcija", "");
 
@@ -73,6 +81,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    /* Otvaranje određene aktivnosti prema odabiru u meniu */
     NavigationView.OnNavigationItemSelectedListener navigationOptionSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -147,6 +156,9 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        /* Prvjera da li je menu otvoren, i ako nije prikazuje se poruka za odjavu iz sustava,
+        * a ako je otvoren zatvara se menu */
+
         if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(Gravity.LEFT);
         }else{
@@ -171,14 +183,15 @@ public class MenuActivity extends AppCompatActivity {
             builder.create().show();
         }
     }
+    /* Metoda koja otvara Google mapu */
     public void startMap(){
-
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if(cm.getActiveNetworkInfo() != null){
             Intent intent = new Intent(MenuActivity.this, MapFragmentActivity.class);
             startActivity(intent);
-        }
-        else{
+        } else{
             Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
         }
     }

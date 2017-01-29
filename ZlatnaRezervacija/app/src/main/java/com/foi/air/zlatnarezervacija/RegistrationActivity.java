@@ -33,6 +33,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
     WebServiceResponseRegistration WSresult;
     ProgressDialog progress;
 
+    /* Spajanje elemenata s layout-a sa varijablama */
     @BindView(R.id.btn_registration) Button btnRegistration;
 
     @BindView(R.id.textinputlayout_name) TextInputLayout tilName;
@@ -54,8 +55,10 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        /* Prikaz back buttona i promjena teksta u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.registration);
+
         ButterKnife.bind(this);
     }
 
@@ -79,9 +82,11 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
     @OnClick(R.id.btn_registration)
     public void Click(View view) {
 
+        /* Isključivanje buttona kako korisnik ne bi mogao kliknuti više puta na njega u toku validacije podataka */
         btnRegistration.setEnabled(false);
         btnRegistration.setClickable(false);
 
+        /* Zatvaranje virtualne tipkovnice */
         view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -102,7 +107,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         String cellphone = phoneRegistration.getText().toString();
         String rePassword = rePassRegistration.getText().toString();
 
-
+        /* Validacija korisničkog unosa te prikaz poruka grešaka u slučaju neuspješnog unosa */
         if (nameRegistration.getText().toString().length() == 0) {
             tilName.setErrorEnabled(true);
             tilName.setError(getString(R.string.FirstNameError));
@@ -112,6 +117,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             first_name = first_name.replace(" ","_");
             name_validate = true;
         }
+
         if (surnameRegistration.getText().toString().length() == 0) {
             tilSurname.setErrorEnabled(true);
             tilSurname.setError(getString(R.string.LastNameError));
@@ -121,24 +127,24 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             last_name = last_name.replace(" ","_");
             surname_validate = true;
         }
+
         if (emailRegistration.getText().toString().length() == 0) {
             tilEmail.setErrorEnabled(true);
             tilEmail.setError(getString(R.string.EmailError));
             email_validate=false;
-        } else if (email.contains(" ") ||
-                !(email.lastIndexOf("@") > 0) ||
-                !(email.contains("@"))||
-                !(email.contains(".")) ||
+        } else if (email.contains(" ") || !(email.lastIndexOf("@") > 0) ||
+                !(email.contains("@"))|| !(email.contains(".")) ||
                 (email.lastIndexOf("@") > email.lastIndexOf(".")) ||
-                (email.contains("'")) ||
-                (email.contains("#")) ||
+                (email.contains("'")) || (email.contains("#")) ||
                 !((email.lastIndexOf(".") - email.lastIndexOf("@")) > 1)) {
+
             tilEmail.setError(getString(R.string.EmailError2));
             email_validate=false;
         } else {
             tilEmail.setErrorEnabled(false);
             email_validate = true;
         }
+
         if (phoneRegistration.getText().toString().length() == 0) {
             tilPhone.setErrorEnabled(true);
             tilPhone.setError(getString(R.string.PhoneError));
@@ -147,6 +153,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilPhone.setErrorEnabled(false);
             phone_validate = true;
         }
+
         if (passwordRegistration.getText().toString().length() == 0) {
             tilPass.setErrorEnabled(true);
             tilPass.setError(getString(R.string.PassError));
@@ -155,6 +162,7 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
             tilPass.setErrorEnabled(false);
             pass_validate = true;
         }
+
         if (rePassRegistration.getText().toString().length() == 0) {
             tilRePass.setErrorEnabled(true);
             tilRePass.setError(getString(R.string.SecondPassError));
@@ -162,49 +170,55 @@ public class RegistrationActivity extends AppCompatActivity implements DataLoade
         } else if(rePassRegistration.getText().toString().equals(passwordRegistration.getText().toString())){
             tilRePass.setErrorEnabled(false);
             second_pass_validate = true;
-
-            } else {
+        } else {
             tilRePass.setError(getString(R.string.EqualsPassError));
             second_pass_validate=false;
-            }
+        }
 
-        if((name_validate == true) && (surname_validate == true) && (email_validate == true) && (phone_validate == true) && (pass_validate == true) && (second_pass_validate == true)){
+        /* Provjera da li je validacija koriničkog unosa prošla*/
+        if((name_validate == true) && (surname_validate == true) &&
+                (email_validate == true) && (phone_validate == true) &&
+                (pass_validate == true) && (second_pass_validate == true)){
+
+            /* Stvaranje hash-a od passworda kojega je unio korisnik */
             int pass = password.hashCode();
+
             int phone=Integer.parseInt(cellphone);
-
             ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
-            if(cm.getActiveNetworkInfo() != null){
 
+            /* Provjera internet konekcije */
+            if(cm.getActiveNetworkInfo() != null){
                 progress = ProgressDialog.show(this, getString(R.string.RegistrationInProgress), getString(R.string.PleaseWait));
 
                 WSresult = null;
                 DataLoader dataLoader;
                 dataLoader = new WsDataRegistrationLoader();
                 dataLoader.loadDataRegistration(this,first_name,last_name,phone,email,pass);
-            }
-
-            else{
+            } else{
                 Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
             }
         }
 
+        /* Uključivanje buttona kako bi korisnik bio u mogučnosti opet kliknuti na njega */
         btnRegistration.setEnabled(true);
         btnRegistration.setClickable(true);
     }
+
+    /* Dohvačanje podataka sa WebServisa */
     @Override
     public void onDataLoaded(Object result) {
         WSresult = (WebServiceResponseRegistration) result;
 
+        /* Provjera dobivenih podataka sa WebServisa */
         if(WSresult.getStatus().contains("1")){
             progress.dismiss();
 
             Toast.makeText(this, R.string.RegistrationSuccess, Toast.LENGTH_LONG).show();
             finish();
-        }
-
-        else{
+        } else{
             progress.dismiss();
 
+            /* Ukoliko nam WebServis vrati status=0 krosiniku se prikazuje alert sa porukom o tome */
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.RegistrationFaildMessage)
                     .setTitle(R.string.RegistrationFailedTitle)

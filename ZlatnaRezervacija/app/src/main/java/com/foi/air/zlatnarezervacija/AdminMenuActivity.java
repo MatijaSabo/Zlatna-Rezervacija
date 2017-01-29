@@ -27,12 +27,16 @@ public class AdminMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* Dohvačenje podataka koje šaljemo preko intentra */
         String role_intent = getIntent().getStringExtra("role_id");
         String user_intent = getIntent().getStringExtra("user_id");
         String name_intent = getIntent().getStringExtra("name");
         String email_intent = getIntent().getStringExtra("email");
 
         setContentView(R.layout.activity_menu_admin);
+
+        /* Spajanje hamburger icon-a u toolbaru sa menoum kako bi otvarao i zatvarao menu */
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_menu_admin);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
@@ -43,6 +47,7 @@ public class AdminMenuActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /* Promjena teksta u headeru menua */
         View menuHeader = navigationView.getHeaderView(0);
         TextView name = (TextView) menuHeader.findViewById(R.id.user_name);
         TextView email = (TextView) menuHeader.findViewById(R.id.user_email);
@@ -50,6 +55,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         email.setText(email_intent);
     }
 
+    /* Otvaranje određene aktivnosti prema odabiru u meniu */
     NavigationView.OnNavigationItemSelectedListener navigationOptionSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -111,6 +117,9 @@ public class AdminMenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        /* Prvjera da li je menu otvoren, i ako nije prikazuje se poruka za odjavu iz sustava,
+        * a ako je otvoren zatvara se menu */
+
         if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(Gravity.LEFT);
         }else{
@@ -136,13 +145,15 @@ public class AdminMenuActivity extends AppCompatActivity {
         }
     }
 
+    /* Metoda koja otvara Google mapu */
     public void Map(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if(cm.getActiveNetworkInfo() != null){
             Intent intent = new Intent(getApplicationContext(), MapFragmentActivity.class);
             startActivity(intent);
-        }
-        else{
+        } else{
             Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_SHORT).show();
         }
     }

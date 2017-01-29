@@ -27,21 +27,24 @@ public class MenuDetailsActivity extends AppCompatActivity implements DataLoaded
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_details);
+
+        /* Primanje podataka koji se šalju preko intenta */
         String text = getIntent().getStringExtra("kategorija");
+
+        /* Prikazivanje back buttona i promjena teksta u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(text);
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
-        if (cm.getActiveNetworkInfo() != null) {
 
+        /* Provjera internet konekcije */
+        if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
 
             DataLoader dataLoader;
             dataLoader = new WsMenuDataLoader();
             dataLoader.loadMenuData(this, text);
-        }
-
-        else{
+        } else{
             Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_LONG).show();
         }
     }
@@ -56,15 +59,17 @@ public class MenuDetailsActivity extends AppCompatActivity implements DataLoaded
         }
     }
 
+    /* Prihvačanje podataka sa WebServisa */
     @Override
     public void onDataLoaded(Object result) {
         WebServiceMenuResponse DataArrived = (WebServiceMenuResponse) result;
 
+        /* Spremanje dobivenih podataka u ArrayList radi prikazivanja u RecyclerViewu*/
         MenuItemDetails[] items = (MenuItemDetails[]) DataArrived.getItems();
         ArrayList<MenuItemDetails> item = new ArrayList<MenuItemDetails>();
-
         for (MenuItemDetails m: items) { item.add(m); }
 
+        /* Spajanje dobivenih podataka na RecyclerView */
         recyclerView = (RecyclerView) findViewById(R.id.menu_detail_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MenuDetailsRecycleAdapter(item));

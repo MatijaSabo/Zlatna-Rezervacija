@@ -13,6 +13,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /* Pozivanje aktivnosti kada je apliakcija učitana */
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

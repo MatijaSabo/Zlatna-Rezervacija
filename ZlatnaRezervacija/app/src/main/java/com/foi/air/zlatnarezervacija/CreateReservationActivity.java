@@ -52,14 +52,19 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* Dohvačanje podataka koji se šalju preko intenta */
         name_intent = getIntent().getStringExtra("user_name");
         id_intent = getIntent().getStringExtra("user_id");
         notifications_intent = getIntent().getStringExtra("notifications");
+
         setContentView(R.layout.activity_create_reservation);
 
+        /* Prikazivanje back buttona u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.ReservationTitle);
 
+        /* Spajanje elemenata sa dizajna sa varijablama */
         broj_osoba_label = (TextInputLayout) findViewById(R.id.textinputlayout_persons);
         broj_jela_label = (TextInputLayout) findViewById(R.id.textinputlayout_meals);
         datum_label = (TextInputLayout) findViewById(R.id.textinputlayout_date);
@@ -71,6 +76,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         vrijeme_input = (EditText) findViewById(R.id.input_time);
         napomene_input = (EditText) findViewById(R.id.input_remark);
 
+        /* Dobivanje trenutnog datuma i vremena te spremanje vrijednosti u varijable */
         calendar = Calendar.getInstance();
         system_day = calendar.get(Calendar.DAY_OF_MONTH);
         system_month = calendar.get(Calendar.MONTH);
@@ -85,6 +91,9 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:{
+
+                /* Provjera da li je korisnik unio neki od podataka u formu te ukoliko nije zatvara se aktivnnost,
+                * ukoliko je unio neki od podataka prikazuje mu se alert */
                 if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
                         (datum_input.length() < 1) && (vrijeme_input.length() <1) &&
                         (napomene_input.length() < 1)){
@@ -116,6 +125,9 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
     @Override
     public void onBackPressed() {
+
+        /* Provjera da li je korisnik unio neki od podataka u formu te ukoliko nije zatvara se aktivnnost,
+        * ukoliko je unio neki od podataka prikazuje mu se alert */
         if((broj_osoba_input.length() < 1) && (broj_jela_input.length() < 1) &&
                 (datum_input.length() < 1) && (vrijeme_input.length() < 1) &&
                 (napomene_input.length() < 1)){
@@ -146,6 +158,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     @OnClick(R.id.btn_reserve)
     public void Click(View view){
 
+        /* Gašenje virtualne tipkvnice ukliko je otvorena, te makivanje fokusa sa označenog elementa */
         view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -156,6 +169,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         boolean broj_osoba_validator, broj_jela_validator, datum_validator, vrijeme_validator, napomena_validator;
 
+        /* Validacija korisnikovog unosa te prikazivanje poruka grešaka ukoliko neki uvijet nije zadovoljen */
         if(broj_osoba_input.length()  < 1){
             broj_osoba_label.setErrorEnabled(true);
             broj_osoba_label.setError(getString(R.string.PersonsError));
@@ -206,6 +220,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
             napomena_validator = true;
         }
 
+        /* Ukoliko je korisnik unio sve podatke dobro poziva se funkcija za kreiranje rezervacije */
         if(broj_osoba_validator && broj_jela_validator && datum_validator && vrijeme_validator && napomena_validator){
             createReservation();
         }
@@ -221,8 +236,10 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
 
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
 
+            /* Spajanje elemenata sa layouta sa varijablama te postavljanje podataka u njih */
             LayoutInflater li = LayoutInflater.from(this);
             View alertView = li.inflate(R.layout.alert_create_reservation, null);
 
@@ -252,6 +269,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
                 alert_notifications.setText(R.string.Notification);
             }
 
+            /* Kreiranje alert dialoga sa vlastitim layoutom */
             final AlertDialog.Builder builder = new AlertDialog.Builder(CreateReservationActivity.this);
             builder.setCancelable(false);
             builder.setTitle(R.string.ReservationTitle);
@@ -283,6 +301,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     @OnClick(R.id.input_date)
     public void Date_Click(View view){
 
+        /* Zatvaranje virtualne tipkovnice te brisanje fokusa sa elementa s fokusom*/
         view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -298,6 +317,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     @OnClick(R.id.input_time)
     public void Time_Click(View view){
 
+        /* Zatvaranje virtualne tipkovnice te brisanje fokusa sa elementa s fokusom*/
         view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -312,6 +332,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
     @Override
     protected Dialog onCreateDialog(int id) {
         if(id == 999){
+            /* Otvaranje DatePickerDialoga sa trenutnim datumom */
             DatePickerDialog datePickerDialog = new DatePickerDialog(CreateReservationActivity.this, myDateListener, system_year, system_month, system_day);
             datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
             datePickerDialog.setTitle(null);
@@ -319,6 +340,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         }
 
         if(id == 998){
+            /* Otvaranje TimePickerDialoga sa trenutnim vremenom */
             TimePickerDialog timePickerDialog = new TimePickerDialog(CreateReservationActivity.this, myTimeListener, sysetem_hour, system_minute, true);
             timePickerDialog.setTitle(null);
             return timePickerDialog;
@@ -340,11 +362,13 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         }
     };
 
+    /* Metoda koja spaja odabrane podatke iz TimePickerDialoga sa EditTextom na zaslonu */
     private void showTime(Integer sati, Integer minute) {
         vrijeme_input.setTextColor(getResources().getColor(R.color.btnColor));
         vrijeme_input.setText(new StringBuilder().append(sati).append(" : ").append(minute).append(" : 00"));
     }
 
+    /* Metoda koja spaja odabrane podatke iz DatePickerDialoga sa EditTextom na zaslonu */
     private void showDate(Integer year, Integer i, Integer day) {
         datum_input.setTextColor(getResources().getColor(R.color.btnColor));
         datum_input.setText(new StringBuilder().append(year).append(" - ").append(i).append(" - ").append(day));
@@ -355,6 +379,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         super.onConfigurationChanged(newConfig);
     }
 
+    /* Metoda koja šalje podatke na WebServis */
     private void sendReservation() {
         dialog = ProgressDialog.show(this, getString(R.string.SendReservationInProgress), getString(R.string.PleaseWait));
 
@@ -367,6 +392,7 @@ public class CreateReservationActivity extends AppCompatActivity implements Data
         dataLoader.loadReservationCreateStatus(this, user_id, broj_osoba, datum_input.getText().toString(), vrijeme_input.getText().toString(), broj_jela, napomene);
     }
 
+    /* Metoda koja prima odgovor sa WebServisa te obrađuje te podatke */
     @Override
     public void onDataLoaded(Object result) {
         WebServiceResponseRegistration Wsresult = (WebServiceResponseRegistration) result;

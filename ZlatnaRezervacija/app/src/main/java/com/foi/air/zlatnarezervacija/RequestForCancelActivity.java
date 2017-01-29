@@ -52,10 +52,14 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_for_cancel);
 
+        /* Prihvačanje podataka koji se šalju preko intenta */
         reservation_intent = getIntent().getStringExtra("reservation_id");
+
+        /* Prikazivanje back buttona i promjena teksta u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.AdminReservationTitle) + reservation_intent);
 
+        /* Spajanje elemenata sa layout-a sa odgovarajučim varijablama */
         user = (TextView) findViewById(R.id.activity_request_for_cancel_user);
         date = (TextView) findViewById(R.id.activity_request_for_cancel_date);
         time_arrival = (TextView) findViewById(R.id.activity_request_for_cancel_time_arrival);
@@ -83,8 +87,11 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         }
     }
 
+    /* Metoda koja šalje upit na WebServis za dobivanje podataka određene rezervacije */
     private void getReservationData() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
@@ -95,15 +102,20 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         }
     }
 
+    /* Prihvačanje podataka sa WebServisa */
     @Override
     public void onDataLoaded(Object result) {
-        if(flag){
 
+        /* Provjera koja je metoda dala upit na WebServis */
+        if(flag){
+            /* Ukoliko je bila pozvana skripta koja daje odgovor na zahtjev za otkazivanjem */
             flag = false;
+
             String succesCancelNotifyUser = getString(R.string.RequestForCancelNotificationFirstPart) + reservation_intent + getString(R.string.RequestForCancelNotificationSecondPartSuccess);
             String unsuccesCancelNotifyUser = getString(R.string.RequestForCancelNotificationFirstPart) + reservation_intent + getString(R.string.RequestForCancelNotificationSecondPartCancel);
             WebServiceReservationCancelResponse data = (WebServiceReservationCancelResponse) result;
 
+            /* Provjera dobivenih podataka sa WebServisa */
             if(data.getStatus().contains("0") || data.getStatus().contains("3")){
                 Toast.makeText(this, R.string.RequestForCancelDatabaseFail, Toast.LENGTH_LONG).show();
             } else if(data.getStatus().contains("1")) {
@@ -116,6 +128,7 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
         } else if(flag2){
 
+            /* Ukoliko je bila pozvana skripta koja obavještava korisnika preko push notifikacije */
             WSresult = (WebServiceResponseNotification) result;
             flag2 = false;
 
@@ -135,8 +148,10 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
             finish();
 
         } else {
+            /* Ukoliko je bila pozvana skripta koja daje detalje pojedine rezervacije */
             WebServiceRequestForCancelDetails data = (WebServiceRequestForCancelDetails) result;
 
+            /* Spajanje dobivenih podataka sa WebServisa sa odgovorajučim elementima na layout-u */
             user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
             date.setText(data.getDate());
             time_arrival.setText(data.getTime_arrival());
@@ -151,8 +166,11 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         }
     }
 
+    /* Metoda koja šalje upit na skriptu koja obavještava korsinika preko push notifikacije */
     private void notifyUser(String user_id, String message) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /*Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.SendingNotificationMessage), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
@@ -168,9 +186,12 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
     @OnClick(R.id.btn_odbij_zahtjev_za_otkazivanje)
     public void RefuseRequestForCancel(){
+
+        /* Spajanje elemenata sa layout-a sa odgovarajučim varijablama */
         View alert_view = getLayoutInflater().inflate(R.layout.cancel_resrvation_alert, null);
         final EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_request_for_cancel);
 
+        /* Prikaz alert dialoga sa vlastitim layout-om */
         AlertDialog.Builder refuse_request_for_cancel_alert = new AlertDialog.Builder(RequestForCancelActivity.this);
         refuse_request_for_cancel_alert.setTitle(R.string.RefuseRequestForCancelAlertTitle);
         refuse_request_for_cancel_alert.setCancelable(false);
@@ -191,8 +212,10 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         final AlertDialog builder = refuse_request_for_cancel_alert.create();
         builder.show();
 
+        /* Isključivanje OK buttona */
         ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
+        /* Listener koji provjerava uneseni tekst u AlertDialogu te prema potrebi uključuje i isključuje OK button */
         alert_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -217,8 +240,11 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
         reply_to_request("-", 1);
     }
 
+    /* Metoda koja šalje upit na skriptu koja radi odgovor na zahtjev za otkazivanjem */
     private void reply_to_request(String s, int i) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
@@ -226,6 +252,7 @@ public class RequestForCancelActivity extends AppCompatActivity implements DataL
 
             flag = true;
 
+            /* Provjera prosljeđenih podataka kako bi se znalo na koji način se šalje upit na WebServis */
             if(i == 1){
                 dataLoader1.loadReservationCancelResponse(this, reservation_intent.toString(), String.valueOf(i), "-");
             } else{

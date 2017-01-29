@@ -38,10 +38,13 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
     private RecyclerView recyclerView;
     ProgressDialog progress;
     ProgressDialog progressOfCancelReservation;
+
     ArrayList<ReservationItemDetails> item1 = new ArrayList<ReservationItemDetails>();
     ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
+
     private UserReservationsRecycleAdapter adapter=new UserReservationsRecycleAdapter(item1);
     private UserReservationsRecycleAdapter adapterForAllReservatons=new UserReservationsRecycleAdapter(item);
+
     private FloatingActionButton floatingActionButton;
     private Boolean flag = false;
     private Boolean flag2 = false;
@@ -51,8 +54,11 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reservations);
 
+        /* Prikazivanje back buttona i promjena teksta u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.moje_rezervacije);
+
+        /* Primanje podataka koji se šalju preko intenta */
         user = getIntent().getStringExtra("user_id");
 
         getAllReservation();
@@ -60,7 +66,11 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        /* Provjera odabrane aktivnosti iz toolbara */
         if(item.getTitle()==getString(com.foi.air.zlatnarezervacija.R.string.Legend)){
+
+            /* Prikaz legende u AlertDialogu*/
             final AlertDialog.Builder builder = new AlertDialog.Builder(UserReservationsActivity.this);
             builder.setCancelable(true);
             builder.setView(R.layout.settings_about_characters);
@@ -75,25 +85,29 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         }
     }
 
+    /* Dohvačanje podataka sa WebServisa */
     @Override
     public void onDataLoaded(Object result) {
-
+        /* Provjera koja skripta WebServisa pozvana */
         if(flag){
+            /* Ukoliko je pozvana skripta koja radi otkazivanje rezervacije */
             WebServiceReservationCancelResponse DataArrived = (WebServiceReservationCancelResponse) result;
             progressOfCancelReservation.dismiss();
 
+            /* Provjera dobivenih podataka sa WebServisa */
             if(DataArrived.getStatus().endsWith("1")){
                 flag = false;
                 getAllReservation();
-
             } else{
                 Toast.makeText(this, R.string.UnsuccessCancelReservation, Toast.LENGTH_LONG).show();
             }
 
         } else{
+            /* Ukoliko je pozvana skripta koja vraća sve rezarvacije korisnika */
             WebServiceReservationResponse DataArrived = (WebServiceReservationResponse) result;
             ReservationItemDetails[] items = (ReservationItemDetails[]) DataArrived.getReservations();
 
+            /* Rezervacije se spremaju a ArrayList radi prikazivanja u RecyclerView-u */
             for (ReservationItemDetails m: items) {
                 item.add(m);
                 if(m.getStatus()==1 || m.getStatus()==2) {
@@ -101,6 +115,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
                 }
             }
 
+            /* Prikazivanje rezervacija u RecyclerView-u */
             recyclerView = (RecyclerView) findViewById(R.id.my_reservations);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(new UserReservationsRecycleAdapter(item));
@@ -108,10 +123,13 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             progress.dismiss();
         }
 
+        /* Spajanje varijable sa FloatingActionButton-om te kreiranje listenera na njegov klik */
         floatingActionButton=(FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /* Provjera da li postoje rezrvacije za otkazivanje ili ne postoje i prema tome
+                * prikaz odgovorajućeg alerta */
                 if(item1.size() > 0) {
                     showDialog();
                 } else {
@@ -127,6 +145,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         return super.onCreateOptionsMenu(menu);
     }
 
+    /* Metoda koja prikazuje alert dialog kada nema rezrvacija za otkazivanje */
     private void showNoReservationDialog() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         dialog.setTitle(R.string.Alert_cancel_title);
@@ -143,10 +162,14 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         builder.show();
     }
 
+    /* Metoda koja prikazuje alert dialog kada ima rezrvacija za otkazivanje */
     private void showDialog(){
+        /* Elementi sa layout-a se povezuju sa odgovarajučim varijablama */
         final View view = getLayoutInflater().inflate(R.layout.cancel_of_reservation, null);
+        final EditText editText=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
         final RadioGroup rg = new RadioGroup(this);
 
+        /* Za svaku rezervaiju koja se može otkazati prikazuje se jedan Radio Button */
         for(int i=0; i < 1 ; i++){
             for (ReservationItemDetails item: item1) {
                 RadioButton rb = new RadioButton(this);
@@ -158,8 +181,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             ((ViewGroup) view.findViewById(R.id.RadioGroup)).addView(rg);
         }
 
-        final EditText editText=(EditText)view.findViewById(R.id.reason_for_cancel_of_reservation);
-
+        /* Prikazivanje AlertDialoga sa vlastitim layout-om */
         final AlertDialog.Builder dialog = new AlertDialog.Builder(UserReservationsActivity.this);
         dialog.setTitle(R.string.Alert_cancel_title);
         dialog.setView(view);
@@ -182,8 +204,10 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         final AlertDialog builder = dialog.create();
         builder.show();
 
+        /* Isključivanje positive buttona */
         ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
+        /* Listener koji čeka promjene u EditTextu te prema potrebi uključuje ili isključuje potive button */
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -211,6 +235,7 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             }
         });
 
+        /* Listener koji čeka promjene u RadioGroup-i te prema potrebi uključuje ili isključuje potive button */
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -232,12 +257,18 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
             }
         });
     }
+
+    /* Metoda koja poziva skriptu koja radi otkazivanje rezervacije */
     private void sendDataForCancelReservation(int reservation, String description){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progressOfCancelReservation = ProgressDialog.show(this, getString(R.string.CancelOfReservationInProcess), getString(R.string.PleaseWait));
             flag = true;
+
+            /* Brisanje podataka kako bi se novi mogli prikazati */
             adapter.clearData();
+
             DataLoader dataLoader;
             dataLoader = new WsReservationCancelDataLoader();
             dataLoader.loadReservationCancel(this, reservation, description);
@@ -246,11 +277,17 @@ public class UserReservationsActivity extends AppCompatActivity implements DataL
         }
     }
 
+    /* Metoda koja poziva skriptu koja vraća sve rezervacije određenog korisnika */
     private void getAllReservation(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.GetAllReservationsInProcess), getString(R.string.PleaseWait));
+
+            /* Brisanje podataka kako bi se novi mogli prikazati */
             adapterForAllReservatons.clearData();
+
             DataLoader dataLoader1;
             dataLoader1 = new WsReservationsDataLoader();
             dataLoader1.loadDataMyReservations(this, user);

@@ -26,21 +26,24 @@ public class RestaurantReservationActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_reservation);
+
+        /* Prikaz back buttona i promjena teksta u toolbaru */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.RestaurantReservationsTitle);
 
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
-        if (cm.getActiveNetworkInfo() != null) {
 
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        /* Provjera internet konekcije */
+        if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
 
+            /* Pozivanje skripte koja vraća sve potvrđene rezervacije restorana */
             DataLoader dataLoader1;
             dataLoader1 = new WsRestaurantReservations();
             dataLoader1.loadRestaurantReservations(this, "1");
+        } else{
+            Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_LONG).show();
         }
-            else{
-                Toast.makeText(this, R.string.NoInternet, Toast.LENGTH_LONG).show();
-            }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -53,15 +56,18 @@ public class RestaurantReservationActivity extends AppCompatActivity implements 
         }
     }
 
+    /* Dohvačanje dobivenih podataka sa WebServisa */
     @Override
     public void onDataLoaded(Object result) {
         WebServiceReservationResponse DataArrived = (WebServiceReservationResponse) result;
 
+        /* Smještanje rezervacija u ArrayList kako bi se one prikazale u RecyclerView-u*/
         ReservationItemDetails[] items = (ReservationItemDetails[]) DataArrived.getReservations();
         ArrayList<ReservationItemDetails> item = new ArrayList<ReservationItemDetails>();
 
         for (ReservationItemDetails m: items) { item.add(m); }
 
+        /* Spajanje dobivenih rezervacija sa RecyclerView-om */
         recyclerView = (RecyclerView) findViewById(R.id.restaurant_reservations_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RestaurantReservationsRecycleAdapter(item));

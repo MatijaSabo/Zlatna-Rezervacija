@@ -69,10 +69,14 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_on_hold);
 
+        /* Prihvačanje podataka koji se šalju preko intenta */
         reservation_intent = getIntent().getStringExtra("reservation_id");
+
+        /* Prikazivanje back buttona i promjena teksta u toolbaru*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.AdminReservationTitle) + reservation_intent);
 
+        /* Spajanje elementa sa layout-a sa odgovarajučim varijablama */
         linearLayout = (LinearLayout) findViewById(R.id.checkbox_group);
         user = (TextView) findViewById(R.id.reservation_user);
         date = (TextView) findViewById(R.id.reservation_date);
@@ -81,6 +85,10 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         meals = (TextView) findViewById(R.id.reservation_meals);
         remark = (TextView) findViewById(R.id.reservation_remark);
 
+        vrijeme_input = (EditText) findViewById(R.id.input_time_reservation_on_hold);
+        vrijeme_label = (TextInputLayout) findViewById(R.id.textinputlayout_time);
+
+        /* Isključivanje buttona kako se oni nebi mogli kliknuti prije nego što se dohvate svi podaci */
         potvrdi = (Button) findViewById(R.id.btn_potvrdi_rezervaciju);
         potvrdi.setEnabled(false);
         potvrdi.setBackgroundColor(Color.parseColor("#808080"));
@@ -89,20 +97,21 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         odbij.setEnabled(false);
         odbij.setBackgroundColor(Color.parseColor("#808080"));
 
+        /* Dobivanje trenutnog vremena u odgovarajuće varijable */
         calendar = Calendar.getInstance();
         sysetem_hour = calendar.get(Calendar.HOUR_OF_DAY);
         system_minute = calendar.get(Calendar.MINUTE);
-
-        vrijeme_input = (EditText) findViewById(R.id.input_time_reservation_on_hold);
-        vrijeme_label = (TextInputLayout) findViewById(R.id.textinputlayout_time);
 
         ButterKnife.bind(this);
 
         loadReservation();
     }
 
+    /* Metoda koja poziva skriptu WebServisa koja daje detalje odgovorajuće rezervacije */
     private void loadReservation() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
@@ -113,10 +122,14 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         }
     }
 
+    /* Metoda koja prihvača odgovor WebServisa */
     @Override
     public void onDataLoaded(Object result) {
 
+        /* Provjera koja je metoda dala upit na WebServis */
         if(flag2){
+            /* Ukoliko je pozvana skripta koja radi odgovor na rezervaciju */
+
             String succesNotifyUser = data.getUser_first_name() + getString(R.string.NotificationMessageFirstpart) + reservation_intent + getString(R.string.NotificationMessageSecondPartSuccess);
             String unsuccesNotifyUser = data.getUser_first_name() + getString(R.string.NotificationMessageFirstpart) + reservation_intent + getString(R.string.NotificationMessageSecondPartCancel);
                     flag2 = false;
@@ -124,6 +137,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
             progress.dismiss();
 
+            /* Provjera dobivenih podataka sa WebServisa */
             if(data.getStatus().contains("2") || data.getStatus().contains("4")){
                 Toast.makeText(this, getString(R.string.RequestForCancelDatabaseFail), Toast.LENGTH_LONG).show();
             } else if(data.getStatus().contains("1")) {
@@ -133,10 +147,12 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             }
 
         } else if(flag3){
+            /* Ukoliko je pozvana skripta koja radi obavještavanje korisnika preko push notifiakcija */
 
             WSresult = (WebServiceResponseNotification) result;
             flag3 = false;
 
+            /* Provjera dobivenih podataka sa WebServisa */
             if(WSresult.getSuccess().contains("1")){
                 Toast.makeText(this, getString(R.string.NotificationSuccessMessage), Toast.LENGTH_SHORT).show();
             } else{
@@ -149,12 +165,14 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("back", "1");
             editor.commit();
+
             finish();
 
         } else {
-
+            /* Ukoliko je pozvana skripta koja daje detalje odgovarajuće rezervacije */
             data = (WebServiceResponseReservationOnHold) result;
 
+            /* Spajanje dobivenih podataka sa odgovrajučim elementima na layout-u */
             user.setText(data.getUser_first_name() + " " + data.getUser_last_name());
             date.setText(data.getDate());
             time.setText(data.getTime_arrival());
@@ -163,14 +181,17 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             remark.setText(data.getRemark());
             user_id = data.getUser_id();
 
+            /* Uključivanje buttona za odbijanje rezervacije */
             odbij.setEnabled(true);
             odbij.setBackgroundColor(getResources().getColor(R.color.btnColor));
 
             String label;
             flag = false;
 
+            /* Za svaki slobodan stol radi se jedan checkbox kako bi korisnik mogao odabrati pojedini stol */
             for (FreeTables t : data.getTables()){
 
+                /* Provjera da li je stol slobodan u odgovarajuće vrijeme */
                 if(!(t.getFree_from().contains("-") && t.getFree_from().contains("-"))){
                     label = t.getLabel() + " (" + t.getNumber_of_seats() + " mjesta) - Vrijeme : " + t.getFree_from() + " - " + t.getFree_to();
 
@@ -184,6 +205,8 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
                 }
             }
 
+            /* Ukoliko ne postoji niti jedan slobodni stol za rezervaciju korisniku se prikazuje poruka o tome,
+            * a ukoliko ima slobodnih stolova uključuje se button za potvrđivanje rezervacije */
             if(!flag){
                 TextView text = new TextView(this);
                 text.setText(R.string.NoFreeTables);
@@ -197,8 +220,11 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         }
     }
 
+    /* Metoda koja poziva skriptu WebServisa koja radi obavještavanje korisnika preko push notifikacije */
     private void notifyUser(String user_id, String message) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.SendingNotificationMessage), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
@@ -224,9 +250,11 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
     @OnClick(R.id.btn_odbij_rezervaciju)
     public void RefuseResrvation(){
+        /* Spajanje elemenata sa layout-a sa odgovarajučim varijablama */
         View alert_view = getLayoutInflater().inflate(R.layout.refusal_reservation_alert, null);
         final EditText alert_edit_text = (EditText) alert_view.findViewById(R.id.reason_for_refuse_reservation);
 
+        /* Prikazivanje AlertDialoga sa vlastitim layout-om */
         AlertDialog.Builder refuse_resrvation_alert = new AlertDialog.Builder(ReservationOnHoldActivity.this);
         refuse_resrvation_alert.setTitle(R.string.RefuseReservationAlertTitle);
         refuse_resrvation_alert.setCancelable(false);
@@ -247,8 +275,10 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         final AlertDialog builder = refuse_resrvation_alert.create();
         builder.show();
 
+        /* Isključivanje OK buttona u AlertDialogu */
         ((AlertDialog) builder).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
+        /* Listener koji provjerava unos u AlertDialogu te prema potrebi uključuje ili isključuje OK button */
         alert_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -274,8 +304,12 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         Integer brojac = 0;
         String list = "";
 
+        /* Provjera CheckBox-ova jesu li potvrđteni ili nisu, te se prema potrebi ID CheckBox-a dodaje u string koji
+        * predstavlja listu potvrđenih ChackBox-ova */
         for (FreeTables table : data.getTables()) {
             ch = null;
+
+            /* Provjeravaju se samo stolovi koji su slobodni u odgovarajuće vrijeme */
             if(!table.getFree_from().contains("-") && !table.getFree_to().contains("-")){
                 ch = (CheckBox) linearLayout.findViewById(Integer.parseInt(table.getId()));
 
@@ -291,6 +325,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
             }
         }
 
+        /* Provjera liste potvrđenih CheckBox-ova i unesenog vremena kraja rezervacije */
         if(list.length() == 0){
             Toast.makeText(this, R.string.InsertTableError, Toast.LENGTH_LONG).show();
 
@@ -306,8 +341,11 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         }
     }
 
+    /* Poziva se skripta WebServisa koja radi odgovor na određenu rezervaciju */
     private void replay_to_reservation(int i, String text) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+
+        /* Provjera internet konekcije */
         if (cm.getActiveNetworkInfo() != null) {
             progress = ProgressDialog.show(this, getString(R.string.FetchingData), getString(R.string.PleaseWait));
             DataLoader dataLoader1;
@@ -315,6 +353,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
 
             flag2 = true;
 
+            /*Provjera dobivenih parametara kako bi se skripta pozvala na dobar način */
             if(i == 1){
                 dataLoader1.loadReplyToResrvationResponse(this, reservation_intent.toString(), String.valueOf(i), vrijeme_input.getText().toString(), text, "-");
             } else {
@@ -334,6 +373,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
     @Override
     protected Dialog onCreateDialog(int id) {
         if(id == 999){
+            /* Otvaranje TimePickerDialoga sa odgovarajučim vremenom */
             TimePickerDialog timePickerDialog = new TimePickerDialog(ReservationOnHoldActivity.this, myTimeListener, sysetem_hour, system_minute, true);
             timePickerDialog.setTitle(null);
             return timePickerDialog;
@@ -348,6 +388,7 @@ public class ReservationOnHoldActivity extends AppCompatActivity implements Data
         }
     };
 
+    /* Prikazivanje odabranih podataka sa TimePicerDialoga u EditText-u */
     private void showTime(int sati, int minute) {
         vrijeme_input.setTextColor(getResources().getColor(R.color.btnColor));
         vrijeme_input.setText(new StringBuilder().append(sati).append(" : ").append(minute).append(" : 00"));
