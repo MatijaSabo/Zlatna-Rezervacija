@@ -50,7 +50,7 @@ public class MapFragmentActivity extends AppCompatActivity implements  OnMapRead
                 public View getInfoWindow(Marker marker) {
                     return null;
                 }
-
+                /*  Uređivanje markera */
                 @Override
                 public View getInfoContents(Marker marker) {
                     View v = getLayoutInflater().inflate(R.layout.marker_info,null);
@@ -63,6 +63,7 @@ public class MapFragmentActivity extends AppCompatActivity implements  OnMapRead
                     return v;
                 }
             });
+            /* Dodavanje markera na mapu,pozicioniranje kamere...  */
             LatLng ZlatneGorice = new LatLng(46.235996,16.402431);
             gMap.addMarker(new MarkerOptions().position(ZlatneGorice)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
@@ -76,7 +77,7 @@ public class MapFragmentActivity extends AppCompatActivity implements  OnMapRead
         getMenuInflater().inflate(R.menu.map_menu_type,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    /*  Promjena načina prikaza mape */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getTitle()==getString(R.string.menuTypeNormal)){

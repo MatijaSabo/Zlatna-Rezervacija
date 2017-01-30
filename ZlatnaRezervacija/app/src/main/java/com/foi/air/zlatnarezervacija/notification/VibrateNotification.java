@@ -18,6 +18,7 @@ public class VibrateNotification implements NotificationInterface {
 
     @Override
     public void showNotification(String message) {
+        /*  Postavljanje vibracije sa duljinom od 500 ms */
         Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
     }

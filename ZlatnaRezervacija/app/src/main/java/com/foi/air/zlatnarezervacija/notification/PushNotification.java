@@ -34,7 +34,7 @@ public class PushNotification  implements NotificationInterface {
 
     @Override
     public void showNotification(String message) {
-
+            /*  Postavljanje postavki dobivenih notifikacija */
             Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                     .setPriority(Notification.PRIORITY_MAX)
@@ -46,7 +46,7 @@ public class PushNotification  implements NotificationInterface {
                     .setLights(Color.GREEN, 2000, 2000);
 
             NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-
+            /*  Prikaz vise poruka odjednom */
             int number = (int) ((new Date().getTime()/1000L)% Integer.MAX_VALUE);
             manager.notify(number,builder.build());
     }

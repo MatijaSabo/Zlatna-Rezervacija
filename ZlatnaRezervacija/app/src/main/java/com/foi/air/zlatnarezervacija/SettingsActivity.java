@@ -37,17 +37,21 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        /*  Preuzimanje podataka poslanih aktivnosti, postavljanje back buttona i teksta u toolbaru */
         user = getIntent().getStringExtra("user_id");
         type = getIntent().getStringExtra("notifications");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.postavke);
+        /*  Provjera dostupnosti interneta */
         ConnectivityManager cm = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() != null) {
+            /*  Oznacavanje prve opcije  */
             if(type.contains("1")){
 
                 RadioButton opcija1 = (RadioButton)findViewById(R.id.option1);
                 opcija1.setChecked(true);
             }
+            /*  Oznacavanje druge opcije */
             else if (type.contains("2")) {
 
                 RadioButton opcija2 = (RadioButton)findViewById(R.id.option2);
@@ -68,6 +72,7 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                /*  Postavljanje sharedPreferences sa oznacenom opcijom */
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -83,6 +88,7 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
 
     @Override
     public void onBackPressed() {
+        /*  Postavljanje sharedPreferences sa oznacenom opcijom */
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -96,6 +102,7 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
     public void onRadioButtonClicked(View view) {
             boolean checked = ((RadioButton) view).isChecked();
             switch(view.getId()) {
+                /*  Provjera ukoliko je prva opcija odabrana, pozivanje skripte za zapis na bazu i zapis u SharedPrefeences */
                 case R.id.option1:
                     if (checked){
                         WSresult = null;
@@ -110,6 +117,7 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
 
                         editor.commit();
                         break;}
+                /*  Provjera ukoliko je druga opcija odabrana, pozivanje skripte za zapis na bazu i zapis u SharedPrefeences */
                 case R.id.option2:
                     if (checked){
                         type="2";
@@ -132,6 +140,7 @@ public class SettingsActivity extends AppCompatActivity implements DataLoadedLis
     @Override
     public void onDataLoaded(Object result) {
         WSresult = (WebServiceResponseSettings) result;
+        /*  Prikaz poruke ovisno o vracenom rezultatu skripte */
         if(WSresult.getStatus().contains("1")){
             Toast.makeText(this, R.string.settingsSucces, Toast.LENGTH_SHORT).show();
         }
