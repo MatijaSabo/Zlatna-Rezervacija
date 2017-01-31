@@ -25,7 +25,8 @@
             android:layout_height="150dp"
             android:layout_marginBottom="1dp"
             android:layout_gravity="center_horizontal"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:id="@+id/pic_zlatna_rez"/>
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout

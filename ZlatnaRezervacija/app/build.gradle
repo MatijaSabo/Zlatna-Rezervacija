@@ -39,6 +39,8 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
 
 
+// Espresso core
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 
 }
 
