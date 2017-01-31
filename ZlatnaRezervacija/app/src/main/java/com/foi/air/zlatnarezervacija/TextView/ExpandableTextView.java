@@ -18,11 +18,13 @@ public class ExpandableTextView extends TextView implements View.OnClickListener
     private boolean flag=false;
 
 
+    /* konstruktori*/
     public ExpandableTextView(Context context)
     {
         super(context);
         setOnClickListener(this);
     }
+
 
     public ExpandableTextView(Context context, AttributeSet attrs, int defStyle)
     {
@@ -30,12 +32,14 @@ public class ExpandableTextView extends TextView implements View.OnClickListener
         setOnClickListener(this);
     }
 
+
     public ExpandableTextView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         setOnClickListener(this);
     }
 
+    /*  provjerava broj linija, u slučaju da se unutar  ExpandableTextView nalaz više od 5 linija, postavlja ikonu */
     @Override
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter)
     {
@@ -56,6 +60,7 @@ public class ExpandableTextView extends TextView implements View.OnClickListener
         });
     }
 
+    /* postavlja maximalan broj linija*/
     @Override
     public void setMaxLines(int maxLines)
     {
@@ -63,11 +68,14 @@ public class ExpandableTextView extends TextView implements View.OnClickListener
         super.setMaxLines(maxLines);
     }
 
+    /* vraća max broj linija*/
     public int getMyMaxLines()
     {
         return currentMaxLines;
     }
 
+    /* u slučaju klika na ExpandableTextView povećava se ili smanjuje broj linija unutar ExpandableTextView, varijabla flag služi samo za provjeru broja linija, bez te varijable
+     * neovisno o broju linija ikone bi se izmjenjivale na klik */
     @Override
     public void onClick(View v) {
         if (flag == true) {
